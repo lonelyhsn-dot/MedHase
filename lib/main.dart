@@ -18,7 +18,6 @@ class MedCaseApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFFF7F8FC),
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF6366F1),
-          background: const Color(0xFFF7F8FC),
         ),
       ),
       home: const MainNavigationScreen(),
@@ -84,9 +83,9 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
         title: Row(
           children: [
-            CircleAvatar(
-              backgroundColor: const Color(0xFFE0E7FF),
-              child: const Icon(Icons.person, color: Color(0xFF4F46E5)),
+            const CircleAvatar(
+              backgroundColor: Color(0xFFE0E7FF),
+              child: Icon(Icons.person, color: Color(0xFF4F46E5)),
             ),
             const SizedBox(width: 10),
             const Column(
