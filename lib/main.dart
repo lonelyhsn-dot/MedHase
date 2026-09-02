@@ -473,8 +473,8 @@ class MyCasesScreen extends StatelessWidget {
         body: TabBarView(
           children: [
             _buildGrid(context, kCases),
-            _buildGrid(context, [kCases[0], kCases]),
-            _buildGrid(context, [kCases[2], kCases]),
+            _buildGrid(context, kCases),
+            _buildGrid(context, kCases),
           ],
         ),
       ),
