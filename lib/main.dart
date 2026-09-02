@@ -412,7 +412,6 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Seviye ve XP Kartı
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
@@ -497,8 +496,6 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-
-            // Hemen Oyna & Vaka Oluştur Butonları
             Row(
               children: [
                 Expanded(
@@ -555,8 +552,6 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-
-            // Klinik Kodeks Kartı
             InkWell(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const CodexScreen()));
@@ -975,7 +970,6 @@ class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
   void initState() {
     super.initState();
     vitals = Map<String, dynamic>.from(widget.caseData['initial_vitals']);
-    // Ekran 1'deki ilk akış logları:
     logs.add({
       "title": "Vaka Başladı",
       "time": "00:00",
