@@ -8,21 +8,38 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Olası tarayıcı çevirilerini otomatik düzeltme adımı
+      # Olası Türkçe çeviri klasör isimlerini otomatik düzeltir
       - name: Dosya Kontrolü
         run: |
           if [ -d "kütüphane" ]; then mv kütüphane lib; fi
           if [ -f "lib/ana.dart" ]; then mv lib/ana.dart lib/main.dart; fi
-          ls -la
 
-      - uses: subosito/flutter-action@v2
+      # Android derlemesi için gerekli Java altyapısı
+      - name: Java 17 Kurulumu
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # Flutter Kurulumu
+      - name: Flutter Kurulumu
+        uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
 
-      - run: flutter pub get
-      - run: flutter build apk --release
+      # Eksik olan Android altyapısını otomatik oluşturma
+      - name: Android Altyapısını Otomatik Oluştur
+        run: |
+          flutter create --platforms=android --org com.medcase .
+          flutter pub get
 
-      - uses: actions/upload-artifact@v4
+      # APK Çıktısı Alma
+      - name: APK Derle
+        run: flutter build apk --release
+
+      # Üretilen APK'yı indirmeye hazır hale getirme
+      - name: APK'yı Hazırla
+        uses: actions/upload-artifact@v4
         with:
           name: MedCase-Android-APK
           path: build/app/outputs/flutter-apk/app-release.apk
