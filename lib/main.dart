@@ -25,9 +25,6 @@ class MedCaseApp extends StatelessWidget {
   }
 }
 
-// -------------------------------------------------------------
-// VERİ MODELLERİ VE TÜM BRANŞ VAKALARI
-// -------------------------------------------------------------
 final List<Map<String, dynamic>> kAllCases = [
   {
     "id": "case_01",
@@ -298,9 +295,6 @@ final List<Map<String, dynamic>> kAllCases = [
   }
 ];
 
-// -------------------------------------------------------------
-// KLİNİK KODEKS ANSİKLOPEDİ VERİSİ
-// -------------------------------------------------------------
 final List<Map<String, String>> kClinicalCodex = [
   {"title": "12 Derivasyonlu EKG", "type": "Görüntüleme", "desc": "STEMI, aritmi, dal blokları ve iskemi değerlendirmesinde ilk 10 dakikada çekilmelidir."},
   {"title": "Yüksek Duyarlıklı Troponin", "type": "Laboratuvar", "desc": "Miyokard nekrozunun en duyarlı belirtecidir. 0. ve 3. saat takipleri önerilir."},
@@ -312,9 +306,6 @@ final List<Map<String, String>> kClinicalCodex = [
   {"title": "Noradrenalin (Norepinefrin)", "type": "Vazopressör", "desc": "Septik ve vazodilatuv şokta ilk tercih vazopressördür (MAP > 65 hedefi)."}
 ];
 
-// -------------------------------------------------------------
-// ALT DOCK & GEZİNTİ EKRANI
-// -------------------------------------------------------------
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
 
@@ -363,9 +354,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   }
 }
 
-// -------------------------------------------------------------
-// 1. ANA SAYFA (EKRAN 3 İLE BİREBİR)
-// -------------------------------------------------------------
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -588,9 +576,6 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// -------------------------------------------------------------
-// 2. KEŞFET (UZMANLIK ALANLARI - EKRAN 4 İLE BİREBİR)
-// -------------------------------------------------------------
 class SpecialtiesScreen extends StatelessWidget {
   const SpecialtiesScreen({super.key});
 
@@ -689,9 +674,6 @@ class SpecialtiesScreen extends StatelessWidget {
   }
 }
 
-// -------------------------------------------------------------
-// 3. KODEX (KLİNİK ANSİKLOPEDİ)
-// -------------------------------------------------------------
 class CodexScreen extends StatelessWidget {
   const CodexScreen({super.key});
 
@@ -742,9 +724,6 @@ class CodexScreen extends StatelessWidget {
   }
 }
 
-// -------------------------------------------------------------
-// 4. VAKALARIM EKRANI (EKRAN 5 İLE BİREBİR)
-// -------------------------------------------------------------
 class MyCasesScreen extends StatelessWidget {
   const MyCasesScreen({super.key});
 
@@ -871,9 +850,6 @@ class MyCasesScreen extends StatelessWidget {
   }
 }
 
-// -------------------------------------------------------------
-// 5. VAKA OLUŞTURMA SİHİRBAZI
-// -------------------------------------------------------------
 class CreateCaseWizardScreen extends StatefulWidget {
   const CreateCaseWizardScreen({super.key});
 
@@ -948,9 +924,6 @@ class _CreateCaseWizardScreenState extends State<CreateCaseWizardScreen> {
   }
 }
 
-// -------------------------------------------------------------
-// 6. MÜDAHALE ODASI (EKRAN 1 İLE BİREBİR)
-// -------------------------------------------------------------
 class ProcedureRoomScreen extends StatefulWidget {
   final Map<String, dynamic> caseData;
   const ProcedureRoomScreen({super.key, required this.caseData});
@@ -1028,504 +1001,4 @@ class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
             ...qs.map((q) => Card(
               color: const Color(0xFFF0F9FF),
               margin: const EdgeInsets.only(bottom: 8),
-              child: ListTile(
-                title: Text(q['q']!, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
-                subtitle: Text("Hasta: \"${q['a']!}\"", style: const TextStyle(fontSize: 12, color: Colors.black87)),
-              ),
-            )),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _openTestsModal() {
-    final diags = widget.caseData['diagnostics'] as List;
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.white,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
-      builder: (ctx) => StatefulBuilder(
-        builder: (context, setModalState) => Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Row(
-                children: [
-                  Icon(Icons.biotech, color: Color(0xFF7C3AED)),
-                  SizedBox(width: 8),
-                  Text("İstenebilecek Tetkikler", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                ],
-              ),
-              const SizedBox(height: 12),
-              ...diags.map((d) {
-                final done = testsDone.contains(d['id']);
-                return Card(
-                  color: const Color(0xFFF8FAFC),
-                  margin: const EdgeInsets.only(bottom: 8),
-                  child: ListTile(
-                    title: Text(d['name'], style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                    subtitle: done ? Text("Sonuç: ${d['result']}", style: const TextStyle(color: Color(0xFF0D9488), fontSize: 12)) : Text("Süre: ${d['time'] ?? '2 dk'}", style: const TextStyle(color: Colors.grey, fontSize: 12)),
-                    trailing: ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: done ? Colors.grey : const Color(0xFF6366F1)),
-                      onPressed: done ? null : () {
-                        setState(() {
-                          testsDone.add(d['id']);
-                          logs.add({
-                            "title": "Tetkik Tamamlandı",
-                            "time": "00:15",
-                            "icon": Icons.biotech,
-                            "color": const Color(0xFF6366F1),
-                            "content": "${d['name']}\nSonuç: ${d['result']}"
-                          });
-                        });
-                        setModalState(() {});
-                      },
-                      child: Text(done ? "Görüldü" : "İste"),
-                    ),
-                  ),
-                );
-              }),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _openTreatmentsModal() {
-    final trts = widget.caseData['treatments'] as List;
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.white,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
-      builder: (ctx) => Container(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Row(
-              children: [
-                Icon(Icons.medication_outlined, color: Color(0xFFEA580C)),
-                SizedBox(width: 8),
-                Text("Tedavi & Müdahale Planı", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              ],
-            ),
-            const SizedBox(height: 12),
-            ...trts.map((t) {
-              final done = trtsDone.contains(t['id']);
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.all(14),
-                    side: BorderSide(color: done ? Colors.grey : const Color(0xFF6366F1)),
-                  ),
-                  onPressed: done ? null : () {
-                    Navigator.pop(context);
-                    setState(() {
-                      trtsDone.add(t['id']);
-                      final Map<String, dynamic> up = t['vitals_update'] ?? {};
-                      up.forEach((k, v) => vitals[k] = v);
-                      if ((t['score'] as int) > 0) {
-                        stability = 100;
-                      } else {
-                        stability = (stability - 30).clamp(10, 100);
-                      }
-                      logs.add({
-                        "title": "Müdahale Yapıldı",
-                        "time": "00:20",
-                        "icon": Icons.medication,
-                        "color": (t['score'] as int) >= 0 ? Colors.green : Colors.red,
-                        "content": "${t['name']}\n${t['feedback']}"
-                      });
-                    });
-                  },
-                  child: Row(
-                    children: [
-                      Icon(done ? Icons.check : Icons.play_arrow, color: done ? Colors.grey : const Color(0xFF6366F1), size: 18),
-                      const SizedBox(width: 8),
-                      Expanded(child: Text(t['name'], style: TextStyle(color: done ? Colors.grey : Colors.black87, fontSize: 13))),
-                    ],
-                  ),
-                ),
-              );
-            }),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _showDebrief() {
-    final debrief = widget.caseData['debriefing'];
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.white,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
-      builder: (ctx) => Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Center(child: Icon(Icons.verified_rounded, color: Colors.green, size: 48)),
-            const SizedBox(height: 10),
-            const Center(child: Text("Hasta Taburcu Edildi", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
-            const SizedBox(height: 14),
-            const Text("Nihai Teşhis:", style: TextStyle(color: Colors.grey, fontSize: 12)),
-            Text(debrief['final_diagnosis'], style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF4F46E5))),
-            const SizedBox(height: 10),
-            const Text("Klinik Açıklama & İpuçları:", style: TextStyle(color: Colors.grey, fontSize: 12)),
-            Text(debrief['summary'], style: const TextStyle(fontSize: 13, height: 1.3)),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF6366F1), padding: const EdgeInsets.all(14)),
-                onPressed: () {
-                  Navigator.pop(ctx);
-                  Navigator.pop(context);
-                },
-                child: const Text("Vaka Listesine Dön", style: TextStyle(color: Colors.white)),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF7F8FC),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.chevron_left, color: Colors.black87, size: 28),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(4),
-              decoration: const BoxDecoration(color: Color(0xFFFEE2E2), shape: BoxShape.circle),
-              child: const Icon(Icons.emergency, color: Colors.red, size: 16),
-            ),
-            const SizedBox(width: 8),
-            const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Müdahale Odası", style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16)),
-                Row(
-                  children: [
-                    Icon(Icons.timer_outlined, size: 12, color: Colors.grey),
-                    SizedBox(width: 4),
-                    Text("00:12", style: TextStyle(color: Colors.grey, fontSize: 12)),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 16),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                SizedBox(
-                  width: 46,
-                  height: 46,
-                  child: CircularProgressIndicator(
-                    value: stability / 100,
-                    strokeWidth: 3,
-                    backgroundColor: Colors.grey.shade200,
-                    valueColor: AlwaysStoppedAnimation<Color>(stability > 50 ? const Color(0xFF22C55E) : Colors.red),
-                  ),
-                ),
-                CircleAvatar(
-                  radius: 18,
-                  backgroundColor: stability > 50 ? const Color(0xFFDCFCE7) : const Color(0xFFFEE2E2),
-                  child: Text("$stability%", style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: stability > 50 ? const Color(0xFF16A34A) : Colors.red)),
-                ),
-              ],
-            ),
-          )
-        ],
-      ),
-      body: Column(
-        children: [
-          Container(
-            color: Colors.white,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              children: [
-                InkWell(onTap: _openTestsModal, child: _pillButton("Tetkik", Icons.biotech, true)),
-                const SizedBox(width: 8),
-                InkWell(onTap: _openTreatmentsModal, child: _pillButton("Tedavi", Icons.medication, false)),
-                const SizedBox(width: 8),
-                InkWell(onTap: _showDebrief, child: _pillButton("Taburcu", Icons.exit_to_app, false)),
-              ],
-            ),
-          ),
-          if (widget.caseData.containsKey('ongoing_test'))
-            Container(
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(14),
-              decoration: BoxDecoration(
-                color: const Color(0xFFEEF2FF),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: const Color(0xFFC7D2FE)),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Row(
-                        children: [
-                          Icon(Icons.hourglass_empty, size: 16, color: Color(0xFF4F46E5)),
-                          SizedBox(width: 6),
-                          Text("Devam Eden İşlemler", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Color(0xFF312E81))),
-                        ],
-                      ),
-                      Container(width: 8, height: 8, decoration: const BoxDecoration(color: Color(0xFF22C55E), shape: BoxShape.circle)),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(6),
-                            decoration: BoxDecoration(color: const Color(0xFF99F6E4), borderRadius: BorderRadius.circular(8)),
-                            child: const Icon(Icons.person_search, color: Color(0xFF0D9488), size: 16),
-                          ),
-                          const SizedBox(width: 8),
-                          Text(widget.caseData['ongoing_test']['name'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
-                        ],
-                      ),
-                      Text(widget.caseData['ongoing_test']['duration'], style: const TextStyle(color: Colors.grey, fontSize: 12)),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemCount: logs.length,
-              itemBuilder: (context, i) {
-                final log = logs[i];
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      children: [
-                        Container(
-                          width: 32,
-                          height: 32,
-                          decoration: BoxDecoration(color: (log['color'] as Color).withOpacity(0.15), shape: BoxShape.circle),
-                          child: Icon(log['icon'] as IconData, size: 18, color: log['color'] as Color),
-                        ),
-                        if (i != logs.length - 1)
-                          Container(width: 2, height: 75, color: Colors.grey.shade300),
-                      ],
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: 16),
-                        padding: const EdgeInsets.all(14),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: Colors.black.withOpacity(0.04)),
-                          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 6)],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(log['title'] as String, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                                Text("⏱ ${log['time']}", style: const TextStyle(color: Colors.grey, fontSize: 12)),
-                              ],
-                            ),
-                            const SizedBox(height: 6),
-                            Text(log['content'] as String, style: const TextStyle(color: Colors.black87, fontSize: 13, height: 1.3)),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-              boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 10)],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _dockAction("Soru", Icons.chat_bubble_outline_rounded, const Color(0xFFE0F2FE), const Color(0xFF0284C7), _openQuestionsModal),
-                _dockAction("Tetkik", Icons.biotech, const Color(0xFFEDE9FE), const Color(0xFF7C3AED), _openTestsModal),
-                _dockAction("Kons.", Icons.group_outlined, const Color(0xFFFFEDD5), const Color(0xFFEA580C), _openTreatmentsModal),
-                _dockAction("Monitör", Icons.monitor_heart_outlined, const Color(0xFFDCFCE7), const Color(0xFF16A34A), _openMonitor),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _pillButton(String title, IconData icon, bool active) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-      decoration: BoxDecoration(
-        color: active ? const Color(0xFFEDE9FE) : Colors.transparent,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        children: [
-          Icon(icon, size: 16, color: active ? const Color(0xFF6D28D9) : Colors.grey),
-          const SizedBox(width: 6),
-          Text(title, style: TextStyle(color: active ? const Color(0xFF6D28D9) : Colors.grey, fontWeight: active ? FontWeight.bold : FontWeight.normal, fontSize: 13)),
-        ],
-      ),
-    );
-  }
-
-  Widget _dockAction(String title, IconData icon, Color bg, Color color, VoidCallback onTap) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(16)),
-            child: Icon(icon, color: color, size: 24),
-          ),
-          const SizedBox(height: 4),
-          Text(title, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black87)),
-        ],
-      ),
-    );
-  }
-}
-
-// -------------------------------------------------------------
-// 7. HASTA MONİTÖRÜ (EKRAN 2 İLE BİREBİR)
-// -------------------------------------------------------------
-class MonitorBottomSheet extends StatelessWidget {
-  final Map<String, dynamic> vitals;
-  const MonitorBottomSheet({super.key, required this.vitals});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(color: const Color(0xFFFEF9C3), borderRadius: BorderRadius.circular(10)),
-                child: const Icon(Icons.show_chart, color: Color(0xFFCA8A04), size: 20),
-              ),
-              const SizedBox(width: 10),
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("HASTA MONİTÖRÜ", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  Text("6 parametre izleniyor", style: TextStyle(color: Colors.grey, fontSize: 12)),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          GridView.count(
-            crossAxisCount: 2,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            childAspectRatio: 1.5,
-            children: [
-              _monitorCard("KALP HIZI", vitals['hr'].toString().replaceAll(" /dk", ""), "bpm", const Color(0xFF22C55E), Icons.favorite),
-              _monitorCard("KAN BASINCI", vitals['bp'].toString().replaceAll(" mmHg", ""), "mmHg", const Color(0xFFEF4444), Icons.speed),
-              _monitorCard("OKSİJEN", vitals['spo2'].toString().replaceAll("%", ""), "%", const Color(0xFF06B6D4), Icons.air),
-              _monitorCard("SOLUNUM", vitals['rr'].toString().replaceAll(" /dk", ""), "/dk", const Color(0xFFEAB308), Icons.waves),
-              _monitorCard("ATEŞ", vitals['temp'].toString().replaceAll(" °C", ""), "°C", const Color(0xFFF97316), Icons.thermostat),
-              _monitorCard("GCS", vitals['gcs'].toString().split("/")[0], "/15", const Color(0xFFA855F7), Icons.psychology),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Center(
-            child: TextButton.icon(
-              onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.check, color: Color(0xFF0284C7)),
-              label: const Text("Kapat", style: TextStyle(color: Color(0xFF0284C7), fontWeight: FontWeight.bold)),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _monitorCard(String title, String val, String unit, Color color, IconData icon) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: const Color(0xFF141926),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Icon(icon, color: color, size: 14),
-              const SizedBox(width: 4),
-              Text(title, style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.bold)),
-            ],
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              Text(val, style: TextStyle(color: color, fontSize: 24, fontWeight: FontWeight.bold)),
-              const SizedBox(width: 4),
-              Text(unit, style: const TextStyle(color: Colors.white60, fontSize: 11)),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
+              child:
