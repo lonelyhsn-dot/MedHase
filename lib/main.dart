@@ -820,8 +820,7 @@ class MyCasesScreen extends StatelessWidget {
                     ]),
                   )
                 : _buildGrid(context, myCreated),
-            _buildGrid(context, [kAllClinicalCases[0], kAllClinicalCases]),
-          ],
+_buildGrid(context, kAllClinicalCases),          ],
         ),
       ),
     );
