@@ -27,10 +27,11 @@ jobs:
         with:
           channel: 'stable'
 
-      # Eksik olan Android altyapısını otomatik oluşturma
+      # Android Altyapısını Otomatik Oluştur
       - name: Android Altyapısını Otomatik Oluştur
         run: |
           flutter create --platforms=android --org com.medcase .
+          sed -i 's/android:label=".*"/android:label="MedHase"/' android/app/src/main/AndroidManifest.xml
           flutter pub get
 
       # APK Çıktısı Alma
