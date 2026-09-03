@@ -1,4 +1,4 @@
-name: Build MedCase APK
+name: Build MedHase APK
 
 on: [push, workflow_dispatch]
 
@@ -27,20 +27,33 @@ jobs:
         with:
           channel: 'stable'
 
-      # Android Altyapısını Otomatik Oluştur
-      - name: Android Altyapısını Otomatik Oluştur
+      # Android Altyapısı, MedHase İsmi ve Kendi Yüklediğiniz Logo
+      - name: Android Altyapısı ve Logo Entegrasyonu
         run: |
-          flutter create --platforms=android --org com.medcase .
+          flutter create --platforms=android --org com.medhase --project-name medhase_app .
           sed -i 's/android:label=".*"/android:label="MedHase"/' android/app/src/main/AndroidManifest.xml
+          python3 -m pip install pillow
+          python3 -c "
+          import os
+          from PIL import Image
+          if os.path.exists('icon.png'):
+              img = Image.open('icon.png').convert('RGBA')
+              sizes = {'mipmap-mdpi': 48, 'mipmap-hdpi': 72, 'mipmap-xhdpi': 96, 'mipmap-xxhdpi': 144, 'mipmap-xxxhdpi': 192}
+              for folder, sz in sizes.items():
+                  p = os.path.join('android/app/src/main/res', folder)
+                  os.makedirs(p, exist_ok=True)
+                  img.resize((sz, sz), Image.Resampling.LANCZOS).save(os.path.join(p, 'ic_launcher.png'))
+              print('Kendi logonuz tüm Android çözünürlüklerine uyarlandı!')
+          "
           flutter pub get
 
-      # APK Çıktısı Alma
+      # APK Derleme
       - name: APK Derle
         run: flutter build apk --release
 
-      # Üretilen APK'yı indirmeye hazır hale getirme
-      - name: APK'yı Hazırla
+      # Çıktı Dosyasını (MedHase-Android-APK) GitHub'a Yükleme
+      - name: MedHase APK'sını Hazırla
         uses: actions/upload-artifact@v4
         with:
-          name: MedCase-Android-APK
+          name: MedHase-Android-APK
           path: build/app/outputs/flutter-apk/app-release.apk
