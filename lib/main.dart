@@ -21,6 +21,1099 @@ class MedHaseApp extends StatelessWidget {
 }
 
 // -------------------------------------------------------------
+// 40 GERÇEK TIBBİ VAKA VERİ TABANI (HER BRANŞTA TAM 10 VAKA)
+// -------------------------------------------------------------
+final List<Map<String, dynamic>> kAllClinicalCases = [
+  // 1. NÖROLOJİ (10 VAKA)
+  {
+    "id": "neuro_01", "specialty": "Nöroloji", "title": "Ani Sağ Kol Kuvvetsizliği ve Afazi", "diff": "ZOR", "xp": 350, "initial_stability": 50,
+    "patient": {"name": "Fatma D.", "age": 68, "gender": "Kadın", "complaint": "1 saat önce sağ kol ve bacakta felç, konuşamama."},
+    "history": "Atriyal fibrilasyon, hipertansiyon. Kan sulandırıcı aksatılmış.",
+    "vitals": {"hr": "106", "bp": "175/95", "spo2": "96", "rr": "18", "temp": "36.7", "gcs": "11/15", "status": "Kritik"},
+    "questions": [
+      {"q": "Belirtiler tam saat kaçta başladı?", "a": "50 dakika önce kahvaltıda başladı."},
+      {"q": "Daha önce benzer durum oldu mu?", "a": "Hayır ilk kez oldu, ilacını aksatmıştı."},
+      {"q": "Baş ağrısı var mı?", "a": "Baş ağrısı yok."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Kontrassız Beyin BT", "duration": 60, "res": "Hemoraji yok. Sol MCA erken silinme bulgusu."},
+      {"name": "Koagülasyon Paneli", "duration": 45, "res": "INR: 1.15 (Trombolitik için güvenli)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "IV Trombolitik (rtPA) 0.9 mg/kg", "duration": 30, "feed": "İlk 4.5 saatte tromboliz uygulandı, motor güç toparlamaya başladı.", "score": 45, "is_correct": true, "vitals_update": {"hr": "78", "bp": "135/85", "spo2": "99", "rr": "16", "temp": "36.7", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Yüksek Doz IV Heparin Bolusu", "duration": 30, "feed": "Kritik Hata! Akut iskemide erken heparin beyin kanamasına yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "130", "bp": "200/115", "spo2": "90", "rr": "24", "temp": "37.5", "gcs": "7/15", "status": "Koma Riski"}, "stability_delta": -35},
+      {"name": "Tansiyon Regülasyonu (IV Labetalol)", "duration": 30, "feed": "Tansiyon 185/110 altına çekilerek güvenli sınır sağlandı.", "score": 20, "is_correct": true, "vitals_update": {"bp": "155/90", "hr": "86", "spo2": "98", "status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Nöroloji İcapçı Hekimi", "response": "Nörolog: BT kanamayı dışladı, semptom 1 saat. rtPA başlatıp anjiyo ekibini çağırın."}
+    ],
+    "diag": "Akut İskemik İnme (Sol MCA)", "pearl": "İlk 4.5 saatte kontrassız BT ile kanama dışlanıp trombolitik başlanmalıdır."
+  },
+  {
+    "id": "neuro_02", "specialty": "Nöroloji", "title": "Gök Gürültüsü Baş Ağrısı ve Kusma", "diff": "ZOR", "xp": 400, "initial_stability": 55,
+    "patient": {"name": "Cemil A.", "age": 44, "gender": "Erkek", "complaint": "Balyoz vurulmuş gibi ani baş ağrısı, fışkırır kusma."},
+    "history": "Polikistik böbrek hastalığı, sigara.",
+    "vitals": {"hr": "62", "bp": "185/105", "spo2": "97", "rr": "16", "temp": "37.2", "gcs": "13/15", "status": "Kritik"},
+    "questions": [
+      {"q": "Ağrı ne kadar sürede tepeye ulaştı?", "a": "Saniyeler içinde patladı!"},
+      {"q": "Ensenizi bükebiliyor musunuz?", "a": "Çenemi göğsüme değdiremiyorum, ensem taş gibi."},
+      {"q": "Işık rahatsız ediyor mu?", "a": "Gözlerimi açamıyorum, ışık batıyor."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Kontrassız Beyin BT", "duration": 60, "res": "Bazal sisternlerde hiperdens akut subaraknoid kanama."},
+      {"name": "Beyin BT Anjiyografi", "duration": 90, "res": "AComA üzerinde 6 mm sakküler anevrizma."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Nimodipin 60 mg + Tansiyon Titrasyonu", "duration": 30, "feed": "Serebral vazospazm profilaksisi başlandı, re-kanama riski azaltıldı.", "score": 45, "is_correct": true, "vitals_update": {"hr": "68", "bp": "130/80", "spo2": "99", "rr": "14", "temp": "36.8", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Yüksek Doz Aspirin + Heparin", "duration": 30, "feed": "Kritik Hata! Aktif kanamada antikoagülan fatal re-kanamaya yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "44", "bp": "210/120", "spo2": "88", "rr": "10", "temp": "38.0", "gcs": "6/15", "status": "Koma"}, "stability_delta": -35},
+      {"name": "Acil Nöroşirürji Koilleme Hazırlığı", "duration": 30, "feed": "Anevrizma endovasküler yolla koillendi, kanama odağı kapatıldı.", "score": 20, "is_correct": true, "vitals_update": {"hr": "72", "bp": "125/75", "spo2": "99", "status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Beyin Cerrahisi", "response": "Beyin Cerrahı: SAK teyit edildi. Anjiyo salonunda acil koillemeye alıyoruz."}
+    ],
+    "diag": "Subaraknoid Kanama (Anevrizma Rüptürü)", "pearl": "Gök gürültüsü baş ağrısında SAK aranmalıdır; nimodipin başlanıp cerrahi konsülte edilir."
+  },
+  {
+    "id": "neuro_03", "specialty": "Nöroloji", "title": "Durdurulamayan Nöbet (Status Epileptikus)", "diff": "ZOR", "xp": 450, "initial_stability": 35,
+    "patient": {"name": "Eren K.", "age": 29, "gender": "Erkek", "complaint": "20 dakikadır süren aralıksız jeneralize kasılma."},
+    "history": "Dirençli epilepsi, ilaç kesme.",
+    "vitals": {"hr": "138", "bp": "160/95", "spo2": "86", "rr": "26", "temp": "38.5", "gcs": "6/15", "status": "Hayati Tehlike"},
+    "questions": [
+      {"q": "Nöbet ne kadar sürdü?", "a": "20 dakikadır aralıksız kasılıyor."},
+      {"q": "İlaçlarını alıyor muydu?", "a": "3 gündür ilaçlarını almamıştı."},
+      {"q": "Ateş veya travma oldu mu?", "a": "Hayır aniden başladı."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Parmak Ucu Glukoz Ölçümü", "duration": 30, "res": "98 mg/dL (Hipoglisemi yok)."},
+      {"name": "Arteryel Kan Gazı", "duration": 45, "res": "pH: 7.18, Laktat: 6.2 mmol/L (Ağır laktik asidoz)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "IV Levetirasetam 60 mg/kg + Diazepam 10 mg", "duration": 30, "feed": "Antikonvülzan tedaviyle nöbet tamamen sonlandırıldı!", "score": 45, "is_correct": true, "vitals_update": {"hr": "82", "bp": "120/75", "spo2": "98", "rr": "16", "temp": "37.0", "gcs": "14/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Ağza Tahta Kaşık Sokmaya Çalışma", "duration": 30, "feed": "Hatalı Yaklaşım! Diş kırığı ve laringeal aspirasyon riski oluşturur.", "score": -45, "is_correct": false, "vitals_update": {"hr": "150", "bp": "170/100", "spo2": "76", "rr": "30", "status": "Kritik Boğulma"}, "stability_delta": -35},
+      {"name": "Oksijen Maskesi ve Havayolu Güvenliği", "duration": 30, "feed": "Hipoksi önlendi, satürasyon toparladı.", "score": 20, "is_correct": true, "vitals_update": {"spo2": "96", "hr": "115", "status": "Toparlıyor"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Nöroloji Yoğun Bakım", "response": "Uzman: Benzodiazepin sonrası nöbet durmazsa entübasyon ve propofole geçin."}
+    ],
+    "diag": "Konvülzif Status Epileptikus", "pearl": "5 dakikayı aşan nöbetlerde gecikmeden IV benzodiazepin ve levetirasetam verilmelidir."
+  },
+  {
+    "id": "neuro_04", "specialty": "Nöroloji", "title": "Ayaklardan Yükselen Felç ve Uyuşma", "diff": "ORTA", "xp": 300, "initial_stability": 65,
+    "patient": {"name": "Aylin S.", "age": 33, "gender": "Kadın", "complaint": "Ayaklardan başlayıp gövdeye tırmanan kuvvetsizlik."},
+    "history": "2 hafta önce geçirilmiş bakteriyel ishal.",
+    "vitals": {"hr": "88", "bp": "120/75", "spo2": "97", "rr": "18", "temp": "36.8", "gcs": "15/15", "status": "Semptomatik"},
+    "questions": [
+      {"q": "Kuvvetsizlik nasıl ilerledi?", "a": "Önce ayaklarım uyuştu, sonra bacaklarım ve ellerim tutmaz oldu."},
+      {"q": "Nefes alırken zorlanıyor musunuz?", "a": "Derin nefeste göğsüm sıkışıyor."},
+      {"q": "Son 1 ayda enfeksiyon geçirdiniz mi?", "a": "2 hafta önce şiddetli ishal olmuştum."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Derin Tendon Refleksleri Muayenesi", "duration": 30, "res": "Aşil ve patella refleksleri bilateral arefleksik (yok)."},
+      {"name": "FVC Solunum Kapasitesi Ölçümü", "duration": 45, "res": "FVC: 18 ml/kg (Sınırda)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "IVIG 0.4 g/kg/gün Başlanması", "duration": 30, "feed": "Otoimmün demiyelinizasyon durduruldu, motor kayıp geriledi.", "score": 45, "is_correct": true, "vitals_update": {"hr": "76", "bp": "120/80", "spo2": "99", "rr": "15", "temp": "36.6", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Yüksek Doz Sistemik Steroid", "duration": 30, "feed": "Hatalı Tedavi: GBS'de steroidlerin yeri yoktur, iyileşmeyi geciktirebilir.", "score": -45, "is_correct": false, "vitals_update": {"hr": "98", "bp": "145/95", "status": "Kötüleşiyor"}, "stability_delta": -35},
+      {"name": "Solunum Kapasitesi Yakın Takibi", "duration": 30, "feed": "Vital kapasite izleme alındı.", "score": 20, "is_correct": true, "vitals_update": {"rr": "16", "spo2": "98"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Nöroloji Kliniği", "response": "Nörolog: GBS tablosu. FVC < 15 ml/kg olursa entübasyon için YBÜ hazırlığı yapın."}
+    ],
+    "diag": "Guillain-Barré Sendromu (GBS)", "pearl": "Simetrik asendan paralizi ve areflekside FVC takibi ve IVIG tedavisi esastır."
+  },
+  {
+    "id": "neuro_05", "specialty": "Nöroloji", "title": "Tek Taraflı Yüz Felci ve Göz Kapatamama", "diff": "KOLAY", "xp": 200, "initial_stability": 85,
+    "patient": {"name": "Hasan B.", "age": 41, "gender": "Erkek", "complaint": "Yüzün sağ yarısında felç, alnı kırıştıramama."},
+    "history": "Soğuk hava/klima maruziyeti.",
+    "vitals": {"hr": "76", "bp": "125/80", "spo2": "99", "rr": "14", "temp": "36.6", "gcs": "15/15", "status": "Stabil"},
+    "questions": [
+      {"q": "Alnınızı yukarı kırıştırmayı dener misiniz?", "a": "Sağ taraf hiç kırışmıyor, tamamen donuk."},
+      {"q": "Kol veya bacağınızda güçsüzlük var mı?", "a": "Hayır kollarım sapasağlam."},
+      {"q": "Ağzınızda tat değişikliği oldu mu?", "a": "Dilimin ön kısmında tatları garip alıyorum."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Kraniyal Sinir VII Muayenesi", "duration": 30, "res": "Sağ periferik fasiyal paralizi (Alın tutulumu pozitif)."},
+      {"name": "Nörolojik Odak Muayenesi", "duration": 45, "res": "Ek motor/duyusal defisit yok, testler normal."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Oral Prednizolon 1 mg/kg + Suni Gözyaşı", "duration": 30, "feed": "Fasiyal sinir ödemi geriletildi, kornea kuruması önlendi.", "score": 45, "is_correct": true, "vitals_update": {"hr": "72", "bp": "120/75", "spo2": "99", "rr": "14", "temp": "36.6", "gcs": "15/15", "status": "Şifayla Taburcu"}, "stability_delta": 35},
+      {"name": "Acil Trombolitik Tedavi (rtPA)", "duration": 30, "feed": "Hayati Hata! Periferik yüz felci santral inme değildir, gereksiz trombolitik kanama riski doğurur!", "score": -45, "is_correct": false, "vitals_update": {"hr": "115", "bp": "170/100", "gcs": "13/15", "status": "Kritik"}, "stability_delta": -35},
+      {"name": "Göz Kapama Bandı (Gece Koruması)", "duration": 30, "feed": "Lagofitalmiye bağlı kornea ülseri engellendi.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Nöroloji Polikliniği", "response": "Nörolog: Klasik Bell paralizisi. Steroid ve göz korumasıyla taburcu edin."}
+    ],
+    "diag": "Bell Paralizisi", "pearl": "Alın kaslarının tutulumu periferik felci santral inmeden ayıran en belirgin bulgudur."
+  },
+  {
+    "id": "neuro_06", "specialty": "Nöroloji", "title": "Akşama Doğru Artan Pitozis ve Yorgunluk", "diff": "ORTA", "xp": 300, "initial_stability": 70,
+    "patient": {"name": "Merve T.", "age": 27, "gender": "Kadın", "complaint": "Çift görme, göz kapağı düşmesi ve çiğneme zorluğu."},
+    "history": "Son 3 aydır gün sonu artan kuvvetsizlik.",
+    "vitals": {"hr": "82", "bp": "115/70", "spo2": "97", "rr": "16", "temp": "36.7", "gcs": "15/15", "status": "Semptomatik"},
+    "questions": [
+      {"q": "Sabah kalkınca belirtiler var mı?", "a": "Sabahları gayet iyiyim, akşama doğru gözüm kapanıyor."},
+      {"q": "Yutma zorluğu oldu mu?", "a": "Yemek yerken lokmalar bazen boğazıma takılıyor."},
+      {"q": "Nefes darlığı hissediyor musunuz?", "a": "Hızlı yürüyünce nefes nefese kalıyorum."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Buz Testi (Ice Pack Test)", "duration": 30, "res": "Göz kapağına 2 dk buz uygulama sonrası pitoziste 3 mm düzelme (Pozitif)."},
+      {"name": "Toraks BT (Timoma Taraması)", "duration": 60, "res": "Ön mediastende timus hiperplazisi."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Oral Piridostigmin 60 mg Başlanması", "duration": 30, "feed": "Asetilkolinesteraz inhibisyonuyla kas gücü hızla toparladı.", "score": 45, "is_correct": true, "vitals_update": {"hr": "74", "bp": "120/75", "spo2": "99", "rr": "14", "temp": "36.6", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Yüksek Doz Aminoglikozid Antibiyotik", "duration": 30, "feed": "Kritik Hata! Aminoglikozidler nöromüsküler kavşağı bloke ederek miyastenik krizi tetikler!", "score": -45, "is_correct": false, "vitals_update": {"hr": "128", "bp": "90/55", "spo2": "82", "rr": "28", "status": "Solunum Yetmezliği"}, "stability_delta": -35},
+      {"name": "Solunum Kapasitesi Yakın Takibi", "duration": 30, "feed": "Kriz riski yakından izlendi.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Nöroloji Kliniği", "response": "Nörolog: Miyastenia Gravis tanısı kesin. Piridostigmin başlayıp timektomiye yönlendirin."}
+    ],
+    "diag": "Miyastenia Gravis", "pearl": "Dalgalı kas yorgunluğu MG için tipiktir; aminoglikozid ve beta blokerler kontrendikedir."
+  },
+  {
+    "id": "neuro_07", "specialty": "Nöroloji", "title": "Ateş, Koku Halüsinasyonu ve Konfüzyon", "diff": "ZOR", "xp": 400, "initial_stability": 50,
+    "patient": {"name": "Kemal V.", "age": 52, "gender": "Erkek", "complaint": "Yüksek ateş, tuhaf yanık kokuları duyma, hafıza kaybı ve dalgınlık."},
+    "history": "Dudakta uçuk lezyonu.",
+    "vitals": {"hr": "110", "bp": "135/85", "spo2": "95", "rr": "20", "temp": "39.2", "gcs": "11/15", "status": "Kritik"},
+    "questions": [
+      {"q": "Ne zamandır anlamsız konuşuyor?", "a": "2 gündür ateşi vardı, dün akşamdan beri hayal görüyor."},
+      {"q": "Nöbet geçirdi mi?", "a": "Sabah dudaklarını şapırdatıp birkaç saniye donup kaldı."},
+      {"q": "Baş ağrısı var mı?", "a": "Şakaklarım patlayacak diyordu."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Kontrassız Kraniyal BT / MR", "duration": 60, "res": "Unilateral temporal lobda asimetrik ödem ve hiperintensite."},
+      {"name": "Lomber Ponksiyon (BOS)", "duration": 75, "res": "Lenfosit hakim pleositoz, eritrosit pozitif, protein 90 mg/dL."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Acil IV Asiklovir 10 mg/kg (8 Saatte Bir)", "duration": 30, "feed": "PCR sonucu beklenmeden başlanan antiviral hayat kurtardı, beyin nekrozu sınırlandı.", "score": 45, "is_correct": true, "vitals_update": {"hr": "84", "bp": "125/80", "spo2": "98", "rr": "16", "temp": "37.5", "gcs": "14/15", "status": "Toparlıyor"}, "stability_delta": 35},
+      {"name": "Yüksek Doz Sedatif ile Uyutma (Tedavisiz)", "duration": 30, "feed": "Ölümcül Hata! Antiviral verilmeden bekletilen ensefalitte nekrotik hasar gelişti!", "score": -45, "is_correct": false, "vitals_update": {"hr": "135", "bp": "160/100", "spo2": "89", "rr": "24", "temp": "40.1", "gcs": "6/15", "status": "Koma"}, "stability_delta": -35},
+      {"name": "Antiepileptik Tedavi (Levetirasetam)", "duration": 30, "feed": "Temporal lob kaynaklı subklinik nöbetler baskılandı.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Enfeksiyon Hastalıkları", "response": "Konsültan: Temporal tutulum HSV ensefalitini işaret eder. Asiklovir derhal 21 gün IV planlanmalıdır."}
+    ],
+    "diag": "Herpes Simpleks Ensefaliti (HSV-1)", "pearl": "Temporal lob ödemi ve koku aurasında BOS PCR beklenmeden derhal IV Asiklovir başlanmalıdır."
+  },
+  {
+    "id": "neuro_08", "specialty": "Nöroloji", "title": "Tek Gözde Ağrılı Ani Görme Kaybı", "diff": "ORTA", "xp": 320, "initial_stability": 75,
+    "patient": {"name": "Selin O.", "age": 25, "gender": "Kadın", "complaint": "Sağ göz hareketleriyle artan ağrı ve bulanık görme, renkleri soluk görme."},
+    "history": "1 yıl önce sol bacakta 3 hafta süren uyuşma.",
+    "vitals": {"hr": "74", "bp": "118/72", "spo2": "99", "rr": "14", "temp": "36.5", "gcs": "15/15", "status": "Stabil"},
+    "questions": [
+      {"q": "Görme kaybı aniden mi oldu?", "a": "Dün sabah başladı, bugün sadece gölgeleri seçebiliyorum."},
+      {"q": "Gözü hareket ettirince ağrıyor mu?", "a": "Evet sağa sola bakınca göz kürem sızlıyor."},
+      {"q": "Daha önce uyuşma olmuş muydu?", "a": "Geçen yıl sol bacağım uyuşmuştu, kendiliğinden geçmişti."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Marcus Gunn Pupili Muayenesi", "duration": 30, "res": "Sağ gözde rölatif aferent pupil defekti (RAPD) pozitif."},
+      {"name": "Beyin ve Orbita MRG", "duration": 75, "res": "Sağ optik sinirde kontrast tutulumu ve periventriküler ovoid plaklar."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "IV Puls Metilprednizolon 1000 mg/gün", "duration": 30, "feed": "Optik sinir inflamasyonu baskılandı, görme keskinliği hızla düzelmeye başladı.", "score": 45, "is_correct": true, "vitals_update": {"hr": "72", "bp": "120/75", "spo2": "99", "rr": "14", "temp": "36.6", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Tek Başına Düşük Doz Oral Prednizolon", "duration": 30, "feed": "Hatalı Yaklaşım! Yalnızca düşük doz oral steroid verilmesi nüks riskini artırır.", "score": -45, "is_correct": false, "vitals_update": {"hr": "80", "status": "Kötüleşiyor"}, "stability_delta": -35},
+      {"name": "Miyelin Profilaksisi ve Nöroloji Takibi", "duration": 30, "feed": "MS klinik izlemi planlandı.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Nöroloji Demiylinizan Hastalıklar", "response": "Uzman: Klinik tablo Multipl Skleroz ilk atağı ile uyumlu. 3 gün IV pulse steroid uygulayın."}
+    ],
+    "diag": "Optik Nörit (Multipl Skleroz İlk Atak)", "pearl": "Marcus Gunn pupili ve retrobulber ağrıda yüksek doz IV puls steroid verilir, tek başına düşük doz oral steroid kontrendikedir."
+  },
+  {
+    "id": "neuro_09", "specialty": "Nöroloji", "title": "İstirahat Tremoru ve Yavaş Yürüme", "diff": "ORTA", "xp": 280, "initial_stability": 80,
+    "patient": {"name": "Salih G.", "age": 71, "gender": "Erkek", "complaint": "Sağ elde para sayma tarzı titreme, düğme iliklemede zorluk ve öne eğik yürüme."},
+    "history": "Son 1 yıldır koku alma duyusunda azalma.",
+    "vitals": {"hr": "68", "bp": "130/80", "spo2": "98", "rr": "16", "temp": "36.6", "gcs": "15/15", "status": "Stabil"},
+    "questions": [
+      {"q": "Titreme dururken mi oluyor?", "a": "Televizyon izlerken titriyor, bardağı tutunca hafifliyor."},
+      {"q": "Yürürken kollarınız sallanıyor mu?", "a": "Sağ kolum hiç sallanmıyor, donuk kalıyor."},
+      {"q": "Düşme veya denge kaybı var mı?", "a": "Adımlarım küçüldü, bazen hızlanıp duramıyorum."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Ekstrapiramidal Sistem Muayenesi", "duration": 45, "res": "Dişli çark rijiditesi pozitif, bradikinezi belirgin, asimetrik istirahat tremoru."},
+      {"name": "Kraniyal MRG", "duration": 60, "res": "Yaşa uygun serebral atrofi, sekonder parkinsonizm dışlandı."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Levodopa / Benserazid Titrasyonu", "duration": 30, "feed": "Dopamin replase edildi, rijidite ve hareket blokajı belirgin geriledi.", "score": 45, "is_correct": true, "vitals_update": {"hr": "72", "bp": "125/75", "spo2": "99", "rr": "15", "temp": "36.6", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Haloperidol (Antipsikotik) Uygulaması", "duration": 30, "feed": "Kritik Hata! D2 blokajı yaparak akut rijidite ve akinetik krize yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "105", "bp": "155/95", "gcs": "13/15", "status": "Akinetik Kriz"}, "stability_delta": -35},
+      {"name": "Fizik Tedavi ve Yürüyüş Egzersizleri", "duration": 30, "feed": "Postüral stabilite desteklendi.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Hareket Bozuklukları Uzmanı", "response": "Nörolog: İdiopatik Parkinson ile uyumlu. Levodopa başlandı, poliklinik takibi önerilir."}
+    ],
+    "diag": "İdiopatik Parkinson Hastalığı", "pearl": "Asimetrik istirahat tremoru, rijidite ve bradikinezi kardinal bulgulardır; tipik antipsikotikler kontrendikedir."
+  },
+  {
+    "id": "neuro_10", "specialty": "Nöroloji", "title": "Yarım Baş Ağrısı ve Işık Çakması", "diff": "KOLAY", "xp": 200, "initial_stability": 80,
+    "patient": {"name": "Ece M.", "age": 28, "gender": "Kadın", "complaint": "Sol şakakta zonklayıcı baş ağrısı, zikzak çizgiler görme, bulantı."},
+    "history": "Açlık ve uykusuzlukla tetiklenme.",
+    "vitals": {"hr": "80", "bp": "120/75", "spo2": "98", "rr": "16", "temp": "36.6", "gcs": "15/15", "status": "Stabil"},
+    "questions": [
+      {"q": "Ağrıdan önce ne oldu?", "a": "20 dakika boyunca sol gözümün önünde kırık çizgiler dans etti, sonra ağrı patladı."},
+      {"q": "Işık rahatsız ediyor mu?", "a": "Karanlık bir odada yatmak istiyorum, ışık beynimi deliyor."},
+      {"q": "Daha önce oldu mu?", "a": "Üniversiteden beri ayda 1-2 kez benzer krizler yaşıyorum."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Nörolojik Odak Muayenesi", "duration": 30, "res": "Ense sertliği negatif, kraniyal sinirler ve motor muayene tamamen doğal."},
+      {"name": "Göz Dibi Muayenesi", "duration": 30, "res": "Papilödem yok, optik disk sınırları net."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Oral Eletriptan 40 mg + IV Sıvı", "duration": 30, "feed": "5-HT 1B/1D agonisti ile vazodilatasyon ve ağrı iletimi hızla durduruldu.", "score": 45, "is_correct": true, "vitals_update": {"hr": "72", "bp": "118/72", "spo2": "99", "rr": "14", "temp": "36.6", "gcs": "15/15", "status": "Şifayla Taburcu"}, "stability_delta": 35},
+      {"name": "Aşırı Opioid (Fentanil) İnfüzyonu", "duration": 30, "feed": "Hatalı Yaklaşım! Migrende opioid ilk tercih değildir, bağımlılık ve rebound ağrı yaratır.", "score": -45, "is_correct": false, "vitals_update": {"hr": "65", "bp": "105/65", "spo2": "92", "rr": "10", "status": "Solunum Depresyonu"}, "stability_delta": -35},
+      {"name": "Karanlık Odada Dinlendirme ve Hidrasyon", "duration": 30, "feed": "Semptomatik rahatlama sağlandı.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Nöroloji Polikliniği", "response": "Nörolog: Auralı migren atağı. Akut kriz triptanla çözüldü, profilaksi planlanabilir."}
+    ],
+    "diag": "Auralı Migren Atağı", "pearl": "Sintilasyon skotomu tipik auradır; kriz tedavisinde triptanlar ve NSAİİ ilk seçenektir."
+  },
+
+  // 2. PEDİATRİ (10 VAKA)
+  {
+    "id": "ped_01", "specialty": "Pediatri", "title": "Ateşli Çocukta Nöbet ve Bilinç Değişikliği", "diff": "KOLAY", "xp": 200, "initial_stability": 65,
+    "patient": {"name": "Ali E.", "age": 2, "gender": "Erkek", "complaint": "Yüksek ateş sonrası kasılma ve gözlerde yukarı kayma."},
+    "history": "2 gündür nezle ve huzursuzluk.",
+    "vitals": {"hr": "142", "bp": "95/60", "spo2": "98", "rr": "28", "temp": "39.4", "gcs": "13/15", "status": "Orta"},
+    "questions": [
+      {"q": "Nöbet esnasında her yer mi kasıldı?", "a": "İki kolu ve bacağı birden titredi, gözleri kaydı (1.5 dk)."},
+      {"q": "Daha önce havale geçirdi mi?", "a": "Hayır ilk kez oldu."},
+      {"q": "Aşıları tam mı?", "a": "Evet aşıları tam."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Menenjit Muayenesi (Ense Sertliği)", "duration": 30, "res": "Ense sertliği negatif, fontanel kabarık değil."},
+      {"name": "Otoskopik KBB Muayenesi", "duration": 30, "res": "Bilateral timpanik membran hiperemik ve bombe (Akut Otit)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "IV Parasetamol 15 mg/kg + Ilık Uygulama", "duration": 30, "feed": "Ateş kademeli düştü, çocuk çevreyle göz teması kurmaya başladı.", "score": 45, "is_correct": true, "vitals_update": {"hr": "108", "bp": "95/65", "spo2": "99", "rr": "22", "temp": "37.1", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Çocuğun Ağzına Kaşık Sokma ve Soğuk Su", "duration": 30, "feed": "Hatalı ve zararlı uygulama! Diş travması ve aspirasyona neden olur.", "score": -45, "is_correct": false, "vitals_update": {"hr": "160", "bp": "110/70", "spo2": "91", "rr": "36", "status": "Ajite"}, "stability_delta": -35},
+      {"name": "Oral Hidrasyon Desteği", "duration": 30, "feed": "Sıvı dengesi korundu.", "score": 20, "is_correct": true, "vitals_update": {"temp": "37.5", "hr": "115", "status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Çocuk Sağlığı ve Hastalıkları", "response": "Pediatrist: Basit febril konvülsiyon. Otit tedavisiyle taburcu edin."}
+    ],
+    "diag": "Basit Febril Konvülsiyon", "pearl": "6 ay - 5 yaş arası çocuklarda <15 dk süren jeneralize nöbetler basit febril konvülsiyondur."
+  },
+  {
+    "id": "ped_02", "specialty": "Pediatri", "title": "Havlar Tarzda Öksürük ve Stridor", "diff": "ORTA", "xp": 250, "initial_stability": 60,
+    "patient": {"name": "Zeynep B.", "age": 3, "gender": "Kadın", "complaint": "Gece aniden başlayan havlar öksürük, ses kısıklığı."},
+    "history": "Hafif soğuk algınlığı sonrası gece kötüleşti.",
+    "vitals": {"hr": "130", "bp": "98/62", "spo2": "93", "rr": "32", "temp": "38.2", "gcs": "15/15", "status": "Orta"},
+    "questions": [
+      {"q": "Nefes alırken mi ses çıkıyor?", "a": "Evet nefes alırken kaba düdük sesi çıkıyor."},
+      {"q": "Yabancı cisim şüphesi var mı?", "a": "Hayır uykusundan öksürerek uyandı."},
+      {"q": "Tükürüğünü yutabiliyor mu?", "a": "Evet salya akması yok."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Üst Havayolu Muayenesi", "duration": 30, "res": "İnspiratuar stridor, suprasternal çekilme var. Tükürük akıtma yok."},
+      {"name": "Boyun Ön Grafisi", "duration": 45, "res": "Subglottik çan kulesi (steeple sign) daralma bulgusu."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Nebülize Adrenalin + Oral Deksametazon", "duration": 30, "feed": "Subglottik ödem geriledi, stridor kayboldu, solunum rahatladı.", "score": 45, "is_correct": true, "vitals_update": {"hr": "100", "bp": "98/65", "spo2": "99", "rr": "20", "temp": "37.4", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Boğaz Basacağı ile Sert Muayene", "duration": 30, "feed": "Hatalı Yaklaşım! Hava yolunu irrite ederek tam obstrüksiyonu tetikleyebilir!", "score": -45, "is_correct": false, "vitals_update": {"hr": "155", "bp": "110/70", "spo2": "82", "rr": "40", "status": "Laringospazm"}, "stability_delta": -35},
+      {"name": "Nemlendirilmiş Oksijen Tedavisi", "duration": 30, "feed": "Hava yolları nemlendirildi.", "score": 20, "is_correct": true, "vitals_update": {"spo2": "96", "rr": "24", "status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Çocuk Acil Uzmanı", "response": "Uzman: Krup tablosu. Deksametazon sonrası 2 saat gözleyin, taburcu edin."}
+    ],
+    "diag": "Akut Krup Sendromu", "pearl": "Krup tedavisinde steroid (deksametazon) temeldir; orta-ağır olgularda nebül adrenalin eklenir."
+  },
+  {
+    "id": "ped_03", "specialty": "Pediatri", "title": "Çökmüş Gözler ve Ağır Dehidratasyon", "diff": "ORTA", "xp": 300, "initial_stability": 50,
+    "patient": {"name": "Ömer Faruk", "age": 1, "gender": "Erkek", "complaint": "Günde 10 kez sulu ishal, gözyaşsız ağlama, letarji."},
+    "history": "Bulaşlı kreş salgını.",
+    "vitals": {"hr": "158", "bp": "75/45", "spo2": "97", "rr": "34", "temp": "38.6", "gcs": "12/15", "status": "Kritik"},
+    "questions": [
+      {"q": "İdrar yaptı mı?", "a": "12 saattir bezi tamamen kuru."},
+      {"q": "Su içebiliyor mu?", "a": "İçtiği her şeyi fışkırtarak kusuyor."},
+      {"q": "Deri elastikiyeti nasıl?", "a": "Karnındaki deri kıvrımı çok geç düzeliyor."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Serum Elektrolitleri ve Kan Gazı", "duration": 45, "res": "Na: 132 mEq/L, K: 3.1 mEq/L, pH: 7.26, Laktat: 3.8 mmol/L."},
+      {"name": "Gaita Mikroskopisi ve Rotavirüs", "duration": 45, "res": "Bol lökosit, Rotavirüs antijeni pozitif."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "20 ml/kg Hızlı IV İzotonik SF Bolusu", "duration": 30, "feed": "Dolaşım hacmi toparlandı, kapiller dolum 2 saniyeye indi, idrar çıkışı başladı.", "score": 45, "is_correct": true, "vitals_update": {"hr": "115", "bp": "95/60", "spo2": "99", "rr": "24", "temp": "37.8", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Antidiyareik (Loperamid) İlaç Verilmesi", "duration": 30, "feed": "Kritik Hata! Bebeklerde motilite baskılayıcılar toksik megakolona ve ileusa yol açar!", "score": -45, "is_correct": false, "vitals_update": {"hr": "170", "bp": "70/40", "gcs": "9/15", "status": "Toksik Tablo"}, "stability_delta": -35},
+      {"name": "Oral Rehidrasyon Sıvısı (ORS)", "duration": 30, "feed": "Kademeli hidrasyon sağlandı.", "score": 20, "is_correct": true, "vitals_update": {"hr": "130", "status": "Toparlıyor"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Pediatri Kliniği", "response": "Konsültan: Ağır hipovolemik dehidratasyon. İkinci SF bolusu sonrası idame mayiye geçin."}
+    ],
+    "diag": "Akut Rotavirüs Gastroenteriti", "pearl": "Bebeklerde dehidratasyonda ilk tercih hızla 20 ml/kg IV izotonik sıvı resüsitasyonudur."
+  },
+  {
+    "id": "ped_04", "specialty": "Pediatri", "title": "Hırıltılı Solunum ve İnspiratuar Çekilme", "diff": "ORTA", "xp": 280, "initial_stability": 60,
+    "patient": {"name": "Elif Su", "age": 0, "gender": "Kadın", "complaint": "Nezle sonrası başlayan hırıltı, göğüste çekilmeler (6 aylık)."},
+    "history": "Kış mevsimi RSV salgını.",
+    "vitals": {"hr": "145", "bp": "90/55", "spo2": "90", "rr": "48", "temp": "37.8", "gcs": "15/15", "status": "Orta"},
+    "questions": [
+      {"q": "Beslenebiliyor mu?", "a": "Memeyi emerken nefesi yetmiyor, bırakıp ağlıyor."},
+      {"q": "Ailede astım var mı?", "a": "Ablası astım hastası."},
+      {"q": "Daha önce oldu mu?", "a": "İlk kez böyle hırıltısı oldu."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Akciğer Oskültasyonu", "duration": 30, "res": "Bilateral ekspiratuar sibilan ronküs ve krepitan raller."},
+      {"name": "Nazofarenks RSV Antijen Testi", "duration": 45, "res": "RSV (Respiratuar Sinsityal Virüs) Pozitif."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Nazal Nazik Aspirasyon + Nemlendirilmiş Oksijen", "duration": 30, "feed": "Hava yolu sekresyonları temizlendi, oksijenasyon düzeldi, beslenme başladı.", "score": 45, "is_correct": true, "vitals_update": {"hr": "118", "bp": "92/58", "spo2": "98", "rr": "30", "temp": "37.2", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Yüksek Doz Sistemik Steroid ve Antibiyotik", "duration": 30, "feed": "Hatalı Yaklaşım: Akut bronşiolitte rutin steroid ve antibiyotiğin yeri yoktur.", "score": -45, "is_correct": false, "vitals_update": {"hr": "142", "spo2": "90", "status": "Değişmedi"}, "stability_delta": -35},
+      {"name": "Serum Fizyolojik ile Nazal Lavaj", "duration": 30, "feed": "Üst hava yolu direnci azaltıldı.", "score": 20, "is_correct": true, "vitals_update": {"spo2": "94", "rr": "36", "status": "Toparlıyor"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Çocuk Kliniği", "response": "Uzman: RSV Bronşioliti. Destek tedavisi, hidrasyon ve oksijen takibi yeterlidir."}
+    ],
+    "diag": "Akut RSV Bronşioliti", "pearl": "Bronşiolitte temel tedavi nemlendirilmiş oksijen, nazal temizlik ve sıvı desteğidir."
+  },
+  {
+    "id": "ped_05", "specialty": "Pediatri", "title": "Yaygın Peteşi, Ateş ve Letarji", "diff": "ZOR", "xp": 450, "initial_stability": 30,
+    "patient": {"name": "Metehan K.", "age": 4, "gender": "Erkek", "complaint": "Bacaklarda basmakla solmayan morluklar, yüksek ateş, uykuya meyil."},
+    "history": "Aşı takviminde eksiklik.",
+    "vitals": {"hr": "160", "bp": "75/40", "spo2": "94", "rr": "30", "temp": "39.8", "gcs": "10/15", "status": "Hayati Tehlike"},
+    "questions": [
+      {"q": "Döküntüler ne zaman çıktı?", "a": "Birkaç saat içinde hızla yayıldı, basınca solmuyor."},
+      {"q": "Gözlerini açabiliyor mu?", "a": "Sürekli uyukluyor, seslenince zor açıyor."},
+      {"q": "Kusması oldu mu?", "a": "2 kez fışkırır gibi kustu."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Deri ve Cam Testi Muayenesi", "duration": 30, "res": "Bilateral alt ekstremitelerde basmakla solmayan purpurik lezyonlar (Pozitif)."},
+      {"name": "Kan Gazı ve Laktat", "duration": 45, "res": "pH: 7.20, Laktat: 5.4 mmol/L (Ağır septik şok)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Acil IV Seftriakson 100 mg/kg + 20 ml/kg SF Bolus", "duration": 30, "feed": "Hızla bakterisidal tedavi ve hacim desteği verildi, kapiller kaçış sınırlandı.", "score": 45, "is_correct": true, "vitals_update": {"hr": "110", "bp": "100/65", "spo2": "98", "rr": "22", "temp": "38.2", "gcs": "14/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Ateş Düşürücü Verip Evde Takip Önermek", "duration": 30, "feed": "Ölümcül Hata! Meningokoksemi saatler içinde adrenal kanama ve kardiyak arreste yol açar!", "score": -45, "is_correct": false, "vitals_update": {"hr": "175", "bp": "50/20", "spo2": "84", "gcs": "6/15", "status": "Kardiyak Arrest"}, "stability_delta": -35},
+      {"name": "İkinci Damar Yolu ve Noradrenalin Hazırlığı", "duration": 30, "feed": "Dirençli hipotansiyon için inotrop hazırlandı.", "score": 20, "is_correct": true, "vitals_update": {"bp": "88/50", "status": "Toparlıyor"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Çocuk Yoğun Bakım", "response": "Konsültan: Yıldırım meningokoksemi. Seftriaksonu gecikmeden verip hastayı YBÜ'ye nakledin."}
+    ],
+    "diag": "Meningokoksemi (Fulminan Sepsis)", "pearl": "Basmakla solmayan döküntü ve ateş septik şok alarmıdır; derhal IV 3. kuşak sefalosporin başlanmalıdır."
+  },
+  {
+    "id": "ped_06", "specialty": "Pediatri", "title": "Tükürük Yutamama ve Tripod Pozisyonu", "diff": "ZOR", "xp": 450, "initial_stability": 40,
+    "patient": {"name": "Aras D.", "age": 5, "gender": "Erkek", "complaint": "Boğaz ağrısı, ağızdan salya akması, öne eğilerek nefes alma."},
+    "history": "Hib aşısı yapılmamış.",
+    "vitals": {"hr": "135", "bp": "100/65", "spo2": "89", "rr": "36", "temp": "39.5", "gcs": "14/15", "status": "Hayati Tehlike"},
+    "questions": [
+      {"q": "Yutkunurken boğazı çok mu acıyor?", "a": "Hiçbir şey yutamıyor, tükürüğü ağzından akıyor."},
+      {"q": "Öksürüğü var mı?", "a": "Öksürük yok sadece nefes alamıyor."},
+      {"q": "Aşıları tam mı?", "a": "Bazı aşıları eksik kalmıştı."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Boyun Yan Grafisi", "duration": 30, "res": "Başparmak işareti (Thumb sign) epiglottik ödem."},
+      {"name": "Kan Gazı", "duration": 45, "res": "pH: 7.28, PaO2: 60 mmHg."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Ameliyathanede Güvenli Entübasyon + IV Seftriakson", "duration": 30, "feed": "Uzman anestezi ekibiyle kontrollü entübasyon yapıldı, havayolu güvenceye alındı.", "score": 45, "is_correct": true, "vitals_update": {"hr": "88", "bp": "100/65", "spo2": "99", "rr": "18", "temp": "38.0", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Poliklinikte Boğaz Basacağı ile Muayene", "duration": 30, "feed": "Ölümcül Hata! Dil basacağı laringospazm ve ani hava yolu arrestine yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "170", "bp": "50/20", "spo2": "50", "status": "Arrest"}, "stability_delta": -35},
+      {"name": "Nemli Oksijen Desteği", "duration": 30, "feed": "Hipoksi azaltıldı.", "score": 20, "is_correct": true, "vitals_update": {"spo2": "94", "status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Kulak Burun Boğaz", "response": "KBB: Akut epiglottit cerrahi acildir. Hastayı ajite etmeden ameliyathaneye alın."}
+    ],
+    "diag": "Akut Epiglottit", "pearl": "Dil basacağı ile muayene kontrendikedir! Ameliyathane koşullarında acil entübasyon gerekir."
+  },
+  {
+    "id": "ped_07", "specialty": "Pediatri", "title": "Aralıklı Ağlama ve Çilek Jölesi Kaka", "diff": "ORTA", "xp": 320, "initial_stability": 65,
+    "patient": {"name": "Defne Y.", "age": 0, "gender": "Kadın", "complaint": "Bacakları karnına çekerek ağlama krizleri, kanlı mukuslu dışkı (8 aylık)."},
+    "history": "Öncesinde viral nezle.",
+    "vitals": {"hr": "130", "bp": "95/60", "spo2": "99", "rr": "26", "temp": "37.4", "gcs": "14/15", "status": "Orta"},
+    "questions": [
+      {"q": "Ağlama nöbetleri nasıl geliyor?", "a": "15 dakikada bir çığlık atarak bacaklarını büküyor, sonra sakinleşiyor."},
+      {"q": "Kakası nasıl?", "a": "Alt bezinde vişne-çilek jölesi gibi kanlı sümüksü kaka gördük."},
+      {"q": "Kusması oldu mu?", "a": "Safra renginde yeşil kustu."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Batın Ultrasonografisi", "duration": 45, "res": "Sağ alt kadranda hedef tahtası (target sign) invajinasyon görünümü."},
+      {"name": "Düz Karın Grafisi", "duration": 30, "res": "Hafif hava-sıvı seviyeleri."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Ultrason Eşliğinde Hidrostatik Redüksiyon", "duration": 30, "feed": "Serum fizyolojik basıncıyla invajine barsak halkası başarıyla açıldı, cerrahi önlendi!", "score": 45, "is_correct": true, "vitals_update": {"hr": "100", "bp": "95/60", "spo2": "99", "rr": "20", "temp": "36.8", "gcs": "15/15", "status": "Şifayla Taburcu"}, "stability_delta": 35},
+      {"name": "Ağızdan Laksatif ve Bağırsak Hareketi Verilmesi", "duration": 30, "feed": "Hayati Hata! Tıkalı bağırsağa laksatif vermek barsak perforasyonuna ve peritonite yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "165", "bp": "70/40", "status": "Peritonit"}, "stability_delta": -35},
+      {"name": "IV Sıvı Desteği ve Nazogastrik Dekompresyon", "duration": 30, "feed": "Batın distansiyonu hafifletildi.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Çocuk Cerrahisi", "response": "Çocuk Cerrahı: İnvajinasyon hidrostatik redüksiyonla açıldı. Perforasyon bulgusu yok, izleme alıyoruz."}
+    ],
+    "diag": "İnvajinasyon (İntussusepsiyon)", "pearl": "Ultrasonda hedef tahtası bulgusu tipiktir; erken evrede hidrostatik redüksiyonla cerrahi önlenir."
+  },
+  {
+    "id": "ped_08", "specialty": "Pediatri", "title": "Fışkırır Tarzda Safrasız Kusma", "diff": "KOLAY", "xp": 220, "initial_stability": 70,
+    "patient": {"name": "Kerem T.", "age": 0, "gender": "Erkek", "complaint": "Her beslenme sonrası fışkırarak kusma, sürekli açlık (4 haftalık)."},
+    "history": "İlk erkek çocuk.",
+    "vitals": {"hr": "138", "bp": "85/50", "spo2": "98", "rr": "24", "temp": "36.8", "gcs": "15/15", "status": "Semptomatik"},
+    "questions": [
+      {"q": "Kusmuk ne renk?", "a": "Tamamen anne sütü gibi beyaz, sarı veya yeşil safra yok."},
+      {"q": "Kustuktan sonra ne yapıyor?", "a": "Hemen tekrar emmek istiyor, sürekli aç."},
+      {"q": "Kilo alımı nasıl?", "a": "Doğum kilosunun altına düştü."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Batın Ultrasonografisi", "duration": 45, "res": "Pilor kas kalınlığı >4 mm, kanal uzunluğu >14 mm (Pilor Stenozu)."},
+      {"name": "Serum Elektrolitleri", "duration": 45, "res": "Hipokloremik, hipokalemik metabolik alkaloz tablosu."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Elektrolit Düzeltilmesi + Ramstedt Piloromiyotomi", "duration": 30, "feed": "Sıvı-elektrolit dengelendi, cerrahi gevşetmeyle kusmalar tamamen bitti!", "score": 45, "is_correct": true, "vitals_update": {"hr": "110", "bp": "90/55", "spo2": "99", "rr": "22", "temp": "36.7", "gcs": "15/15", "status": "Şifayla Taburcu"}, "stability_delta": 35},
+      {"name": "Kusmayı Kesmek İçin Metoklopramid Vermek", "duration": 30, "feed": "Hatalı Yaklaşım: Anatomik hipertrofik stenozda motilite ilacı etkisizdir.", "score": -45, "is_correct": false, "vitals_update": {"hr": "135", "status": "Değişmedi"}, "stability_delta": -35},
+      {"name": "IV Sıvı ve Dekstroz Replasmanı", "duration": 30, "feed": "Alkaloz tablosu düzeltildi.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Çocuk Cerrahisi", "response": "Uzman: İnfantil hipertrofik pilor stenozu. Piloromiyotomi planlandı, beslenme 6 saat sonra başlanacak."}
+    ],
+    "diag": "İnfantil Hipertrofik Pilor Stenozu", "pearl": "Hipokloremik hipokalemik metabolik alkaloz görülür; ameliyat öncesi sıvı-elektrolit mutlaka düzeltilmelidir."
+  },
+  {
+    "id": "ped_09", "specialty": "Pediatri", "title": "Yüzde Ödem ve Çay Rengi İdrar", "diff": "ORTA", "xp": 300, "initial_stability": 75,
+    "patient": {"name": "Efe C.", "age": 7, "gender": "Erkek", "complaint": "Sabahları göz çevresinde şişlik, kola/çay rengi idrar, tansiyon 135."},
+    "history": "3 hafta önce boğaz enfeksiyonu.",
+    "vitals": {"hr": "85", "bp": "135/90", "spo2": "98", "rr": "18", "temp": "37.0", "gcs": "15/15", "status": "Stabil"},
+    "questions": [
+      {"q": "Boğaz enfeksiyonu geçirdi mi?", "a": "3 hafta önce ateşi ve boğazında beyaz iltihap vardı."},
+      {"q": "İdrarı ne zaman koyulaştı?", "a": "Dünden beri kola renginde çay gibi işiyor."},
+      {"q": "Baş ağrısı var mı?", "a": "Tansiyondan dolayı hafif başı ağrıyor."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Tam İdrar Tahlili", "duration": 30, "res": "Dismorfik eritrositler, eritrosit silendirleri, proteinüri."},
+      {"name": "ASO ve Kompleman Düzeyi", "duration": 45, "res": "ASO: 650 IU/mL (Yüksek), C3: 32 mg/dL (Belirgin düşük)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Tuz Kısıtlaması + Oral Furosemid 1 mg/kg", "duration": 30, "feed": "Hipertansiyon regüle edildi, volüm fazlalığı idrarla atıldı.", "score": 45, "is_correct": true, "vitals_update": {"hr": "74", "bp": "110/70", "spo2": "99", "rr": "16", "temp": "36.6", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Gereksiz Agresif Antibiyotik Yüklemesi", "duration": 30, "feed": "Hatalı Tedavi: APSGN immün kompleks hastalığıdır, geç dönemde antibiyotik glomerülonefriti düzeltmez.", "score": -45, "is_correct": false, "vitals_update": {"bp": "140/95", "status": "Değişmedi"}, "stability_delta": -35},
+      {"name": "Kan Basıncı Yakın Takibi", "duration": 30, "feed": "Hipertansif ensefalopati önlendi.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Çocuk Nefrolojisi", "response": "Konsültan: Poststreptokoksik glomerülonefrit. Diüretik ve tansiyon kontrolüyle taburcu edilebilir."}
+    ],
+    "diag": "Poststreptokoksik Glomerulonefrit (APSGN)", "pearl": "Hematüri, ödem ve hipertansiyon triadı vardır; ASO yüksek, C3 düşüktür."
+  },
+  {
+    "id": "ped_10", "specialty": "Pediatri", "title": "5 Gündür Düşmeyen Ateş ve Çilek Dili", "diff": "ZOR", "xp": 400, "initial_stability": 60,
+    "patient": {"name": "Yağmur S.", "age": 3, "gender": "Kadın", "complaint": "5 gündür 39 derece dirençli ateş, dudakta çatlaklar, çilek dili, konjonktivit."},
+    "history": "Antibiyotiğe yanıtsız ateş.",
+    "vitals": {"hr": "140", "bp": "95/60", "spo2": "97", "rr": "24", "temp": "39.6", "gcs": "15/15", "status": "Kritik"},
+    "questions": [
+      {"q": "Gözlerinde çapak var mı?", "a": "Gözleri kan çanağı gibi kızarık ama hiç çapak akmıyor."},
+      {"q": "Dudakları kanıyor mu?", "a": "Dudakları kuruyup yarıldı, dili çilek gibi kabardı."},
+      {"q": "Aşı yerinde kızarıklık oldu mu?", "a": "BCG aşı izi alev gibi kızardı."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Ekokardiyografi", "duration": 45, "res": "Koroner arter çapları normal sınırda, anevrizma henüz yok."},
+      {"name": "Tam Kan ve CRP / Sedimantasyon", "duration": 45, "res": "CRP: 140 mg/L, Sedim: 95 mm/saat, Trombositoz."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "IVIG 2 g/kg Tek Doz + Yüksek Doz Oral Aspirin", "duration": 30, "feed": "Sistemik vaskülit baskılandı, koroner arter anevrizması gelişimi başarıyla önlendi!", "score": 45, "is_correct": true, "vitals_update": {"hr": "95", "bp": "95/60", "spo2": "99", "rr": "20", "temp": "36.8", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Yalnızca Antipiretik Şurup Verip Beklemek", "duration": 30, "feed": "Kritik Gecikme! IVIG geciktikçe koroner arter anevrizması ve miyokard enfarktüsü riski %25'e fırlar!", "score": -45, "is_correct": false, "vitals_update": {"hr": "155", "temp": "40.0", "status": "Anevrizma Riski"}, "stability_delta": -35},
+      {"name": "Hidrasyon ve Koroner Ultrason Takibi", "duration": 30, "feed": "Miyokard perfüzyonu korundu.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Çocuk Kardiyolojisi", "response": "Uzman: Kawasaki hastalığı. İlk 10 günde IVIG verilerek anevrizma önlendi, 6 hafta düşük doz aspirinle devam edin."}
+    ],
+    "diag": "Kawasaki Hastalığı", "pearl": "5 günü aşan ateş ve mukokutanöz bulgularda derhal IVIG ve Aspirin başlanmalıdır."
+  },
+
+  // 3. KARDİYOLOJİ (10 VAKA)
+  {
+    "id": "cardio_01", "specialty": "Kardiyoloji", "title": "Ezici Göğüs Ağrısı ve Hipotansiyon", "diff": "ZOR", "xp": 350, "initial_stability": 45,
+    "patient": {"name": "Mehmet Y.", "age": 58, "gender": "Erkek", "complaint": "1 saattir süren sol kola ve çeneye vuran göğüs ağrısı."},
+    "history": "Hipertansiyon, 30 paket/yıl sigara.",
+    "vitals": {"hr": "112", "bp": "85/55", "spo2": "91", "rr": "24", "temp": "36.6", "gcs": "15/15", "status": "Kritik"},
+    "questions": [
+      {"q": "Ağrı tam nasıl bir his?", "a": "Göğsüme tonlarca ağırlık çökmüş gibi, nefes alamıyorum."},
+      {"q": "Terleme eşlik etti mi?", "a": "Soğuk soğuk terliyorum, midem bulanıyor."},
+      {"q": "Aspirin aldınız mı?", "a": "Hayır hiçbir ilaç almadım."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "12 Derivasyonlu EKG", "duration": 45, "res": "V1-V4 derivasyonlarında ST elevasyonu (Akut Anterior STEMI)."},
+      {"name": "Kardiyak Troponin I", "duration": 60, "res": "1.850 ng/L (Kritik Pozitif)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Aspirin 300 mg + Tikagrelor 180 mg + Acil Primer PCI", "duration": 30, "feed": "Tıkalı LAD damarı stentlenerek açıldı, miyokard perfüzyonu kurtarıldı!", "score": 45, "is_correct": true, "vitals_update": {"hr": "76", "bp": "120/75", "spo2": "99", "rr": "16", "temp": "36.6", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "2000 ml Hızlı SF Sıvı Yüklemesi", "duration": 30, "feed": "Hayati Hata! Sol ventrikül yetmezliğinde aşırı sıvı akut akciğer ödemini tetikledi!", "score": -45, "is_correct": false, "vitals_update": {"hr": "135", "bp": "70/40", "spo2": "80", "rr": "34", "status": "Akciğer Ödemi"}, "stability_delta": -35},
+      {"name": "Oksijen Desteği (4 L/dk)", "duration": 30, "feed": "Doku hipoksisi geriletildi.", "score": 20, "is_correct": true, "vitals_update": {"spo2": "97", "status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Girişimsel Kardiyoloji", "response": "Kardiyolog: STEMI doğrulanmış. Anjiyo masası hazır, hastayı hemen kateter salonuna indirin."}
+    ],
+    "diag": "Akut Anterior STEMI", "pearl": "STEMI olgularında kapı-balon süresi <90 dk olmalı, çift antiplatelet yüklenip acil PCI yapılmalıdır."
+  },
+  {
+    "id": "cardio_02", "specialty": "Kardiyoloji", "title": "Sırta Vuran Yırtıcı Göğüs Ağrısı", "diff": "ZOR", "xp": 450, "initial_stability": 40,
+    "patient": {"name": "Hikmet R.", "age": 63, "gender": "Erkek", "complaint": "İki kürek kemiği arasına vuran çok şiddetli yırtılır tarzda ağrı."},
+    "history": "Kontrolsüz hipertansiyon.",
+    "vitals": {"hr": "98", "bp": "190/115", "spo2": "96", "rr": "22", "temp": "36.7", "gcs": "15/15", "status": "Hayati Tehlike"},
+    "questions": [
+      {"q": "Ağrı aniden mi başladı?", "a": "Sırtıma bıçak saplanıp yırtılıyor gibi aniden patladı."},
+      {"q": "Kolunuzda uyuşma var mı?", "a": "Sağ kolum soğuk ve güçsüz."},
+      {"q": "Tansiyon ilacı kullanır mısınız?", "a": "İhmal ediyordum, tansiyonum 18-19 gezerdi."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Toraks BT Anjiyografi (Aort)", "duration": 75, "res": "Çıkan aortta intimal flep ve yalancı lümen (Tip A Diseksiyon)."},
+      {"name": "12 Derivasyonlu EKG", "duration": 45, "res": "Sol ventrikül hipertrofisi bulguları, ST elevasyonu yok."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "IV Esmolol İnfüzyonu + Acil KDC Hazırlığı", "duration": 30, "feed": "Aort duvarına binen kesme kuvveti düşürüldü, hasta acil cerrahi greftlemeye alındı.", "score": 45, "is_correct": true, "vitals_update": {"hr": "58", "bp": "115/70", "spo2": "99", "rr": "14", "temp": "36.7", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Acil Trombolitik (rtPA) ve Heparin", "duration": 30, "feed": "Fatal Hata! Aort diseksiyonunda trombolitik masif perikardiyal tamponada yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "150", "bp": "40/10", "spo2": "82", "gcs": "6/15", "status": "Kardiyak Arrest"}, "stability_delta": -35},
+      {"name": "IV Morfin ile Ağrı Kontrolü", "duration": 30, "feed": "Sempatik deşarj baskılandı, kan basıncı düşüşü kolaylaştı.", "score": 20, "is_correct": true, "vitals_update": {"bp": "165/100", "status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Kalp Damar Cerrahisi", "response": "KDC Uzmanı: Tip A Diseksiyon cerrahi acildir. Tansiyonu beta blokerle kontrol edip ameliyathaneye alın."}
+    ],
+    "diag": "Akut Tip A Aort Diseksiyonu", "pearl": "Trombolitik KESİNLİKLE kontrendikedir! Tansiyon esmolol ile düşürülüp acil cerrahiye alınır."
+  },
+  {
+    "id": "cardio_03", "specialty": "Kardiyoloji", "title": "Ani Başlayan Çarpıntı ve Presenkop", "diff": "ORTA", "xp": 300, "initial_stability": 60,
+    "patient": {"name": "Deniz K.", "age": 34, "gender": "Kadın", "complaint": "Göğüste kuş kanat çırpar gibi çarpıntı, baş dönmesi."},
+    "history": "Daha önce kısa süreli çarpıntı atakları.",
+    "vitals": {"hr": "185", "bp": "100/65", "spo2": "98", "rr": "20", "temp": "36.6", "gcs": "15/15", "status": "Semptomatik"},
+    "questions": [
+      {"q": "Çarpıntı nasıl başladı?", "a": "Otururken aniden fırladı, sanki boğazımda atıyor."},
+      {"q": "Göğsünüzde sıkışma var mı?", "a": "Sadece çok hızlı attığı için başım dönüyor."},
+      {"q": "Daha önce EKG çekildi mi?", "a": "Acilde ritim normale dönmüştü dediler."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "12 Derivasyonlu EKG", "duration": 30, "res": "Dar QRS taşikardi, P dalgası seçilemiyor, KAH: 185 bpm (SVT)."},
+      {"name": "Kardiyak Troponin I", "duration": 60, "res": "Troponin negatif (Normal)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Vagal Manevra + IV Adenozin 6 mg Hızlı Bolus", "duration": 30, "feed": "AV nod geçici bloke edildi, sinüs ritmine dönüldü, hız 75'e indi!", "score": 45, "is_correct": true, "vitals_update": {"hr": "74", "bp": "120/75", "spo2": "99", "rr": "14", "temp": "36.6", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Yüksek Doz Atropin Uygulanması", "duration": 30, "feed": "Hatalı İlaç! Taşikardik hastaya atropin verilmesi KAH'ı daha da tehlikeli boyuta çıkardı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "215", "bp": "80/45", "status": "Kritik Çarpıntı"}, "stability_delta": -35},
+      {"name": "Soğuk Suyla Yüz Yıkama (Diving Refleksi)", "duration": 30, "feed": "Vagal tonus uyarıldı.", "score": 20, "is_correct": true, "vitals_update": {"hr": "170", "status": "Semptomatik"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Kardiyoloji Polikliniği", "response": "Konsültan: AVNRT ile uyumlu. Adenozin ile döndürüldü, elektif EPS ablasyon planlayın."}
+    ],
+    "diag": "Paroksismal Supraventriküler Taşikardi (SVT)", "pearl": "Stabil SVT'de ilk basamak modifiye Valsalva manevrası, ardından hızlı IV Adenozin bolusudur."
+  },
+  {
+    "id": "cardio_04", "specialty": "Kardiyoloji", "title": "Sırtüstü Yatamama (Ortopne) ve Pembe Balgam", "diff": "ZOR", "xp": 400, "initial_stability": 45,
+    "patient": {"name": "Cevdet U.", "age": 72, "gender": "Erkek", "complaint": "Sırtüstü yatamama, boğulur gibi nefes darlığı, pembe köpüklü balgam."},
+    "history": "Koroner arter hastalığı, kalp yetmezliği.",
+    "vitals": {"hr": "122", "bp": "180/105", "spo2": "82", "rr": "32", "temp": "36.9", "gcs": "14/15", "status": "Kritik"},
+    "questions": [
+      {"q": "Kaç yastıkla yatıyorsunuz?", "a": "3 yastıkla bile nefesim kesiliyor, koltukta oturuyorum."},
+      {"q": "Bacaklarınızda şişlik var mı?", "a": "İki bacağım da dize kadar şiş ve sert."},
+      {"q": "İlaçlarınızı aldınız mı?", "a": "İdrar söktürücümü 3 gündür içmemiştim."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Akciğer Oskültasyonu ve Grafisi", "duration": 30, "res": "Bilateral orta-üst zonlara yayılan yaş raller, kelebek kanadı konjesyon."},
+      {"name": "Kardiyak BNP / NT-proBNP", "duration": 45, "res": "NT-proBNP: 8.450 pg/mL (Ağır kalp yetmezliği alevlenmesi)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "CPAP Solunum Desteği + IV Furosemid 80 mg + IV Nitrogliserin", "duration": 30, "feed": "Önyük ve artyük düşürüldü, alveoler sıvı çekildi, satürasyon hızla yükseldi.", "score": 45, "is_correct": true, "vitals_update": {"hr": "80", "bp": "125/80", "spo2": "98", "rr": "18", "temp": "36.8", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "1000 ml IV Serum Fizyolojik Hidrasyonu", "duration": 30, "feed": "Ölümcül Hata! Akut pulmoner ödemdeki hastaya sıvı bolusu tam solunum arrestine yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "145", "bp": "210/120", "spo2": "65", "rr": "40", "status": "Solunum Arresti"}, "stability_delta": -35},
+      {"name": "Oturur Pozisyona Getirme ve Bacak Sarkıtma", "duration": 30, "feed": "Venöz dönüş azaltılarak kalbin iş yükü hafifletildi.", "score": 20, "is_correct": true, "vitals_update": {"spo2": "88", "rr": "26", "status": "Toparlıyor"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Kardiyoloji Yoğun Bakım", "response": "Uzman: Akut dekompanse kalp yetmezliği. Vazodilatatör ve diüretik tedavisine devam edin."}
+    ],
+    "diag": "Akut Akciğer Ödemi (Kalp Yetersizliği)", "pearl": "Akut akciğer ödeminde CPAP/NIV, IV Furosemid ve vazodilatatör (nitrogliserin) temel taştır."
+  },
+  {
+    "id": "cardio_05", "specialty": "Kardiyoloji", "title": "Öne Eğilince Azalan Göğüs Ağrısı ve Ateş", "diff": "ORTA", "xp": 280, "initial_stability": 75,
+    "patient": {"name": "Murat T.", "age": 26, "gender": "Erkek", "complaint": "Derin nefesle ve yatmakla artan, öne eğilince hafifleyen göğüs ağrısı."},
+    "history": "1 hafta önce grip geçirme.",
+    "vitals": {"hr": "92", "bp": "120/75", "spo2": "98", "rr": "16", "temp": "37.8", "gcs": "15/15", "status": "Stabil"},
+    "questions": [
+      {"q": "Ağrı ne zaman azalıyor?", "a": "Yatakta öne doğru iki büklüm oturunca rahatlıyorum."},
+      {"q": "Derin nefes alınca batıyor mu?", "a": "Evet bıçak gibi batıyor."},
+      {"q": "Ateşiniz oldu mu?", "a": "2 gündür 38 derece hafif ateşim var."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "12 Derivasyonlu EKG", "duration": 30, "res": "Tüm derivasyonlarda yaygın konkav ST elevasyonu ve PR depresyonu (Perikardit)."},
+      {"name": "Ekokardiyografi", "duration": 45, "res": "Hafif perikardiyal efüzyon, tamponad bulgusu yok."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "İbuprofen 600 mg + Kolşisin 0.5 mg", "duration": 30, "feed": "Perikardiyal inflamasyon geriletildi, göğüs ağrısı tamamen geçti.", "score": 45, "is_correct": true, "vitals_update": {"hr": "72", "bp": "118/72", "spo2": "99", "rr": "14", "temp": "36.6", "gcs": "15/15", "status": "Şifayla Taburcu"}, "stability_delta": 35},
+      {"name": "Trombolitik Tedavi Başlanması", "duration": 30, "feed": "Hayati Hata! Perikardit ST elevasyonunu STEMI sanıp trombolitik vermek hemoperikardiyuma yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "130", "bp": "75/40", "status": "Kardiyak Tamponad"}, "stability_delta": -35},
+      {"name": "Yatak İstirahati ve Kardiyoloji Takibi", "duration": 30, "feed": "Miyoperikardit riski izlendi.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Kardiyoloji Kliniği", "response": "Kardiyolog: Akut perikardit. Kolşisin ve NSAİİ ile semptomlar düzeldi, elektif poliklinik kontrolü önerilir."}
+    ],
+    "diag": "Akut Perikardit", "pearl": "Tüm derivasyonlarda yaygın konkav ST elevasyonu ve PR depresyonu tipiktir; NSAİİ+Kolşisin verilir."
+  },
+  {
+    "id": "cardio_06", "specialty": "Kardiyoloji", "title": "Geniş QRS Taşikardi ve Nabızsızlık Riski", "diff": "ZOR", "xp": 450, "initial_stability": 30,
+    "patient": {"name": "Şükrü B.", "age": 65, "gender": "Erkek", "complaint": "Göğüs ağrısı sonrası aniden gelişen aşırı taşikardi ve fenalık hissi."},
+    "history": "Geçirilmiş anterior MI.",
+    "vitals": {"hr": "210", "bp": "70/40", "spo2": "88", "rr": "26", "temp": "36.5", "gcs": "12/15", "status": "Hayati Tehlike"},
+    "questions": [
+      {"q": "Gözünüz kararıyor mu?", "a": "Her yer dönüyor, bayılıyorum."},
+      {"q": "Göğsünüz sıkışıyor mu?", "a": "Kalbim göğsümden fırlayacak gibi."},
+      {"q": "Bypass veya stent öykünüz var mı?", "a": "5 yıl önce kriz geçirip stent taktırmıştım."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "12 Derivasyonlu EKG", "duration": 30, "res": "Geniş QRS düzenli taşikardi, AV disosiasyon (Ventriküler Taşikardi)."},
+      {"name": "Serum Potasyum ve Magnezyum", "duration": 45, "res": "K: 3.2 mEq/L, Mg: 1.4 mg/dL (Hipokalemi ve hipomagnezemi)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Senkronize DC Kardiyoversiyon (100J) + Amiodaron", "duration": 30, "feed": "Kardiyoversiyonla normal sinüs ritmine dönüldü, tansiyon hızla 120'ye çıktı!", "score": 45, "is_correct": true, "vitals_update": {"hr": "76", "bp": "120/75", "spo2": "98", "rr": "15", "temp": "36.6", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Verapamil (Kalsiyum Kanal Blokeri) IV Verilmesi", "duration": 30, "feed": "Ölümcül Hata! Geniş QRS taşikardide verapamil verilmesi ventriküler fibrilasyon ve arreste yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "0", "bp": "0/0", "status": "Ventriküler Fibrilasyon"}, "stability_delta": -35},
+      {"name": "IV Magnezyum ve Potasyum İnfüzyonu", "duration": 30, "feed": "Miyokardiyal eksitabilite stabilize edildi.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Aritmi Uzmanı", "response": "Kardiyolog: Monomorfik VT tablosu. Ritim kardiyoversiyonla döndü, ICD implantasyonu planlayın."}
+    ],
+    "diag": "Ventriküler Taşikardi (VT)", "pearl": "Anstabil VT olgularında gecikmeden senkronize kardiyoversiyon uygulanmalıdır; verapamil kontrendikedir."
+  },
+  {
+    "id": "cardio_07", "specialty": "Kardiyoloji", "title": "Eforla Bayılma ve Ejeksiyon Üfürümü", "diff": "ORTA", "xp": 320, "initial_stability": 70,
+    "patient": {"name": "Nazif E.", "age": 76, "gender": "Erkek", "complaint": "Merdiven çıkarken ani bayılma, efor dispnesi ve göğüs ağrısı."},
+    "history": "Aort kalsifikasyonu.",
+    "vitals": {"hr": "64", "bp": "105/80", "spo2": "96", "rr": "16", "temp": "36.6", "gcs": "15/15", "status": "Stabil"},
+    "questions": [
+      {"q": "Bayılmadan önce ne yapıyordunuz?", "a": "Yokuş yukarı yürüyordum, gözlerim karardı yere düştüm."},
+      {"q": "Göğsünüz sıkışıyor mu?", "a": "Yürürken baskı oluyor, durunca geçiyor."},
+      {"q": "Nefesiniz daralıyor mu?", "a": "Eskiye göre çok çabuk yoruluyorum."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Kardiyak Oskültasyon", "duration": 30, "res": "Sağ 2. İK aralıkta boyna yayılan kreşendo-dekreşendo sistolik ejeksiyon üfürümü."},
+      {"name": "Transtorasik Ekokardiyografi", "duration": 60, "res": "Aort kapak alanı: 0.7 cm2, pik gradiyent: 65 mmHg (Ciddi AS)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Ağır Efor Kısıtlaması + TAVI / Cerrahi Kapak Replasmanı", "duration": 30, "feed": "Kapak darlığı giderildi, serebral perfüzyon düzeldi, senkop atakları bitti.", "score": 45, "is_correct": true, "vitals_update": {"hr": "70", "bp": "125/80", "spo2": "99", "rr": "14", "temp": "36.6", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Yüksek Doz Vazodilatatör (Nitrogliserin) Vermek", "duration": 30, "feed": "Hayati Hata! Ciddi aort darlığında nitrat verilmesi ani serebral perfüzyon çöküşü ve senkopa yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "115", "bp": "60/30", "status": "Kollaps"}, "stability_delta": -35},
+      {"name": "Kardiyoloji Servis Takibi", "duration": 30, "feed": "Ani ölüm riski izlendi.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Kalp Damar Cerrahisi", "response": "KDC: Semptomatik ciddi aort darlığı (SAD triadı). TAVI veya cerrahi kapak replasmanı kararı alındı."}
+    ],
+    "diag": "Ciddi Aort Stenozu (AS)", "pearl": "Ciddi aort darlığında nitratlar ve vazodilatatörler kontrendikedir; kesin çözüm kapak replasmanıdır."
+  },
+  {
+    "id": "cardio_08", "specialty": "Kardiyoloji", "title": "Aşırı Halsizlik ve Derin Bradikardi", "diff": "ZOR", "xp": 350, "initial_stability": 45,
+    "patient": {"name": "Mualla H.", "age": 80, "gender": "Kadın", "complaint": "Baş dönmesi, fenalık, dakikada 30 atan aşırı yavaş nabız."},
+    "history": "Kronik iskemik kalp hastalığı.",
+    "vitals": {"hr": "32", "bp": "80/45", "spo2": "94", "rr": "14", "temp": "36.2", "gcs": "14/15", "status": "Kritik"},
+    "questions": [
+      {"q": "Gözünüz kararıyor mu?", "a": "Ayağa kalkınca dünya dönüyor, bayılacak gibi oluyorum."},
+      {"q": "Kalp ilacı alıyor musunuz?", "a": "Tansiyon ve ritim ilacı alıyordum."},
+      {"q": "Göğüs ağrınız var mı?", "a": "Sadece aşırı halsizlik ve yorgunluk var."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "12 Derivasyonlu EKG", "duration": 30, "res": "P dalgaları ile QRS kompleksleri tamamen bağımsız, KAH: 32 bpm (3. Derece AV Blok)."},
+      {"name": "Serum Elektrolitleri", "duration": 45, "res": "Potasyum: 4.8 mEq/L (Normal)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Transkutan / Geçici Pacemaker (Kalp Pili) Takılması", "duration": 30, "feed": "Kalp hızı pille 75 bpm'e ayarlandı, tansiyon hızla 125'e yükseldi, hasta canlandı!", "score": 45, "is_correct": true, "vitals_update": {"hr": "75", "bp": "125/80", "spo2": "99", "rr": "15", "temp": "36.6", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Beta Bloker (Metoprolol) Verilmesi", "duration": 30, "feed": "Ölümcül Hata! Tam bloklu hastaya beta bloker verilmesi asistoliye ve ölüme yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "0", "bp": "0/0", "status": "Asistoli"}, "stability_delta": -35},
+      {"name": "IV Atropin 1 mg Uygulanması", "duration": 30, "feed": "Geçici hızlanma denendi.", "score": 20, "is_correct": true, "vitals_update": {"hr": "38", "bp": "88/50", "status": "Kısmi Yanıt"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Kardiyoloji Aritmi", "response": "Kardiyolog: Tam kalp bloğu. Geçici pacemaker takıldı, kalıcı pacemaker için ameliyathane planlayın."}
+    ],
+    "diag": "Tam Kalp Bloğu (3. Derece AV Blok)", "pearl": "Tam blok olgularında AV nodu bloke eden ilaçlar kesinlikle verilmez; kesin tedavi pacemaker takılmasıdır."
+  },
+  {
+    "id": "cardio_09", "specialty": "Kardiyoloji", "title": "Düzensiz Hızlı Nabız ve Çarpıntı", "diff": "KOLAY", "xp": 220, "initial_stability": 75,
+    "patient": {"name": "Feridun K.", "age": 59, "gender": "Erkek", "complaint": "Düzensiz ve hızlı atan kalp, göğüste kanat çırpma hissi, yorgunluk."},
+    "history": "Hipertansiyon, uyku apnesi.",
+    "vitals": {"hr": "132", "bp": "135/85", "spo2": "97", "rr": "18", "temp": "36.7", "gcs": "15/15", "status": "Semptomatik"},
+    "questions": [
+      {"q": "Kalp atışlarınız ritmik mi?", "a": "Hayır bazen hızlı bazen yavaş, tamamen kafasına göre düzensiz atıyor."},
+      {"q": "Nefes darlığınız var mı?", "a": "Merdiven çıkarken hemen tıkanıyorum."},
+      {"q": "Daha önce oldu mu?", "a": "Arada olur geçerdi ama 2 gündür hiç durmadı."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "12 Derivasyonlu EKG", "duration": 30, "res": "P dalgası yok, tabanda f dalgaları, düzensiz RR aralıkları (Hızlı Ventrikül Yanıtlı AF)."},
+      {"name": "Tiroid Fonksiyon Testleri", "duration": 60, "res": "TSH ve T4 normal sınırlarda."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Hız Kontrolü (IV Diltiazem 0.25 mg/kg) + Antikoagülasyon", "duration": 30, "feed": "Ventrikül hızı 78'e frenlendi, kardiyak doluş ve debi rahatladı, inme riski önlendi.", "score": 45, "is_correct": true, "vitals_update": {"hr": "78", "bp": "120/75", "spo2": "99", "rr": "14", "temp": "36.6", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Antikoagülasyonsuz Acil Elektriksel Kardiyoversiyon", "duration": 30, "feed": "Kritik Hata! 48 saati aşan AF'de transözofageal eko yapılmadan kardiyoversiyon embolik inmeye yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "80", "gcs": "10/15", "status": "Embolik İnme"}, "stability_delta": -35},
+      {"name": "Oral Beta Bloker ve Dinlenme", "duration": 30, "feed": "Hız kontrolü desteklendi.", "score": 20, "is_correct": true, "vitals_update": {"hr": "95", "status": "Toparlıyor"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Kardiyoloji Polikliniği", "response": "Kardiyolog: Hızlı yanıtlı AF. Diltiazemle hız kontrolü sağlandı, CHA2DS2-VASc skoruna göre antikoagülan planlayın."}
+    ],
+    "diag": "Atriyal Fibrilasyon (AF)", "pearl": "48 saati aşan AF'de atriyal trombüs ekarte edilmeden kardiyoversiyon yapılmaz; hız kontrolü ve antikoagülasyon esastır."
+  },
+  {
+    "id": "cardio_10", "specialty": "Kardiyoloji", "title": "Eforla Gelen Göğüs Ağrısı (Troponin Negatif)", "diff": "ORTA", "xp": 260, "initial_stability": 80,
+    "patient": {"name": "Tahsin L.", "age": 54, "gender": "Erkek", "complaint": "Yokuş çıkarken gelen, 10 dakika dinlenince geçen baskı tarzı göğüs ağrısı."},
+    "history": "Tip 2 Diyabet, Hiperlipidemi.",
+    "vitals": {"hr": "84", "bp": "130/80", "spo2": "98", "rr": "16", "temp": "36.6", "gcs": "15/15", "status": "Stabil"},
+    "questions": [
+      {"q": "Ağrı ne zaman geçiyor?", "a": "Yorulunca başlıyor, bir yere oturup 5-10 dakika dinlenince tamamen geçiyor."},
+      {"q": "Ağrı nereye yayılıyor?", "a": "Sol omzuma ve göğüs kafesimin ortasına."},
+      {"q": "İstirahat halindeyken ağrınız oldu mu?", "a": "Hayır durup dururken hiç olmadı."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Seri Kardiyak Troponin Takibi", "duration": 60, "res": "0. ve 3. saat troponinler negatif (Akut nekroz yok)."},
+      {"name": "İstirahat EKG'si", "duration": 30, "res": "Normal sinüs ritmi, akut iskemi bulgusu yok."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Aspirin 100 mg + Statin + Sublingual Nitrat + Elektif Anjiyo", "duration": 30, "feed": "Antiiskemik tedavi başlandı, elektif koroner anjiyografi planlanarak taburcu edildi.", "score": 45, "is_correct": true, "vitals_update": {"hr": "70", "bp": "120/75", "spo2": "99", "rr": "14", "temp": "36.6", "gcs": "15/15", "status": "Şifayla Taburcu"}, "stability_delta": 35},
+      {"name": "Acil Trombolitik Tedavi (rtPA)", "duration": 30, "feed": "Hatalı Tedavi! Kararlı anjinada troponin negatifken trombolitik verilmesi gereksiz kanama riski doğurur.", "score": -45, "is_correct": false, "vitals_update": {"hr": "90", "bp": "110/70", "status": "Riskli"}, "stability_delta": -35},
+      {"name": "Sublingual Nitrogliserin ile Ağrının Geçirilmesi", "duration": 30, "feed": "Koroner vazodilatasyonla göğüs baskısı hızla çözüldü.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Kardiyoloji Polikliniği", "response": "Kardiyolog: Kararlı Angina Pektoris. Medikal tedavi düzenlendi, elektif koroner BT anjiyo randevusu verildi."}
+    ],
+    "diag": "Stabil Angina Pektoris", "pearl": "Eforla gelip dinlenmekle geçen ağrılarda troponin negatiftir; medikal tedavi ve elektif anjiyografi planlanır."
+  },
+
+  // 4. ACİL TIP (10 VAKA)
+  {
+    "id": "em_01", "specialty": "Acil Tıp", "title": "Sol Bacakta Ani Şiddetli Ağrı ve Şişlik", "diff": "ORTA", "xp": 250, "initial_stability": 70,
+    "patient": {"name": "Burak Y.", "age": 24, "gender": "Erkek", "complaint": "Sol baldırda aniden başlayan şiddetli gerginlik, ağrı ve basamama."},
+    "history": "3 gün önce 14 saatlik otobüs yolculuğu.",
+    "vitals": {"hr": "94", "bp": "125/80", "spo2": "98", "rr": "16", "temp": "36.8", "gcs": "15/15", "status": "Semptomatik"},
+    "questions": [
+      {"q": "Ağrı tam nerede?", "a": "Sol baldırımda taş gibi gerginlik var, yürüyemiyorum."},
+      {"q": "Nefes darlığı var mı?", "a": "Hayır göğsüm rahat, sadece bacağım zonkluyor."},
+      {"q": "Daha önce pıhtı oldu mu?", "a": "Hayır ilk kez oluyor."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Alt Ekstremite Venöz Doppler", "duration": 60, "res": "Sol femoral ve popliteal vende tam oklüziv DVT."},
+      {"name": "D-Dimer Testi", "duration": 45, "res": "3.420 ng/mL (Kritik Pozitif)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Enoksaparin (LMWH) 1 mg/kg SC", "duration": 30, "feed": "Antikoagülan tedavi başlandı, emboli riski baskılandı, ödem geriledi.", "score": 45, "is_correct": true, "vitals_update": {"hr": "74", "bp": "120/75", "spo2": "99", "rr": "14", "temp": "36.6", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Sol Bacağa Sıcak Uygulama ve Masaj", "duration": 30, "feed": "Kritik Hata! Masaj trombüsün kopmasına ve masif pulmoner emboliye yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "138", "bp": "80/45", "spo2": "80", "rr": "32", "status": "Pulmoner Emboli"}, "stability_delta": -35},
+      {"name": "Bacak Elevasyonu ve İstirahat", "duration": 30, "feed": "Venöz dönüş rahatlatıldı.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Kalp Damar Cerrahisi", "response": "KDC: Doppler DVT ile uyumlu. Cerrahi gerekmez, LMWH tedavisine devam edin."}
+    ],
+    "diag": "Derin Ven Trombozu (DVT)", "pearl": "Renkli Doppler USG ile tanı konur; masaj kontrendikedir, LMWH başlanır."
+  },
+  {
+    "id": "em_02", "specialty": "Acil Tıp", "title": "Trafik Kazası Sonrası Solunum Durması", "diff": "ZOR", "xp": 450, "initial_stability": 30,
+    "patient": {"name": "Serkan B.", "age": 28, "gender": "Erkek", "complaint": "Kaza sonrası sağ göğüs ağrısı, nefes alamama, boyun venleri dolgun."},
+    "history": "Motosiklet kazası.",
+    "vitals": {"hr": "138", "bp": "65/40", "spo2": "76", "rr": "36", "temp": "36.2", "gcs": "10/15", "status": "Hayati Tehlike"},
+    "questions": [
+      {"q": "Göğsünüzü bir yere çarptınız mı?", "a": "Gidona çok sert çarptım, nefesim tıkandı."},
+      {"q": "Hangi taraf daha çok ağrıyor?", "a": "Sağ tarafım parçalanıyor gibi."},
+      {"q": "Baş dönmesi var mı?", "a": "Gözlerim kararıyor, bayılacak gibiyim."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Göğüs Muayenesi & Dinleme", "duration": 30, "res": "Sağda solunum sesleri tamamen yok, trakea sola deviye."},
+      {"name": "E-FAST Ultrasonografi", "duration": 45, "res": "Sağ hemitoraksta plevral kayma kaybı (Pnömotoraks)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Acil İğne Torakostomi + Göğüs Tüpü", "duration": 30, "feed": "Hava büyük bir tıslamayla boşaldı! Kalbe venöz dönüş açıldı, tansiyon hızla toparladı.", "score": 45, "is_correct": true, "vitals_update": {"hr": "84", "bp": "120/75", "spo2": "99", "rr": "16", "temp": "36.6", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Grafi İçin Hastayı Radyolojiye Gönderme", "duration": 30, "feed": "Ölümcül Gecikme! Tansiyon pnömotoraks klinik tanıdır; röntgen beklerken arrest gelişti!", "score": -45, "is_correct": false, "vitals_update": {"hr": "160", "bp": "40/10", "spo2": "60", "status": "Arrest"}, "stability_delta": -35},
+      {"name": "Rezervuarlı Maske ile %100 Oksijen", "duration": 30, "feed": "Oksijen desteği sağlandı.", "score": 20, "is_correct": true, "vitals_update": {"spo2": "88", "status": "Toparlıyor"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Göğüs Cerrahisi", "response": "Göğüs Cerrahı: İğne dekompresyonu hayat kurtarmış. 28F göğüs tüpünü su altı drenajına bağlayın."}
+    ],
+    "diag": "Tansiyon Pnömotoraks", "pearl": "Grafi beklenmeden derhal 2. İK aralıktan iğne dekompresyonu ve göğüs tüpü takılmalıdır."
+  },
+  {
+    "id": "em_03", "specialty": "Acil Tıp", "title": "Arı Sokması Sonrası Nefes Alamama ve Şok", "diff": "ZOR", "xp": 400, "initial_stability": 35,
+    "patient": {"name": "Büşra N.", "age": 22, "gender": "Kadın", "complaint": "Arı sokmasından 10 dakika sonra dudakta anjiyoödem, stridor, baygınlık."},
+    "history": "Daha önce böcek alerjisi.",
+    "vitals": {"hr": "132", "bp": "60/35", "spo2": "84", "rr": "30", "temp": "36.8", "gcs": "11/15", "status": "Hayati Tehlike"},
+    "questions": [
+      {"q": "Nerenizden soktu?", "a": "Boynumdan soktu, boğazım düğümlendi."},
+      {"q": "Vücudunuzda kaşıntı var mı?", "a": "Her yerim alev gibi yanıyor ve kabardı."},
+      {"q": "Göz kararması oldu mu?", "a": "Ayakta duramadım yere yığıldım."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Üst Havayolu Muayenesi", "duration": 30, "res": "Dudak, dil ve uvulada yaygın anjiyoödem, laringeal stridor."},
+      {"name": "Kan Gazı Ölçümü", "duration": 45, "res": "pH: 7.28, PaO2: 55 mmHg."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "IM Adrenalin 0.5 mg (Uyluk Ön-Dış) + Hızlı IV Sıvı", "duration": 30, "feed": "Vasküler tonus sağlandı, hava yolu ödemi hızla çözüldü, tansiyon fırladı!", "score": 45, "is_correct": true, "vitals_update": {"hr": "86", "bp": "115/75", "spo2": "99", "rr": "16", "temp": "36.7", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Yalnızca Ağızdan Antihistaminik Hap Vermek", "duration": 30, "feed": "Hayati Hata! Anafilaktik şokta oral hap etkisizdir ve aspirasyona yol açar!", "score": -45, "is_correct": false, "vitals_update": {"hr": "155", "bp": "45/20", "spo2": "70", "status": "Kollaps"}, "stability_delta": -35},
+      {"name": "IV Metilprednizolon + Feniramin", "duration": 30, "feed": "Geç faz alerjik reaksiyon engellendi.", "score": 20, "is_correct": true, "vitals_update": {"bp": "95/60", "status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Acil Tıp Uzmanı", "response": "Uzman: Anafilaktik şok tablosu. Adrenalin sonrası hasta 8 saat bifazik reaksiyon için gözlenmelidir."}
+    ],
+    "diag": "Anafilaktik Şok", "pearl": "İlk ve en hayat kurtarıcı adım uyluk anterolateraline IM Adrenalin 0.5 mg uygulamaktır."
+  },
+  {
+    "id": "em_04", "specialty": "Acil Tıp", "title": "Kussmaul Solunumu ve Aseton Kokusu", "diff": "ORTA", "xp": 320, "initial_stability": 50,
+    "patient": {"name": "Gizem N.", "age": 19, "gender": "Kadın", "complaint": "Derin hızlı soluk alma, karın ağrısı, bulantı ve şuur bulanıklığı."},
+    "history": "Tip 1 DM (2 gündür insülini bırakmış).",
+    "vitals": {"hr": "126", "bp": "88/55", "spo2": "98", "rr": "34", "temp": "37.1", "gcs": "13/15", "status": "Kritik"},
+    "questions": [
+      {"q": "İnsülininizi yaptınız mı?", "a": "İnsülinim bittiği için 2 gündür yapamadım."},
+      {"q": "Karnınız neden ağrıyor?", "a": "Mide bulantısıyla beraber tüm karnım kramp şeklinde sancıyor."},
+      {"q": "Ağzınızda kuruluk var mı?", "a": "Dudaklarım kurudu, çok susuyorum."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Parmak Ucu Kan Şekeri ve Keton", "duration": 30, "res": "Glukoz: 485 mg/dL, Kan Ketonu: 4.8 mmol/L (Pozitif)."},
+      {"name": "Arteryel Kan Gazı", "duration": 45, "res": "pH: 7.12, HCO3: 8 mEq/L (Ağır anyon açıklı metabolik asidoz)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Agresif IV İzotonik Hidrasyonu + IV İnsülin İnfüzyonu", "duration": 30, "feed": "Ketoasidoz tablosu geriledi, asidoz düzeldi, kan şekeri kademeli indi.", "score": 45, "is_correct": true, "vitals_update": {"hr": "80", "bp": "120/75", "spo2": "99", "rr": "16", "temp": "36.8", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Potasyumu Görmeden Yüksek Doz IV İnsülin Bolusu", "duration": 30, "feed": "Kritik Hata! Potasyum düzeyi bilinmeden insülin verilmesi fatal hipokalemik arrest yaptı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "165", "bp": "60/30", "status": "Aritmi"}, "stability_delta": -35},
+      {"name": "Potasyum Replasmanı (KCL)", "duration": 30, "feed": "Hipokalemi önlendi.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Endokrinoloji", "response": "Uzman: Diyabetik Ketoasidoz (DKA). Sıvı ve insülin protokolüne devam edip keton takibi yapın."}
+    ],
+    "diag": "Diyabetik Ketoasidoz (DKA)", "pearl": "İlk adım agresif IV SF hidrasyonudur; potasyum düzeyi görülmeden insülin başlanmaz."
+  },
+  {
+    "id": "em_05", "specialty": "Acil Tıp", "title": "Toplu İğne Başı Pupiller ve Solunum Depresyonu", "diff": "ORTA", "xp": 300, "initial_stability": 40,
+    "patient": {"name": "Murat S.", "age": 24, "gender": "Erkek", "complaint": "Evde baygın bulunma, solunum sayısı dakikada 6, siyanoz."},
+    "history": "Madde kullanım şüphesi.",
+    "vitals": {"hr": "52", "bp": "85/45", "spo2": "78", "rr": "6", "temp": "35.8", "gcs": "6/15", "status": "Hayati Tehlike"},
+    "questions": [
+      {"q": "Arkadaşına: Ne kullandı?", "a": "Ağrı kesici haplar ve adını bilmediğim toz madde aldı."},
+      {"q": "Ne zamandır nefes almıyor?", "a": "10 dakikadır morarmaya başladı, uyandıramadık."},
+      {"q": "Kusması oldu mu?", "a": "Yan yatırdık kusmadı."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Pupil ve Solunum Muayenesi", "duration": 30, "res": "Bilateral miyotik (toplu iğne başı) pupiller, solunum dakikada 6."},
+      {"name": "Arteryel Kan Gazı", "duration": 45, "res": "pH: 7.15, PaCO2: 72 mmHg (Ağır hiperkapnik solunum depresyonu)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "IV Nalokson 0.4 mg Titrasyonu + Balon Maske", "duration": 30, "feed": "Opioid reseptörleri hızla temizlendi! Hasta derin nefes alarak gözlerini açtı.", "score": 45, "is_correct": true, "vitals_update": {"hr": "78", "bp": "120/75", "spo2": "99", "rr": "16", "temp": "36.6", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Hastaya Yüksek Doz Sedatif (Midazolam) Vermek", "duration": 30, "feed": "Fatal Hata! Solunumu durmuş hastaya sedatif verilmesi tam solunum arrestine yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "30", "bp": "40/15", "spo2": "50", "status": "Solunum Arresti"}, "stability_delta": -35},
+      {"name": "Balon Valf Maske ile Havalandırma", "duration": 30, "feed": "Hipoksi engellendi.", "score": 20, "is_correct": true, "vitals_update": {"spo2": "88", "status": "Toparlıyor"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Klinik Toksikoloji", "response": "Konsültan: Opioid toksisitesi. Nalokson etki süresi kısa olduğu için tekrar solunum depresyonu izlenmelidir."}
+    ],
+    "diag": "Akut Opioid Zehirlenmesi", "pearl": "Balon valf maske ventilasyonu ve spesifik antidot olan IV Nalokson titrasyonu yapılır."
+  },
+  {
+    "id": "em_06", "specialty": "Acil Tıp", "title": "Sağ Alt Kadran Ağrısı ve Defans", "diff": "KOLAY", "xp": 200, "initial_stability": 75,
+    "patient": {"name": "Emre V.", "age": 22, "gender": "Erkek", "complaint": "Göbek çevresinde başlayıp sağ kasığa inen şiddetli karın ağrısı, bulantı."},
+    "history": "İştahsızlık.",
+    "vitals": {"hr": "98", "bp": "120/75", "spo2": "99", "rr": "18", "temp": "38.2", "gcs": "15/15", "status": "Semptomatik"},
+    "questions": [
+      {"q": "Ağrı nerede başladı?", "a": "Dün göbeğimde başladı, bu sabah sağ kasığıma indi, yürürken zıplatıyor."},
+      {"q": "Kusmanız oldu mu?", "a": "Bir kez midem bulandı kustum, iştahım sıfır."},
+      {"q": "İdrar yaparken yanma var mı?", "a": "Hayır idrarda yanma yok."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Batın Muayenesi (McBurney)", "duration": 30, "res": "Sağ alt kadranda McBurney hassasiyeti, rebound ve defans pozitif."},
+      {"name": "Batın Ultrasonografisi", "duration": 45, "res": "Çapı 8 mm, komprese olmayan aperistaltik apendiks (Akut Apandisit)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Oral Stop + IV Sıvı + Acil Laparoskopik Apendektomi", "duration": 30, "feed": "İltihaplı apendiks perfore olmadan başarıyla çıkarıldı, hasta şifayla taburcu edildi.", "score": 45, "is_correct": true, "vitals_update": {"hr": "74", "bp": "120/75", "spo2": "99", "rr": "14", "temp": "36.8", "gcs": "15/15", "status": "Şifayla Taburcu"}, "stability_delta": 35},
+      {"name": "Oral Müshil / Laksatif İlaç Vermek", "duration": 30, "feed": "Kritik Hata! Apandisitte motilite artırıcı ilaç apendiksin patlamasına ve peritonite yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "140", "bp": "80/45", "temp": "39.5", "status": "Perfore Apandisit"}, "stability_delta": -35},
+      {"name": "Geniş Spektrumlu IV Antibiyotik", "duration": 30, "feed": "Bakteriyel translokasyon baskılandı.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Genel Cerrahi", "response": "Genel Cerrah: Akut apandisit doğrulandı. Hasta ameliyathaneye alındı, laparoskopik apendektomi yapılıyor."}
+    ],
+    "diag": "Akut Apandisit", "pearl": "Göbekten sağ alt kadrana göç eden ağrıda apandisit düşünülmelidir; laksatifler perforasyon riski nedeniyle kesinlikle yasaktır."
+  },
+  {
+    "id": "em_07", "specialty": "Acil Tıp", "title": "Yüksekten Düşme ve Batında Distansiyon", "diff": "ZOR", "xp": 450, "initial_stability": 35,
+    "patient": {"name": "Cihan M.", "age": 38, "gender": "Erkek", "complaint": "İnşaatta 2. kattan düşme, sol kaburgada kırık, soluk cilt, tansiyon 75."},
+    "history": "Travma hastası.",
+    "vitals": {"hr": "140", "bp": "75/40", "spo2": "92", "rr": "26", "temp": "35.9", "gcs": "12/15", "status": "Hayati Tehlike"},
+    "questions": [
+      {"q": "Nereye düştünüz?", "a": "İskeleden sol tarafımın üstüne tahtaların üzerine düştüm."},
+      {"q": "Başınızı çarptınız mı?", "a": "Kaskım vardı ama sol kaburgalarım ezildi."},
+      {"q": "Gözleriniz kararıyor mu?", "a": "Başım dönüyor, çok üşüyorum."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "E-FAST Ultrasonografi", "duration": 30, "res": "Splenorenal mesafede ve pelviste masif serbest sıvı (Masif Hemoperitoneum)."},
+      {"name": "Kan Grubu ve Çapraz Karşılaştırma", "duration": 30, "res": "Acil 4 ünite 0 Rh negatif süspansiyon hazırlandı."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Masif Transfüzyon Protokolü + Acil Laparotomi / Splenektomi", "duration": 30, "feed": "Yırtılan dalak kanaması durduruldu, volüm replase edildi, tansiyon normale döndü.", "score": 45, "is_correct": true, "vitals_update": {"hr": "84", "bp": "120/75", "spo2": "99", "rr": "16", "temp": "36.7", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Yalnızca SF Sıvısı Verip Beklemek", "duration": 30, "feed": "Fatal Hata! Masif iç kanamada tek başına SF verilmesi hemodilüsyon, koagülopati ve ölüme yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "170", "bp": "40/15", "status": "Hemorajik Şok"}, "stability_delta": -35},
+      {"name": "Isıtılmış Sıvı ve Kan Transfüzyonu", "duration": 30, "feed": "Hipotermi ve asidoz önlendi.", "score": 20, "is_correct": true, "vitals_update": {"bp": "95/60", "status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Genel Cerrahi Travma", "response": "Cerrah: E-FAST masif batın içi kanamayı doğruladı. Hasta acil ameliyathaneye laparotomiye alınıyor."}
+    ],
+    "diag": "Hemorajik Şok (Dalak Laserasyonu)", "pearl": "Künt batın travmasında şok tablosunda E-FAST altın değerdedir; gecikmeden cerrahi hemostaz sağlanmalıdır."
+  },
+  {
+    "id": "em_08", "specialty": "Acil Tıp", "title": "Titreme, Yüksek Ateş ve Tansiyon Çökmesi", "diff": "ZOR", "xp": 420, "initial_stability": 40,
+    "patient": {"name": "Rıza C.", "age": 74, "gender": "Erkek", "complaint": "İdrar yolu enfeksiyonu sonrası titreme, konfüzyon, ciltte beneklenme, laktat 4.5."},
+    "history": "Prostat hiperplazisi, idrar sondası.",
+    "vitals": {"hr": "128", "bp": "78/42", "spo2": "93", "rr": "26", "temp": "39.6", "gcs": "11/15", "status": "Hayati Tehlike"},
+    "questions": [
+      {"q": "Ne zamandır idrar yaparken yanması var?", "a": "3 gündür sondayı çekiştiriyordu, idrarı çok bulanık ve kokuluydu."},
+      {"q": "Konuşabiliyor mu?", "a": "Sabah bilinci kapandı, bizi tanımıyor."},
+      {"q": "Ateşi kaç derece?", "a": "Titreyerek 39.6'ya çıktı."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Kan Gazı ve Laktat Ölçümü", "duration": 30, "res": "pH: 7.24, Laktat: 4.8 mmol/L (Doku hipoperfüzyonu)."},
+      {"name": "Tam İdrar ve Kan Kültürü", "duration": 45, "res": "İdrarda bol lökosit ve Gram negatif basiller."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "30 ml/kg IV Kristaloid + IV Meropenem + Noradrenalin", "duration": 30, "feed": "İlk 1 saat paket tedavisi uygulandı, ortalama arteryel basınç >65 sağlandı, sepsis kontrol edildi.", "score": 45, "is_correct": true, "vitals_update": {"hr": "82", "bp": "115/70", "spo2": "98", "rr": "18", "temp": "37.5", "gcs": "14/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Vazopressörsüz Bekleyip Sadece Parasetamol Vermek", "duration": 30, "feed": "Ölümcül Hata! Septik şokta vazopressör ve antibiyotik gecikmesi multiorgan yetmezliğine yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "150", "bp": "50/20", "status": "Septik Arrest"}, "stability_delta": -35},
+      {"name": "Oksijen Desteği ve Foley Sonda Değişimi", "duration": 30, "feed": "Enfeksiyon odağı temizlendi.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Yoğun Bakım Kliniği", "response": "Uzman: Ürosepsis kaynaklı septik şok. Sıvı ve noradrenalinle hemodinami sağlandı, YBÜ yatağı hazırlandı."}
+    ],
+    "diag": "Ürosepsis Kaynaklı Septik Şok", "pearl": "Septik şokta ilk 1 saatte 30 ml/kg sıvı, kan kültürü, geniş spektrumlu antibiyotik ve noradrenalin esastır."
+  },
+  {
+    "id": "em_09", "specialty": "Acil Tıp", "title": "Çok Sayıda Parasetamol Alımı", "diff": "ORTA", "xp": 280, "initial_stability": 75,
+    "patient": {"name": "Derya P.", "age": 20, "gender": "Kadın", "complaint": "6 saat önce kutuyla 30 adet parasetamol 500mg yutmuş, bulantı ve kusma."},
+    "history": "Majör depresyon.",
+    "vitals": {"hr": "86", "bp": "115/70", "spo2": "98", "rr": "16", "temp": "36.7", "gcs": "15/15", "status": "Stabil"},
+    "questions": [
+      {"q": "Kaç adet hap aldınız?", "a": "Ağrı kesiciden tam 30 tane (15 gram) içtim."},
+      {"q": "Alalı kaç saat oldu?", "a": "Öğlen 12'de almıştım, 6 saat geçti."},
+      {"q": "Kusmanız oldu mu?", "a": "Midem çok bulandı 2 kez kustum."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Serum Parasetamol Düzeyi", "duration": 60, "res": "Parasetamol düzeyi: 180 ug/mL (Toksik eşiğin üzerinde - Rumack Nomogramı Pozitif)."},
+      {"name": "Karaciğer Fonksiyon Testleri (ALT/AST)", "duration": 45, "res": "AST: 45 U/L, ALT: 38 U/L (Erken evre, henüz yükselmemiş)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "IV N-Asetilsistein (NAC) 3 Aşamalı Protokolü", "duration": 30, "feed": "Glutatyon depoları dolduruldu, toksik NAPQI metaboliti nötralize edildi, karaciğer nekrozu engellendi.", "score": 45, "is_correct": true, "vitals_update": {"hr": "72", "bp": "120/75", "spo2": "99", "rr": "14", "temp": "36.6", "gcs": "15/15", "status": "Şifayla Taburcu"}, "stability_delta": 35},
+      {"name": "Karaciğer Enzimleri Normal Diye Hastayı Taburcu Etmek", "duration": 30, "feed": "Ölümcül Hata! Parasetamolde karaciğer nekrozu 48-72. saatte ortaya çıkar, antidotsuz hasta karaciğer iflasına gitti!", "score": -45, "is_correct": false, "vitals_update": {"hr": "120", "status": "Fulminan Hepatit"}, "stability_delta": -35},
+      {"name": "Oral Aktif Kömür Uygulaması", "duration": 30, "feed": "İlk saatlerde kalan ilaç bağlandı.", "score": 20, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Klinik Toksikoloji", "response": "Konsültan: Toksik doz parasetamol. 21 saatlik IV NAC protokolünü eksiksiz tamamlayın."}
+    ],
+    "diag": "Akut Parasetamol Toksisitesi", "pearl": "Rumack-Matthew nomogramına göre toksik düzeyde karaciğer enzimleri henüz normal olsa dahi derhal NAC başlanmalıdır."
+  },
+  {
+    "id": "em_10", "specialty": "Acil Tıp", "title": "Kaza Sonrası Bilinç Açılması ve Tekrar Koma", "diff": "ZOR", "xp": 450, "initial_stability": 35,
+    "patient": {"name": "Tolga F.", "age": 31, "gender": "Erkek", "complaint": "Motosiklet kazasında kafasını çarptı, kendine geldi, 2 saat sonra koma ve anizokori."},
+    "history": "Kask takılmamış.",
+    "vitals": {"hr": "54", "bp": "170/100", "spo2": "95", "rr": "12", "temp": "36.8", "gcs": "7/15", "status": "Hayati Tehlike"},
+    "questions": [
+      {"q": "Kazadan hemen sonra nasıldı?", "a": "Önce bayıldı, sonra ayağa kalktı 'iyiyim' dedi, 2 saat sonra yere yığıldı."},
+      {"q": "Göz bebekleri nasıl?", "a": "Sağ göz bebeği büyüdü ve ışığa yanıt vermiyor."},
+      {"q": "Kusması oldu mu?", "a": "Kendinden geçmeden önce fışkırarak kustu."},
+      {"q": "Göğüs ağrısı, nefes darlığı veya bayılma eşlik etti mi?", "a": "Mevcut ana şikayetim dışında belirgin göğüs ağrım yok."}
+    ],
+    "tests": [
+      {"name": "Kontrassız Beyin BT", "duration": 45, "res": "Sağ temporoparietalde bikonveks (lens şeklinde) hiperdens epidural hematom ve 10 mm orta hat şifti."},
+      {"name": "Pupil Işık Refleksi Muayenesi", "duration": 15, "res": "Sağ pupil fikse ve dilate (Unkal herniasyon bulgusu)."},
+      {"name": "Tam Kan Sayımı ve Biyokimya Paneli", "duration": 45, "res": "Elektrolitler ve lökosit düzeyleri incelendi."}
+    ],
+    "treatments": [
+      {"name": "Mannitol 1 g/kg + Acil Nöroşirürji Kraniyotomi", "duration": 30, "feed": "Hematom hızla boşaltıldı, A. meningea media kanaması bağlandı, herniasyon geri döndü!", "score": 45, "is_correct": true, "vitals_update": {"hr": "74", "bp": "120/75", "spo2": "99", "rr": "15", "temp": "36.6", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 35},
+      {"name": "Hastayı Serviste 'Uykusunu Alsın' Diye Bekletmek", "duration": 30, "feed": "Ölümcül Hata! Epidural hematomda lüsid intervali kaçırmak beyin sapı basısı ve herniasyona yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"hr": "35", "bp": "220/130", "status": "Beyin Ölümü"}, "stability_delta": -35},
+      {"name": "Hiperventilasyon ile Geçici ICP Düşürülmesi", "duration": 30, "feed": "Ameliyathaneye gidene kadar beyin ödemi frenlendi.", "score": 20, "is_correct": true, "vitals_update": {"status": "Toparlıyor"}, "stability_delta": 15},
+      {"name": "İntravenöz Hidrasyon ve Yakın Takip", "duration": 30, "feed": "Doku perfüzyonu desteklendi.", "score": 15, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
+    ],
+    "consultations": [
+      {"specialty": "Beyin ve Sinir Cerrahisi", "response": "Beyin Cerrahı: Akut epidural hematom. Anestezi ve cerrahi hazır, hastayı hemen kraniyotomiye alıyoruz."}
+    ],
+    "diag": "Akut Epidural Hematom (Lüsid İnterval)", "pearl": "Lüsid interval (iyilik dönemi) epidural hematomun klasiğidir; acil cerrahi boşaltma hayat kurtarır."
+  }
+];
+
+// -------------------------------------------------------------
 // KULLANICI PROFİLİ VE GLOBAL SİSTEM DURUMU (STATE)
 // -------------------------------------------------------------
 class UserProfile {
@@ -55,281 +1148,6 @@ class UserProfile {
 
   static double get accuracy => totalDiagnoses == 0 ? 0.0 : (correctDiagnoses / totalDiagnoses) * 100;
 }
-
-// -------------------------------------------------------------
-// GERÇEK TIBBİ VAKA VERİ TABANI
-// -------------------------------------------------------------
-final List<Map<String, dynamic>> kAllClinicalCases = [
-  // NÖROLOJİ (VAKALAR)
-  {
-    "id": "neuro_01", "specialty": "Nöroloji", "title": "Ani Sağ Kol Kuvvetsizliği ve Afazi", "diff": "ZOR", "xp": 350, "initial_stability": 50,
-    "patient": {"name": "Fatma D.", "age": 68, "gender": "Kadın", "complaint": "1 saat önce sağ kol ve bacakta felç, konuşamama."},
-    "history": "Atriyal fibrilasyon, hipertansiyon. Kan sulandırıcı aksatılmış.",
-    "vitals": {"hr": "106", "bp": "175/95", "spo2": "96", "rr": "18", "temp": "36.7", "gcs": "11/15", "status": "Kritik"},
-    "questions": [
-      {"q": "Belirtiler tam olarak saat kaçta başladı?", "a": "Tam 50 dakika önce kahvaltıda başladı."},
-      {"q": "Daha önce geçici felç veya uyuşma yaşadı mı?", "a": "Hayır ilk kez oldu, ilacını 1 haftadır almıyordu."},
-      {"q": "Baş ağrısı veya kusması oldu mu?", "a": "Hayır baş ağrısı yok, sadece sağ tarafı tutmuyor."},
-      {"q": "Bilinç kaybı veya bayılma gelişti mi?", "a": "Gözleri açık ama söylediklerimizi anlamıyor."}
-    ],
-    "tests": [
-      {"name": "Kontrassız Beyin BT", "duration": 60, "res": "Hemoraji yok. Sol MCA sulkuslarında erken silinme."},
-      {"name": "Parmak Ucu Kan Şekeri", "duration": 45, "res": "114 mg/dL (İnme taklidi hipoglisemi dışlandı)."},
-      {"name": "Koagülasyon Paneli (INR/aPTT)", "duration": 60, "res": "INR: 1.15, aPTT: 28 sn (Trombolitik için güvenli)."}
-    ],
-    "treatments": [
-      {"name": "IV Trombolitik (rtPA) 0.9 mg/kg", "duration": 30, "feed": "İlk 4.5 saatte tromboliz uygulandı, motor güç toparlamaya başladı.", "score": 50, "is_correct": true, "vitals_update": {"gcs": "14/15", "status": "Stabil", "bp": "150/85"}, "stability_delta": 35},
-      {"name": "Yüksek Doz IV Heparin Bolusu", "duration": 30, "feed": "Kritik Hata! Akut iskemide erken heparin hemorajik transformasyona yol açtı!", "score": -45, "is_correct": false, "vitals_update": {"gcs": "8/15", "status": "Koma Riski", "bp": "195/110"}, "stability_delta": -35},
-      {"name": "Tansiyon Regülasyonu (IV Labetalol)", "duration": 30, "feed": "Tansiyon 185/110 altına çekilerek güvenli sınır sağlandı.", "score": 25, "is_correct": true, "vitals_update": {"bp": "160/90"}, "stability_delta": 10},
-      {"name": "Oksijen Desteği ve Hemodinamik İzlem", "duration": 30, "feed": "Vital stabilizasyon sağlandı.", "score": 20, "is_correct": true, "vitals_update": {"spo2": "99"}, "stability_delta": 10}
-    ],
-    "consultations": [{"specialty": "Nöroloji İcapçı Hekimi", "response": "Nörolog: BT kanamayı dışladı, semptom süresi 1 saat. rtPA başlatın ve anjiyo ekibini trombektomiye çağırın."}],
-    "diag": "Akut İskemik İnme (Sol MCA Enfarktı)", "pearl": "İnmede ilk iş hipoglisemiyi dışlamak ve kontrassız BT ile kanamayı ekarte etmektir."
-  },
-  {
-    "id": "neuro_02", "specialty": "Nöroloji", "title": "Gök Gürültüsü Baş Ağrısı ve Kusma", "diff": "ZOR", "xp": 400, "initial_stability": 55,
-    "patient": {"name": "Cemil A.", "age": 44, "gender": "Erkek", "complaint": "Balyoz vurulmuş gibi ani baş ağrısı, fışkırır kusma."},
-    "history": "Polikistik böbrek hastalığı, sigara.", "vitals": {"hr": "62", "bp": "185/105", "spo2": "97", "rr": "16", "temp": "37.2", "gcs": "13/15", "status": "Kritik"},
-    "questions": [
-      {"q": "Ağrı ne kadar sürede tepeye ulaştı?", "a": "Saniyeler içinde, hayatımda böyle ağrı görmedim!"},
-      {"q": "Boynunuzu bükebiliyor musunuz?", "a": "Çenemi göğsüme değdiremiyorum, ensem taş gibi."},
-      {"q": "Işık rahatsız ediyor mu?", "a": "Gözlerimi açamıyorum, ışık çok batıyor."},
-      {"q": "Bilinç bulanıklığı oldu mu?", "a": "Ağrıdan sonra birkaç dakika nerede olduğumu bilemedim."}
-    ],
-    "tests": [
-      {"name": "Kontrassız Beyin BT", "duration": 60, "res": "Bazal sisternlerde hiperdens akut subaraknoid kanama."},
-      {"name": "Beyin BT Anjiyografi", "duration": 90, "res": "AComA üzerinde 6 mm rüptüre sakküler anevrizma."},
-      {"name": "Elektrolit Paneli", "duration": 45, "res": "Sodyum ve potasyum normal."}
-    ],
-    "treatments": [
-      {"name": "Nimodipin 60 mg + Tansiyon Titrasyonu", "duration": 30, "feed": "Serebral vazospazm profilaksisi başlandı, re-kanama riski azaltıldı.", "score": 40, "is_correct": true, "vitals_update": {"bp": "140/85", "status": "Stabil"}, "stability_delta": 25},
-      {"name": "Yüksek Doz Aspirin + Heparin", "duration": 30, "feed": "Kritik Hata! Aktif intrakraniyal kanamada antikoagülan fatal kanamaya yol açtı!", "score": -50, "is_correct": false, "vitals_update": {"gcs": "7/15", "status": "Koma"}, "stability_delta": -40},
-      {"name": "Acil Nöroşirürji Koilleme Hazırlığı", "duration": 30, "feed": "Anevrizma endovasküler yolla koillendi, kanama odağı kapatıldı.", "score": 50, "is_correct": true, "vitals_update": {"status": "Stabil", "gcs": "15/15"}, "stability_delta": 30},
-      {"name": "İntravenöz Analjezi ve Antiemetik", "duration": 30, "feed": "Ağrı ve ıkınma basıncı düşürüldü.", "score": 20, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
-    ],
-    "consultations": [{"specialty": "Beyin Cerrahisi", "response": "Beyin Cerrahı: SAK teyit edildi. Hastayı anjiyografi ünitesine acil koillemeye alıyoruz."}],
-    "diag": "Subaraknoid Kanama (Anevrizma Rüptürü)", "pearl": "Gök gürültüsü baş ağrısında SAK aranmalıdır; nimodipin başlanıp cerrahi konsülte edilir."
-  },
-  {
-    "id": "neuro_03", "specialty": "Nöroloji", "title": "Durdurulamayan Nöbet (Status)", "diff": "ZOR", "xp": 450, "initial_stability": 35,
-    "patient": {"name": "Eren K.", "age": 29, "gender": "Erkek", "complaint": "20 dakikadır süren aralıksız jeneralize kasılma."},
-    "history": "Dirençli epilepsi, ilaç kesme.", "vitals": {"hr": "138", "bp": "160/95", "spo2": "86", "rr": "26", "temp": "38.5", "gcs": "6/15", "status": "Hayati Tehlike"},
-    "questions": [
-      {"q": "Yakınlarına: Nöbet ne kadar sürdü?", "a": "20 dakikadır hiç durmadan kasılıyor."},
-      {"q": "İlaçlarını alıyor muydu?", "a": "3 gündür ilaçlarını almamıştı."},
-      {"q": "Ateş veya kafa travması oldu mu?", "a": "Hayır travma yok, aniden başladı."},
-      {"q": "Daha önce yoğun bakıma yattı mı?", "a": "Evet 2 yıl önce benzer nöbette entübe edilmişti."}
-    ],
-    "tests": [
-      {"name": "Parmak Ucu Glukoz Ölçümü", "duration": 45, "res": "98 mg/dL (Hipoglisemi yok)."},
-      {"name": "Arteryel Kan Gazı", "duration": 60, "res": "pH: 7.18, Laktat: 6.2 mmol/L (Ağır laktik asidoz)."},
-      {"name": "Acil Beyin BT", "duration": 60, "res": "Akut kitle veya kanama izlenmedi."}
-    ],
-    "treatments": [
-      {"name": "IV Diazepam 10 mg Yavaş Bolus", "duration": 30, "feed": "İlk basamak tedavi verildi, kasılmalar seyrelmeye başladı.", "score": 35, "is_correct": true, "vitals_update": {"spo2": "93", "hr": "115"}, "stability_delta": 20},
-      {"name": "IV Levetirasetam 60 mg/kg İnfüzyonu", "duration": 30, "feed": "İkinci basamak tedaviyle nöbet tamamen sonlandırıldı!", "score": 45, "is_correct": true, "vitals_update": {"hr": "88", "bp": "125/80", "spo2": "98", "status": "Stabil", "gcs": "12/15"}, "stability_delta": 35},
-      {"name": "Ağza Tahta Kaşık Sokmaya Çalışma", "duration": 30, "feed": "Hatalı Yaklaşım! Diş kırığı ve laringeal aspirasyon riski oluşturur.", "score": -25, "is_correct": false, "vitals_update": {"spo2": "80"}, "stability_delta": -15},
-      {"name": "Oksijen Maskesi ve Havayolu Güvenliği", "duration": 30, "feed": "Hipoksi önlendi.", "score": 20, "is_correct": true, "vitals_update": {"spo2": "95"}, "stability_delta": 10}
-    ],
-    "consultations": [{"specialty": "Nöroloji Yoğun Bakım", "response": "Uzman: Benzodiazepin sonrası nöbet durmazsa entübasyon ve propofol infüzyonuna geçin."}],
-    "diag": "Konvülzif Status Epileptikus", "pearl": "5 dakikayı aşan nöbetlerde gecikmeden IV benzodiazepin ve levetirasetam verilmelidir."
-  },
-  {
-    "id": "neuro_04", "specialty": "Nöroloji", "title": "Ayaklardan Yükselen Felç ve Uyuşma", "diff": "ORTA", "xp": 300, "initial_stability": 65,
-    "patient": {"name": "Aylin S.", "age": 33, "gender": "Kadın", "complaint": "Ayaklardan başlayıp gövdeye tırmanan kuvvetsizlik."},
-    "history": "2 hafta önce geçirilmiş bakteriyel ishal.", "vitals": {"hr": "88", "bp": "120/75", "spo2": "97", "rr": "18", "temp": "36.8", "gcs": "15/15", "status": "Semptomatik"},
-    "questions": [
-      {"q": "Kuvvetsizlik nasıl ilerledi?", "a": "Önce ayak parmaklarım uyuştu, ertesi gün dizlerimi kaldıramadım."},
-      {"q": "Nefes alırken zorlanıyor musunuz?", "a": "Derin nefes alırken göğsümde baskı hissediyorum."},
-      {"q": "Son 1 ayda enfeksiyon geçirdiniz mi?", "a": "Evet 2 hafta önce şiddetli ishal olmuştum."},
-      {"q": "İdrar kaçırma veya tutamama oldu mu?", "a": "Hayır sfinkter kusuru yok."}
-    ],
-    "tests": [
-      {"name": "Derin Tendon Refleksleri Muayenesi", "duration": 45, "res": "Aşil ve patella refleksleri bilateral arefleksik (yok)."},
-      {"name": "FVC Solunum Kapasitesi Ölçümü", "duration": 60, "res": "FVC: 18 ml/kg (Solunum yetmezliği sınırında)."},
-      {"name": "BOS İncelemesi (Lomber Ponksiyon)", "duration": 90, "res": "Albüminositolojik disosiasyon: Protein 140 mg/dL, hücre yok."}
-    ],
-    "treatments": [
-      {"name": "IVIG 0.4 g/kg/gün Başlanması", "duration": 30, "feed": "Otoimmün demiyelinizasyon durduruldu, motor kayıp geriledi.", "score": 45, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 25},
-      {"name": "Yüksek Doz Sistemik Steroid", "duration": 30, "feed": "Hatalı Tedavi: GBS'de steroidlerin yeri yoktur, iyileşmeyi geciktirebilir.", "score": -25, "is_correct": false, "vitals_update": {}, "stability_delta": -10},
-      {"name": "Solunum Kapasitesi Yakın Takibi", "duration": 30, "feed": "Vital kapasite izleme alındı.", "score": 20, "is_correct": true, "vitals_update": {}, "stability_delta": 10},
-      {"name": "Derin Ven Trombozu Profilaksisi (LMWH)", "duration": 30, "feed": "Hareketsizliğe bağlı emboli riski önlendi.", "score": 20, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
-    ],
-    "consultations": [{"specialty": "Nöroloji Kliniği", "response": "Nörolog: GBS tablosu. FVC < 15 ml/kg olursa entübasyon için YBÜ hazırlığı yapın, IVIG başlayın."}],
-    "diag": "Guillain-Barré Sendromu (GBS)", "pearl": "Simetrik asendan paralizi ve areflekside FVC takibi ve IVIG tedavisi esastır."
-  },
-  {
-    "id": "neuro_05", "specialty": "Nöroloji", "title": "Tek Taraflı Yüz Felci ve Göz Kapatamama", "diff": "KOLAY", "xp": 200, "initial_stability": 85,
-    "patient": {"name": "Hasan B.", "age": 41, "gender": "Erkek", "complaint": "Yüzün sağ yarısında felç, alnı kırıştıramama."},
-    "history": "Soğuk hava/klima maruziyeti.", "vitals": {"hr": "76", "bp": "125/80", "spo2": "99", "rr": "14", "temp": "36.6", "gcs": "15/15", "status": "Stabil"},
-    "questions": [
-      {"q": "Alnınızı yukarı kırıştırmayı dener misiniz?", "a": "Sağ taraf hiç kırışmıyor, tamamen hareketsiz."},
-      {"q": "Kol veya bacağınızda güçsüzlük var mı?", "a": "Hayır kollarım ve bacaklarım gayet güçlü."},
-      {"q": "Ağzınızda tat değişikliği oldu mu?", "a": "Dilimin ön kısmında tatları garip alıyorum."},
-      {"q": "Kulak arkasında ağrı oldu mu?", "a": "Evet felç başlamadan önce kulağımın arkası sızlıyordu."}
-    ],
-    "tests": [
-      {"name": "Kraniyal Sinir VII Muayenesi", "duration": 45, "res": "Sağ periferik fasiyal paralizi (Alın tutulumu pozitif, Bell fenomeni var)."},
-      {"name": "Nörolojik Odak Muayenesi", "duration": 45, "res": "Ek motor/duyusal defisit yok, serebellar testler normal."}
-    ],
-    "treatments": [
-      {"name": "Oral Prednizolon 1 mg/kg + Suni Gözyaşı", "duration": 30, "feed": "Fasiyal sinir ödemi geriletildi, kornea kuruması önlendi.", "score": 40, "is_correct": true, "vitals_update": {"status": "Şifayla Taburcu"}, "stability_delta": 15},
-      {"name": "Acil Trombolitik Tedavi (rtPA)", "duration": 30, "feed": "Hayati Hata! Periferik yüz felci santral inme değildir, gereksiz trombolitik kanama riski doğurur!", "score": -50, "is_correct": false, "vitals_update": {"status": "Kritik"}, "stability_delta": -35},
-      {"name": "Göz Kapama Bandı (Gece Koruması)", "duration": 30, "feed": "Lagofitalmiye bağlı kornea ülseri engellendi.", "score": 20, "is_correct": true, "vitals_update": {}, "stability_delta": 10},
-      {"name": "Fizik Tedavi ve Yüz Egzersizleri Eğitimi", "duration": 30, "feed": "Rehabilitasyon süreci başlatıldı.", "score": 20, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
-    ],
-    "consultations": [{"specialty": "Nöroloji Polikliniği", "response": "Nörolog: Klasik Bell paralizisi. Steroid ve göz korumasıyla taburcu edin, 10 gün sonra kontrole gelsin."}],
-    "diag": "Bell Paralizisi", "pearl": "Alın kaslarının tutulumu periferik felci santral inmeden ayıran en belirgin bulgudur."
-  },
-
-  // PEDİATRİ (VAKALAR)
-  {
-    "id": "ped_01", "specialty": "Pediatri", "title": "Ateşli Çocukta Nöbet ve Bilinç Değişikliği", "diff": "KOLAY", "xp": 200, "initial_stability": 65,
-    "patient": {"name": "Ali E.", "age": 2, "gender": "Erkek", "complaint": "Yüksek ateş sonrası kasılma ve gözlerde yukarı kayma."},
-    "history": "2 gündür nezle ve huzursuzluk.", "vitals": {"hr": "142", "bp": "95/60", "spo2": "98", "rr": "28", "temp": "39.4", "gcs": "13/15", "status": "Orta"},
-    "questions": [
-      {"q": "Nöbet esnasında vücudun her yeri mi kasıldı?", "a": "İki kolu ve bacağı birden titredi, gözleri yukarı kaydı (1.5 dakika)."},
-      {"q": "Daha önce hiç havale geçirmiş miydi?", "a": "Hayır ilk kez oldu."},
-      {"q": "Aşıları takvime uygun mu?", "a": "Evet tüm aşıları tam."},
-      {"q": "Kusma veya ishal oldu mu?", "a": "Hafif kusması oldu ama ishal yok."}
-    ],
-    "tests": [
-      {"name": "Menenjit Muayenesi (Ense Sertliği)", "duration": 45, "res": "Ense sertliği negatif, fontanel kabarık değil."},
-      {"name": "Otoskopik KBB Muayenesi", "duration": 45, "res": "Bilateral timpanik membran hiperemik ve bombe (Akut Otitis Media)."}
-    ],
-    "treatments": [
-      {"name": "IV Parasetamol 15 mg/kg + Ilık Uygulama", "duration": 30, "feed": "Ateş kademeli düştü, çocuk çevreyle göz teması kurmaya başladı.", "score": 40, "is_correct": true, "vitals_update": {"temp": "37.2", "hr": "110", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 30},
-      {"name": "Çocuğun Ağzına Kaşık Sokma ve Soğuk Su", "duration": 30, "feed": "Hatalı ve zararlı uygulama! Diş travması ve aspirasyona neden olur.", "score": -30, "is_correct": false, "vitals_update": {"status": "Ajite"}, "stability_delta": -20},
-      {"name": "Oral Hidrasyon Desteği", "duration": 30, "feed": "Sıvı dengesi korundu.", "score": 20, "is_correct": true, "vitals_update": {}, "stability_delta": 10},
-      {"name": "Aileye Ateş Yönetimi Bilgilendirmesi", "duration": 30, "feed": "Aileye güven verildi.", "score": 20, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
-    ],
-    "consultations": [{"specialty": "Çocuk Sağlığı ve Hastalıkları", "response": "Pediatrist: Basit febril konvülsiyon. Menenjit ekarte edildi, otit tedavisi verip taburcu edin."}],
-    "diag": "Basit Febril Konvülsiyon", "pearl": "6 ay - 5 yaş arası çocuklarda <15 dk süren jeneralize nöbetler basit febril konvülsiyondur."
-  },
-  {
-    "id": "ped_02", "specialty": "Pediatri", "title": "Havlar Tarzda Öksürük ve Stridor", "diff": "ORTA", "xp": 250, "initial_stability": 60,
-    "patient": {"name": "Zeynep B.", "age": 3, "gender": "Kadın", "complaint": "Gece aniden başlayan havlar öksürük, ses kısıklığı."},
-    "history": "Hafif soğuk algınlığı sonrası gece kötüleşti.", "vitals": {"hr": "130", "bp": "98/62", "spo2": "93", "rr": "32", "temp": "38.2", "gcs": "15/15", "status": "Orta"},
-    "questions": [
-      {"q": "Nefes alırken mi hırıltı oluyor?", "a": "Evet nefes alırken kaba bir düdük sesi gibi ses çıkıyor."},
-      {"q": "Yabancı cisim yutma şüphesi var mı?", "a": "Hayır uykusundan öksürerek uyandı."},
-      {"q": "Tükürüğünü yutabiliyor mu?", "a": "Evet salya akması yok."},
-      {"q": "Daha önce astım tanısı aldı mı?", "a": "Hayır astımı yok."}
-    ],
-    "tests": [
-      {"name": "Üst Havayolu Muayenesi", "duration": 45, "res": "İnspiratuar stridor, suprasternal çekilme var. Tükürük akıtma yok."},
-      {"name": "Boyun Ön Grafisi", "duration": 60, "res": "Subglottik çan kulesi (steeple sign) daralma bulgusu."}
-    ],
-    "treatments": [
-      {"name": "Nebülize Adrenalin + Oral Deksametazon", "duration": 30, "feed": "Subglottik ödem geriledi, stridor kayboldu, satürasyon hızla yükseldi.", "score": 45, "is_correct": true, "vitals_update": {"spo2": "98", "rr": "22", "hr": "105", "status": "Stabil"}, "stability_delta": 35},
-      {"name": "Boğaz Basacağı ile Sert Muayene", "duration": 30, "feed": "Hatalı Yaklaşım! Hava yolunu irrite ederek tam obstrüksiyonu tetikleyebilir!", "score": -35, "is_correct": false, "vitals_update": {"spo2": "86", "status": "Kötüleşiyor"}, "stability_delta": -25},
-      {"name": "Nemlendirilmiş Soğuk Buhar Tedavisi", "duration": 30, "feed": "Hava yolları rahatlatıldı.", "score": 20, "is_correct": true, "vitals_update": {"spo2": "95"}, "stability_delta": 10},
-      {"name": "Sakinleştirici Pozisyonlama", "duration": 30, "feed": "Anksiyete ve solunum iş yükü azaltıldı.", "score": 20, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
-    ],
-    "consultations": [{"specialty": "Çocuk Acil Uzmanı", "response": "Uzman: Krup tablosu. Deksametazon sonrası 2 saat gözleyin, stridor tekrarlamazsa taburcu edin."}],
-    "diag": "Akut Krup Sendromu", "pearl": "Krup tedavisinde steroid (deksametazon) temeldir; orta-ağır olgularda nebül adrenalin eklenir."
-  },
-
-  // KARDİYOLOJİ (VAKALAR)
-  {
-    "id": "cardio_01", "specialty": "Kardiyoloji", "title": "Ezici Göğüs Ağrısı ve Hipotansiyon", "diff": "ZOR", "xp": 350, "initial_stability": 45,
-    "patient": {"name": "Mehmet Y.", "age": 58, "gender": "Erkek", "complaint": "1 saattir süren sol kola ve çeneye vuran göğüs ağrısı."},
-    "history": "Hipertansiyon, 30 paket/yıl sigara.", "vitals": {"hr": "112", "bp": "85/55", "spo2": "91", "rr": "24", "temp": "36.6", "gcs": "15/15", "status": "Kritik"},
-    "questions": [
-      {"q": "Ağrı tam olarak nasıl bir his?", "a": "Göğsüme tonlarca ağırlık çökmüş gibi, sol kolumu hissetmiyorum."},
-      {"q": "Terleme veya bulantı eşlik etti mi?", "a": "Soğuk soğuk terliyorum, midem çok bulanıyor."},
-      {"q": "Daha önce eforla ağrınız olur muydu?", "a": "Merdiven çıkarken hafif sıkışma olurdu ama bu bambaşka."},
-      {"q": "Aspirin aldınız mı?", "a": "Hayır hiçbir ilaç almadım."}
-    ],
-    "tests": [
-      {"name": "12 Derivasyonlu EKG", "duration": 60, "res": "V1-V4 derivasyonlarında ST elevasyonu (Akut Anterior STEMI)."},
-      {"name": "Kardiyak Troponin I", "duration": 60, "res": "1.850 ng/L (Kritik Pozitif)."},
-      {"name": "Yatak Başı Ekokardiyografi", "duration": 75, "res": "Anterior duvarda belirgin hipokinezi, EF: %35."}
-    ],
-    "treatments": [
-      {"name": "Aspirin 300 mg çiğnetme + Tikagrelor 180 mg", "duration": 30, "feed": "İkili antiplatelet tedavi hızla verildi.", "score": 30, "is_correct": true, "vitals_update": {}, "stability_delta": 15},
-      {"name": "Acil Kateter Laboratuvarı & Primer PCI", "duration": 30, "feed": "LAD tam tıkalı bulundu, stent ile damar açıldı!", "score": 50, "is_correct": true, "vitals_update": {"hr": "76", "bp": "120/75", "spo2": "98", "status": "Stabil"}, "stability_delta": 40},
-      {"name": "2000 ml Hızlı SF Sıvı Yüklemesi", "duration": 30, "feed": "Hayati Hata! Sol ventrikül yetmezliğinde sıvı yükü akciğer ödemini tetikledi!", "score": -45, "is_correct": false, "vitals_update": {"spo2": "82", "rr": "32", "status": "Arrest Riski"}, "stability_delta": -35},
-      {"name": "Oksijen Tedavisi (Nazal 4 L/dk)", "duration": 30, "feed": "Doku hipoksisi düzeltildi.", "score": 20, "is_correct": true, "vitals_update": {"spo2": "97"}, "stability_delta": 10}
-    ],
-    "consultations": [{"specialty": "Girişimsel Kardiyoloji", "response": "Kardiyolog: STEMI doğrulanmış. Anjiyo masası hazır, hastayı hemen kateter salonuna indirin."}],
-    "diag": "Akut Anterior STEMI", "pearl": "STEMI olgularında kapı-balon süresi <90 dk olmalı, çift antiplatelet yüklenip acil PCI yapılmalıdır."
-  },
-  {
-    "id": "cardio_02", "specialty": "Kardiyoloji", "title": "Sırta Vuran Yırtıcı Göğüs Ağrısı", "diff": "ZOR", "xp": 450, "initial_stability": 40,
-    "patient": {"name": "Hikmet R.", "age": 63, "gender": "Erkek", "complaint": "İki kürek kemiği arasına vuran çok şiddetli yırtılır tarzda ağrı."},
-    "history": "Kontrolsüz hipertansiyon.", "vitals": {"hr": "98", "bp": "190/115", "spo2": "96", "rr": "22", "temp": "36.7", "gcs": "15/15", "status": "Hayati Tehlike"},
-    "questions": [
-      {"q": "Ağrı aniden mi başladı?", "a": "Evet sırtıma bıçak saplanıp yırtılıyor gibi aniden başladı."},
-      {"q": "İki kolunuz arasında nabız farkı hissediyor musunuz?", "a": "Sağ kolum uyuşuk gibi."},
-      {"q": "Tansiyon ilacınızı düzenli alır mısınız?", "a": "İhmal ediyordum, tansiyonum genelde 18-19 gezerdi."},
-      {"q": "Ses kısıklığı oldu mu?", "a": "Ağrıyla beraber sesim çatallaştı."}
-    ],
-    "tests": [
-      {"name": "Toraks BT Anjiyografi (Aort)", "duration": 90, "res": "Çıkan aortta intimal flep ve yalancı lümen (Tip A Diseksiyon)."},
-      {"name": "12 Derivasyonlu EKG", "duration": 45, "res": "Sol ventrikül hipertrofisi bulguları, ST elevasyonu yok."},
-      {"name": "D-Dimer Testi", "duration": 60, "res": "Belirgin yüksek pozitif (>5000 ng/mL)."}
-    ],
-    "treatments": [
-      {"name": "IV Esmolol İnfüzyonu (Hedef KAH < 60, TA < 120)", "duration": 30, "feed": "Aort duvarına binen kesme kuvveti düşürüldü, diseksiyon ilerlemesi frenlendi.", "score": 45, "is_correct": true, "vitals_update": {"bp": "115/70", "hr": "58", "status": "Stabil"}, "stability_delta": 30},
-      {"name": "Acil Trombolitik (rtPA) ve Heparin", "duration": 30, "feed": "Fatal Hata! Aort diseksiyonunda trombolitik masif perikardiyal tamponada ve ölüme yol açtı!", "score": -50, "is_correct": false, "vitals_update": {"bp": "50/20", "status": "Kardiyak Arrest"}, "stability_delta": -40},
-      {"name": "Acil Kalp Damar Cerrahisi Ameliyathane Hazırlığı", "duration": 30, "feed": "Acil greft replasmanı için ameliyathaneye devredildi.", "score": 45, "is_correct": true, "vitals_update": {}, "stability_delta": 25},
-      {"name": "IV Morfin ile Ağrı Kontrolü", "duration": 30, "feed": "Sempatik deşarj baskılandı.", "score": 20, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
-    ],
-    "consultations": [{"specialty": "Kalp Damar Cerrahisi", "response": "KDC Uzmanı: Tip A Diseksiyon cerrahi acildir. Tansiyonu beta blokerle kontrol edip hastayı hemen ameliyathaneye alın."}],
-    "diag": "Akut Tip A Aort Diseksiyonu", "pearl": "Trombolitik KESİNLİKLE kontrendikedir! Tansiyon esmolol ile düşürülüp acil cerrahiye alınır."
-  },
-
-  // ACİL TIP (VAKALAR)
-  {
-    "id": "em_01", "specialty": "Acil Tıp", "title": "Sol Bacakta Ani Şiddetli Ağrı ve Şişlik", "diff": "ORTA", "xp": 250, "initial_stability": 70,
-    "patient": {"name": "Burak Y.", "age": 24, "gender": "Erkek", "complaint": "Sol baldırda aniden başlayan şiddetli gerginlik, ağrı."},
-    "history": "3 gün önce 14 saatlik otobüs yolculuğu.", "vitals": {"hr": "94", "bp": "125/80", "spo2": "98", "rr": "16", "temp": "36.8", "gcs": "15/15", "status": "Semptomatik"},
-    "questions": [
-      {"q": "Ağrı tam olarak nerede?", "a": "Sol baldırımda taş gibi bir sertlik var, basamıyorum."},
-      {"q": "Nefes darlığı veya göğüs ağrısı var mı?", "a": "Hayır sadece bacağımda ağrı var."},
-      {"q": "Daha önce pıhtı öyküsü var mı?", "a": "Hayır ilk defa oluyor."},
-      {"q": "Ailenizde pıhtı atması yaşayan oldu mu?", "a": "Teyzemde derin ven trombozu olmuştu."}
-    ],
-    "tests": [
-      {"name": "Alt Ekstremite Venöz Doppler", "duration": 60, "res": "Sol femoral ve popliteal vende tam oklüziv DVT."},
-      {"name": "D-Dimer Testi", "duration": 45, "res": "3.420 ng/mL (Kritik Pozitif)."},
-      {"name": "Tam Kan Sayımı", "duration": 45, "res": "Hemogram normal sınırlarda."}
-    ],
-    "treatments": [
-      {"name": "Enoksaparin (LMWH) 1 mg/kg SC", "duration": 30, "feed": "Antikoagülan tedavi başlandı, emboli riski baskılandı.", "score": 40, "is_correct": true, "vitals_update": {"status": "Stabil"}, "stability_delta": 25},
-      {"name": "Sol Bacağa Sıcak Masaj Yapılması", "duration": 30, "feed": "Kritik Hata! Masaj trombüsün kopmasına ve masif akciğer embolisine yol açtı!", "score": -40, "is_correct": false, "vitals_update": {"hr": "128", "spo2": "84", "rr": "28", "status": "Kritik Kötüleşme"}, "stability_delta": -35},
-      {"name": "Bacak Elevasyonu ve İstirahat", "duration": 30, "feed": "Venöz dönüş rahatlatıldı.", "score": 20, "is_correct": true, "vitals_update": {}, "stability_delta": 10},
-      {"name": "Klinik Takip ve Hidrasyon", "duration": 30, "feed": "Hasta izleme alındı.", "score": 20, "is_correct": true, "vitals_update": {}, "stability_delta": 10}
-    ],
-    "consultations": [{"specialty": "Kalp Damar Cerrahisi", "response": "KDC: Doppler DVT ile uyumlu. Cerrahi gerekmez, LMWH tedavisine devam edin."}],
-    "diag": "Derin Ven Trombozu (DVT)", "pearl": "Renkli Doppler USG ile tanı konur; masaj kontrendikedir, LMWH başlanır."
-  },
-  {
-    "id": "em_02", "specialty": "Acil Tıp", "title": "Trafik Kazası Sonrası Solunum Durması", "diff": "ZOR", "xp": 450, "initial_stability": 30,
-    "patient": {"name": "Serkan B.", "age": 28, "gender": "Erkek", "complaint": "Kaza sonrası sağ göğüs ağrısı, nefes alamama, boyun venleri dolgun."},
-    "history": "Motosiklet kazası.", "vitals": {"hr": "138", "bp": "65/40", "spo2": "76", "rr": "36", "temp": "36.2", "gcs": "10/15", "status": "Hayati Tehlike"},
-    "questions": [
-      {"q": "Göğsünüzü bir yere çarptınız mı?", "a": "Gidona çok sert çarptım, nefesim tıkandı."},
-      {"q": "Hangi tarafınız daha çok ağrıyor?", "a": "Sağ tarafım parçalanıyor gibi."},
-      {"q": "Baş dönmesi veya baygınlık hissi var mı?", "a": "Gözlerim kararıyor, bayılacak gibiyim."},
-      {"q": "Kan tükürdünüz mü?", "a": "Hayır kan gelmedi."}
-    ],
-    "tests": [
-      {"name": "Göğüs Oskültasyonu & Muayene", "duration": 30, "res": "Sağda solunum sesleri tamamen yok, trakea sola deviye."},
-      {"name": "E-FAST Ultrasonografi", "duration": 45, "res": "Sağ hemitoraksta plevral kayma kaybı (Pnömotoraks). Batın temiz."},
-      {"name": "Arteryel Kan Gazı", "duration": 60, "res": "pH: 7.22, PaO2: 48 mmHg (Ağır hipoksemi)."}
-    ],
-    "treatments": [
-      {"name": "Acil İğne Torakostomi (2. İK Aralık)", "duration": 30, "feed": "Hava büyük bir tıslamayla boşaldı! Kalbe venöz dönüş açıldı, tansiyon hızla toparladı.", "score": 50, "is_correct": true, "vitals_update": {"bp": "110/70", "hr": "95", "spo2": "94", "status": "Stabil"}, "stability_delta": 40},
-      {"name": "Tüp Torakostomi (Göğüs Tüpü)", "duration": 30, "feed": "Akciğer tam reekspanse oldu, su altı drenajı sağlandı.", "score": 45, "is_correct": true, "vitals_update": {"spo2": "98", "rr": "18", "gcs": "15/15"}, "stability_delta": 25},
-      {"name": "Grafi İçin Hastayı Radyolojiye Gönderme", "duration": 30, "feed": "Ölümcül Gecikme! Tansiyon pnömotoraks klinik tanıdır; röntgen beklerken kardiyak arrest gelişti!", "score": -50, "is_correct": false, "vitals_update": {"bp": "40/10", "hr": "160", "status": "Arrest"}, "stability_delta": -40},
-      {"name": "%100 Rezervuarlı Maske ile Oksijen", "duration": 30, "feed": "Oksijen desteği sağlandı.", "score": 20, "is_correct": true, "vitals_update": {"spo2": "88"}, "stability_delta": 10}
-    ],
-    "consultations": [{"specialty": "Göğüs Cerrahisi", "response": "Göğüs Cerrahı: İğne dekompresyonu hayat kurtarmış. 28F göğüs tüpü takıp su altı drenajına bağlayın."}],
-    "diag": "Tansiyon Pnömotoraks", "pearl": "Grafi beklenmeden derhal 2. İK aralıktan iğne dekompresyonu ve göğüs tüpü takılmalıdır."
-  }
-];
 
 // -------------------------------------------------------------
 // KLİNİK KODEKS (12 KAPSAMLI TIBBİ REHBER)
@@ -560,7 +1378,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 // -------------------------------------------------------------
-// ACİL SERVİS BİLDİRİMİ EKRANI (GÖRSEL 2 İLE BİREBİR)
+// ACİL SERVİS BİLDİRİMİ EKRANI
 // -------------------------------------------------------------
 class EmergencyDispatchScreen extends StatelessWidget {
   final Map<String, dynamic> caseData;
@@ -672,7 +1490,7 @@ class EmergencyDispatchScreen extends StatelessWidget {
 }
 
 // -------------------------------------------------------------
-// 2. KEŞFET
+// 2. KEŞFET (HER BRANŞTA TAM 10 VAKA)
 // -------------------------------------------------------------
 class SpecialtiesScreen extends StatelessWidget {
   const SpecialtiesScreen({super.key});
@@ -759,7 +1577,7 @@ class SpecialtyCasesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("$specialtyName Vakaları", style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16)),
+        title: Text("$specialtyName (10 Vaka)", style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16)),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(icon: const Icon(Icons.chevron_left, color: Colors.black87, size: 28), onPressed: () => Navigator.pop(context)),
@@ -842,7 +1660,7 @@ class CodexScreen extends StatelessWidget {
 }
 
 // -------------------------------------------------------------
-// 4. VAKALARIM EKRANI (TİK İŞARETİ VE DİNAMİK LİSTE)
+// 4. VAKALARIM EKRANI (DİNAMİK LİSTE VE TİK İŞARETİ)
 // -------------------------------------------------------------
 class MyCasesScreen extends StatelessWidget {
   const MyCasesScreen({super.key});
@@ -1018,8 +1836,8 @@ class _CreateCaseWizardScreenState extends State<CreateCaseWizardScreen> {
                     {"name": "Radyolojik İnceleme", "duration": 60, "res": "Akut patoloji izlenmedi."}
                   ],
                   "treatments": [
-                    {"name": "IV Sıvı ve Semptomatik Tedavi", "duration": 30, "feed": "Hasta rahatladı, vitaller stabil.", "score": 30, "is_correct": true, "vitals_update": {}, "stability_delta": 20},
-                    {"name": "Uygunsuz Doz Sedatif Tedavisi", "duration": 30, "feed": "Klinik Hata! Solunum depresyonu riski oluştu!", "score": -30, "is_correct": false, "vitals_update": {"spo2": "90"}, "stability_delta": -25}
+                    {"name": "IV Sıvı ve Semptomatik Tedavi", "duration": 30, "feed": "Hasta rahatladı, vitaller stabil.", "score": 30, "is_correct": true, "vitals_update": {"hr": "76", "bp": "120/75", "spo2": "99", "rr": "14", "temp": "36.6", "gcs": "15/15", "status": "Stabil"}, "stability_delta": 20},
+                    {"name": "Uygunsuz Doz Sedatif Tedavisi", "duration": 30, "feed": "Klinik Hata! Solunum depresyonu riski oluştu!", "score": -30, "is_correct": false, "vitals_update": {"hr": "110", "bp": "95/55", "spo2": "89", "rr": "10", "status": "Solunum Depresyonu"}, "stability_delta": -25}
                   ],
                   "consultations": [
                     {"specialty": "Klinik Uzmanı", "response": "Uzman: Vaka yönetimi başarılı."}
@@ -1042,7 +1860,7 @@ class _CreateCaseWizardScreenState extends State<CreateCaseWizardScreen> {
 }
 
 // -------------------------------------------------------------
-// 6. MÜDAHALE ODASI (CANLI GERÇEK SAYAC, 1-2 DK TETKİK, 30 SN TEDAVİ)
+// 6. MÜDAHALE ODASI (CANLI GERÇEK SAYAC, 30 SN VE HIZLANDIRMA SEÇENEĞİ)
 // -------------------------------------------------------------
 class ProcedureRoomScreen extends StatefulWidget {
   final Map<String, dynamic> caseData;
@@ -1058,11 +1876,9 @@ class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
   final Set<String> doneTests = {};
   final Set<String> doneTrts = {};
 
-  // Canlı Kronometre
   Timer? _caseTimer;
   int _secondsElapsed = 0;
 
-  // Devam Eden İşlemler (Canlı Geri Sayım)
   String? ongoingActionName;
   int ongoingActionSeconds = 0;
   Timer? _actionCountdownTimer;
@@ -1073,12 +1889,10 @@ class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
     stability = widget.caseData['initial_stability'] ?? 60;
     vitals = Map<String, dynamic>.from(widget.caseData['vitals']);
 
-    // Canlı Kronometre (00:00, 00:01...)
     _caseTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (mounted) setState(() => _secondsElapsed++);
     });
 
-    // Başlangıçta sadece Vaka Başladı kartı
     final p = widget.caseData['patient'];
     logs.add({
       "t": "Vaka Başladı",
@@ -1102,7 +1916,6 @@ class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
     return "$m:$s";
   }
 
-  // Tetkik Başlatma (1 ila 2 dakika arası gerçek geri sayım)
   void _startDiagnostic(Map<String, dynamic> test) {
     if (doneTests.contains(test['name'])) return;
     if (ongoingActionName != null) {
@@ -1146,7 +1959,6 @@ class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
     });
   }
 
-  // Tedavi Uygulama (30 saniyelik devam eden işlem barı ve dinamik vital değişimi)
   void _applyTreatment(Map<String, dynamic> trt) {
     if (doneTrts.contains(trt['name'])) return;
     if (ongoingActionName != null) {
@@ -1155,7 +1967,7 @@ class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
     }
     Navigator.pop(context);
 
-    const duration = 30; // 30 saniye kuralı
+    const duration = 30;
     setState(() {
       ongoingActionName = "Tedavi Uygulanıyor: ${trt['name']}";
       ongoingActionSeconds = duration;
@@ -1191,7 +2003,7 @@ class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
             "tm": _formatTime(_secondsElapsed),
             "c": isCorrect ? const Color(0xFF16A34A) : Colors.red,
             "i": isCorrect ? Icons.check_circle : Icons.warning_amber_rounded,
-            "m": "${trt['name']}\n${trt['feed']}"
+            "m": "${trt['name']}\n${trt['feed']}\n🩺 Monitör Güncellendi: KAH: ${vitals['hr']} bpm, TA: ${vitals['bp']}, SpO2: %${vitals['spo2']}"
           });
         });
         ScaffoldMessenger.of(context).showSnackBar(
@@ -1289,7 +2101,7 @@ class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
       builder: (_) => Padding(
         padding: const EdgeInsets.all(20),
         child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Text("Tedavi & Girişimsel Karar Planı (30 sn Bekleme)", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+          const Text("Tedavi & Girişimsel Karar Planı", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
           ...trts.map((t) {
             final isDone = doneTrts.contains(t['name']);
@@ -1447,15 +2259,31 @@ class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
           if (ongoingActionName != null)
             Container(
               margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(14),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(color: const Color(0xFFEEF2FF), borderRadius: BorderRadius.circular(16), border: Border.all(color: const Color(0xFFC7D2FE))),
               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Expanded(
+                  child: Row(children: [
+                    Container(padding: const EdgeInsets.all(6), decoration: BoxDecoration(color: const Color(0xFF99F6E4), borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.hourglass_top_rounded, color: Color(0xFF0D9488), size: 16)),
+                    const SizedBox(width: 8),
+                    Expanded(child: Text(ongoingActionName!, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13))),
+                  ]),
+                ),
                 Row(children: [
-                  Container(padding: const EdgeInsets.all(6), decoration: BoxDecoration(color: const Color(0xFF99F6E4), borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.hourglass_top_rounded, color: Color(0xFF0D9488), size: 16)),
-                  const SizedBox(width: 8),
-                  Text(ongoingActionName!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                  Text("$ongoingActionSeconds sn", style: const TextStyle(color: Color(0xFF4F46E5), fontWeight: FontWeight.bold, fontSize: 12)),
+                  const SizedBox(width: 6),
+                  InkWell(
+                    onTap: () {
+                      _actionCountdownTimer?.cancel();
+                      setState(() => ongoingActionSeconds = 1);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(color: const Color(0xFF6366F1), borderRadius: BorderRadius.circular(8)),
+                      child: const Text("Hızlandır ⏩", style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+                    ),
+                  )
                 ]),
-                Text("$ongoingActionSeconds sn kaldı", style: const TextStyle(color: Color(0xFF4F46E5), fontWeight: FontWeight.bold, fontSize: 12)),
               ]),
             ),
 
