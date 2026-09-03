@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MedCaseApp());
+void main() => runApp(const MedHaseApp());
 
-class MedCaseApp extends StatelessWidget {
-  const MedCaseApp({super.key});
+class MedHaseApp extends StatelessWidget {
+  const MedHaseApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,7 +21,7 @@ class MedCaseApp extends StatelessWidget {
 }
 
 // -------------------------------------------------------------
-// KULLANICI PROFİLİ VE SİSTEM DURUMU (STATE)
+// KULLANICI PROFİLİ VE GLOBAL SİSTEM DURUMU (STATE)
 // -------------------------------------------------------------
 class UserProfile {
   static String name = "Dr. Burcu Çödel";
@@ -57,10 +57,10 @@ class UserProfile {
 }
 
 // -------------------------------------------------------------
-// 40 GERÇEK TIBBİ VAKA VERİ TABANI (HER BRANŞTA 10 VAKA)
+// GERÇEK TIBBİ VAKA VERİ TABANI
 // -------------------------------------------------------------
 final List<Map<String, dynamic>> kAllClinicalCases = [
-  // NÖROLOJİ (10 VAKA)
+  // NÖROLOJİ (VAKALAR)
   {
     "id": "neuro_01", "specialty": "Nöroloji", "title": "Ani Sağ Kol Kuvvetsizliği ve Afazi", "diff": "ZOR", "xp": 350, "initial_stability": 50,
     "patient": {"name": "Fatma D.", "age": 68, "gender": "Kadın", "complaint": "1 saat önce sağ kol ve bacakta felç, konuşamama."},
@@ -332,7 +332,7 @@ final List<Map<String, dynamic>> kAllClinicalCases = [
 ];
 
 // -------------------------------------------------------------
-// KLİNİK KODEKS (12 REHBER)
+// KLİNİK KODEKS (12 KAPSAMLI TIBBİ REHBER)
 // -------------------------------------------------------------
 final List<Map<String, String>> kFullCodex = [
   {"t": "12 Derivasyonlu EKG", "type": "Görüntüleme", "d": "Göğüs ağrısı ve senkopta ilk 10 dakikada çekilmeli; ST elevasyonu, dal blokları ve aritmiler taranmalıdır."},
@@ -427,7 +427,6 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // Seviye Kartı
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20), border: Border.all(color: const Color(0xFFFEF08A), width: 1.5)),
@@ -490,7 +489,6 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // Hemen Oyna & Vaka Oluştur
             Row(
               children: [
                 Expanded(
@@ -536,7 +534,6 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // Kodeks Kartı
             InkWell(
               onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CodexScreen())),
               child: Container(
@@ -675,7 +672,7 @@ class EmergencyDispatchScreen extends StatelessWidget {
 }
 
 // -------------------------------------------------------------
-// 2. KEŞFET (HER BRANŞTA EN AZ 10 VAKA)
+// 2. KEŞFET
 // -------------------------------------------------------------
 class SpecialtiesScreen extends StatelessWidget {
   const SpecialtiesScreen({super.key});
@@ -762,7 +759,7 @@ class SpecialtyCasesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("$specialtyName (En Az 10 Vaka)", style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16)),
+        title: Text("$specialtyName Vakaları", style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16)),
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(icon: const Icon(Icons.chevron_left, color: Colors.black87, size: 28), onPressed: () => Navigator.pop(context)),
@@ -1009,4 +1006,603 @@ class _CreateCaseWizardScreenState extends State<CreateCaseWizardScreen> {
                     "complaint": _complaintController.text.isEmpty ? "Akut semptomlarla başvuru." : _complaintController.text
                   },
                   "history": "Özgeçmişinde özellik saptanmadı.",
-                  "vitals": {"hr": "88", "bp": "120/80", "spo2": "98", "rr": "16", "temp": "36.7", "gcs": "15/1rr": "16", "temp": "36.7", "gcs": "15/1
+                  "vitals": {"hr": "88", "bp": "120/80", "spo2": "98", "rr": "16", "temp": "36.7", "gcs": "15/15", "status": "Stabil"},
+                  "questions": [
+                    {"q": "Ağrı ne zamandan beri var?", "a": "Dünden beri devam ediyor."},
+                    {"q": "İlaç kullandınız mı?", "a": "Ağrı kesici aldım ama fayda etmedi."},
+                    {"q": "Bulantı kusma oldu mu?", "a": "Hafif bulantı hissi var."},
+                    {"q": "Kronik rahatsızlık var mı?", "a": "Bildiğim bir kronik hastalığım yok."}
+                  ],
+                  "tests": [
+                    {"name": "Tam Kan Sayımı", "duration": 45, "res": "Lökosit ve hemoglobin normal."},
+                    {"name": "Radyolojik İnceleme", "duration": 60, "res": "Akut patoloji izlenmedi."}
+                  ],
+                  "treatments": [
+                    {"name": "IV Sıvı ve Semptomatik Tedavi", "duration": 30, "feed": "Hasta rahatladı, vitaller stabil.", "score": 30, "is_correct": true, "vitals_update": {}, "stability_delta": 20},
+                    {"name": "Uygunsuz Doz Sedatif Tedavisi", "duration": 30, "feed": "Klinik Hata! Solunum depresyonu riski oluştu!", "score": -30, "is_correct": false, "vitals_update": {"spo2": "90"}, "stability_delta": -25}
+                  ],
+                  "consultations": [
+                    {"specialty": "Klinik Uzmanı", "response": "Uzman: Vaka yönetimi başarılı."}
+                  ],
+                  "diag": _titleController.text,
+                  "pearl": "Kendi oluşturduğunuz klinik senaryonuz."
+                };
+                UserProfile.userCreatedCases.add(newCase);
+                kAllClinicalCases.add(newCase);
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Vakanız kaydedildi ve 'Vakalarım' sekmesine eklendi!")));
+                Navigator.pop(context);
+              },
+              child: const Text("Vakayı Sisteme Kaydet", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            ),
+          )
+        ]),
+      ),
+    );
+  }
+}
+
+// -------------------------------------------------------------
+// 6. MÜDAHALE ODASI (CANLI GERÇEK SAYAC, 1-2 DK TETKİK, 30 SN TEDAVİ)
+// -------------------------------------------------------------
+class ProcedureRoomScreen extends StatefulWidget {
+  final Map<String, dynamic> caseData;
+  const ProcedureRoomScreen({super.key, required this.caseData});
+  @override
+  State<ProcedureRoomScreen> createState() => _ProcedureRoomScreenState();
+}
+
+class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
+  late int stability;
+  late Map<String, dynamic> vitals;
+  final List<Map<String, dynamic>> logs = [];
+  final Set<String> doneTests = {};
+  final Set<String> doneTrts = {};
+
+  // Canlı Kronometre
+  Timer? _caseTimer;
+  int _secondsElapsed = 0;
+
+  // Devam Eden İşlemler (Canlı Geri Sayım)
+  String? ongoingActionName;
+  int ongoingActionSeconds = 0;
+  Timer? _actionCountdownTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    stability = widget.caseData['initial_stability'] ?? 60;
+    vitals = Map<String, dynamic>.from(widget.caseData['vitals']);
+
+    // Canlı Kronometre (00:00, 00:01...)
+    _caseTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (mounted) setState(() => _secondsElapsed++);
+    });
+
+    // Başlangıçta sadece Vaka Başladı kartı
+    final p = widget.caseData['patient'];
+    logs.add({
+      "t": "Vaka Başladı",
+      "tm": "00:00",
+      "c": Colors.grey,
+      "i": Icons.info_outline,
+      "m": "${p['name']} (${p['age']}y, ${p['gender']}) - ${p['complaint']}"
+    });
+  }
+
+  @override
+  void dispose() {
+    _caseTimer?.cancel();
+    _actionCountdownTimer?.cancel();
+    super.dispose();
+  }
+
+  String _formatTime(int sec) {
+    final m = (sec ~/ 60).toString().padLeft(2, '0');
+    final s = (sec % 60).toString().padLeft(2, '0');
+    return "$m:$s";
+  }
+
+  // Tetkik Başlatma (1 ila 2 dakika arası gerçek geri sayım)
+  void _startDiagnostic(Map<String, dynamic> test) {
+    if (doneTests.contains(test['name'])) return;
+    if (ongoingActionName != null) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Halen devam eden bir işlem var, lütfen bekleyin!")));
+      return;
+    }
+
+    final duration = (test['duration'] as int?) ?? 60;
+    setState(() {
+      ongoingActionName = "Tetkik: ${test['name']}";
+      ongoingActionSeconds = duration;
+      logs.add({
+        "t": "Tetkik Başlatıldı",
+        "tm": _formatTime(_secondsElapsed),
+        "c": const Color(0xFF6366F1),
+        "i": Icons.hourglass_top_rounded,
+        "m": "${test['name']}\nLaboratuvara iletildi (Süre: $duration sn)."
+      });
+    });
+
+    _actionCountdownTimer?.cancel();
+    _actionCountdownTimer = Timer.periodic(const Duration(seconds: 1), (t) {
+      if (!mounted) return;
+      if (ongoingActionSeconds > 1) {
+        setState(() => ongoingActionSeconds--);
+      } else {
+        t.cancel();
+        setState(() {
+          ongoingActionName = null;
+          doneTests.add(test['name']);
+          logs.add({
+            "t": "Tetkik Tamamlandı",
+            "tm": _formatTime(_secondsElapsed),
+            "c": const Color(0xFF0D9488),
+            "i": Icons.biotech,
+            "m": "${test['name']}\nSonuç: ${test['res']}"
+          });
+        });
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("🔔 ${test['name']} sonucu çıktı!"), backgroundColor: const Color(0xFF0D9488)));
+      }
+    });
+  }
+
+  // Tedavi Uygulama (30 saniyelik devam eden işlem barı ve dinamik vital değişimi)
+  void _applyTreatment(Map<String, dynamic> trt) {
+    if (doneTrts.contains(trt['name'])) return;
+    if (ongoingActionName != null) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Halen devam eden bir işlem var, lütfen bekleyin!")));
+      return;
+    }
+    Navigator.pop(context);
+
+    const duration = 30; // 30 saniye kuralı
+    setState(() {
+      ongoingActionName = "Tedavi Uygulanıyor: ${trt['name']}";
+      ongoingActionSeconds = duration;
+      logs.add({
+        "t": "Tedavi Başlatıldı",
+        "tm": _formatTime(_secondsElapsed),
+        "c": const Color(0xFFEA580C),
+        "i": Icons.medication_liquid_rounded,
+        "m": "${trt['name']}\nİlaç/Müdahale veriliyor (30 saniye bekleniyor)..."
+      });
+    });
+
+    _actionCountdownTimer?.cancel();
+    _actionCountdownTimer = Timer.periodic(const Duration(seconds: 1), (t) {
+      if (!mounted) return;
+      if (ongoingActionSeconds > 1) {
+        setState(() => ongoingActionSeconds--);
+      } else {
+        t.cancel();
+        setState(() {
+          ongoingActionName = null;
+          doneTrts.add(trt['name']);
+          final bool isCorrect = trt['is_correct'] ?? true;
+          final int delta = (trt['stability_delta'] as int?) ?? 0;
+          stability = (stability + delta).clamp(5, 100);
+
+          // MONİTÖR VİTALLERİNİ GERÇEK ZAMANLI GÜNCELLEME
+          final Map<String, dynamic> updates = trt['vitals_update'] ?? {};
+          updates.forEach((k, v) => vitals[k] = v);
+
+          logs.add({
+            "t": isCorrect ? "Tedavi Etkisini Gösterdi (Stabilizasyon)" : "Kritik Klinik Kötüleşme",
+            "tm": _formatTime(_secondsElapsed),
+            "c": isCorrect ? const Color(0xFF16A34A) : Colors.red,
+            "i": isCorrect ? Icons.check_circle : Icons.warning_amber_rounded,
+            "m": "${trt['name']}\n${trt['feed']}"
+          });
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(trt['feed']),
+            backgroundColor: (trt['is_correct'] ?? true) ? const Color(0xFF16A34A) : Colors.red.shade800,
+            duration: const Duration(seconds: 4),
+          ),
+        );
+      }
+    });
+  }
+
+  void _openQuestions() {
+    final qs = widget.caseData['questions'] as List? ?? [];
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+      builder: (_) => Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const Text("Hastaya Soru Sor (Detaylı Anamnez)", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 12),
+          ...qs.map((q) => Card(
+                color: const Color(0xFFF0F9FF),
+                margin: const EdgeInsets.only(bottom: 8),
+                child: ListTile(
+                  title: Text(q['q']!, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                  trailing: const Icon(Icons.send_rounded, color: Color(0xFF0284C7), size: 18),
+                  onTap: () {
+                    Navigator.pop(context);
+                    setState(() {
+                      logs.add({
+                        "t": "Anamnez Alındı",
+                        "tm": _formatTime(_secondsElapsed),
+                        "c": const Color(0xFF0284C7),
+                        "i": Icons.chat_bubble_outline_rounded,
+                        "m": "Soru: ${q['q']}\nHasta: \"${q['a']}\""
+                      });
+                    });
+                  },
+                ),
+              )),
+        ]),
+      ),
+    );
+  }
+
+  void _openTests() {
+    final tests = widget.caseData['tests'] as List;
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setModalState) => Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+            const Text("İstenebilecek Tanısal Tetkikler", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 12),
+            ...tests.map((t) {
+              final isDone = doneTests.contains(t['name']);
+              return Card(
+                color: const Color(0xFFF8FAFC),
+                margin: const EdgeInsets.only(bottom: 8),
+                child: ListTile(
+                  title: Text(t['name']!, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                  subtitle: isDone ? Text("Sonuç: ${t['res']!}", style: const TextStyle(color: Color(0xFF0D9488), fontSize: 12, fontWeight: FontWeight.bold)) : Text("Bekleme Süresi: ${t['duration']} saniye", style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                  trailing: ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: isDone ? Colors.grey : const Color(0xFF6366F1)),
+                    onPressed: isDone
+                        ? null
+                        : () {
+                            Navigator.pop(ctx);
+                            _startDiagnostic(t);
+                          },
+                    child: Text(isDone ? "Tamamlandı" : "İste"),
+                  ),
+                ),
+              );
+            })
+          ]),
+        ),
+      ),
+    );
+  }
+
+  void _openTreatments() {
+    final trts = widget.caseData['treatments'] as List;
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+      builder: (_) => Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const Text("Tedavi & Girişimsel Karar Planı (30 sn Bekleme)", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 12),
+          ...trts.map((t) {
+            final isDone = doneTrts.contains(t['name']);
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(padding: const EdgeInsets.all(14), side: BorderSide(color: isDone ? Colors.grey : const Color(0xFF6366F1))),
+                onPressed: isDone ? null : () => _applyTreatment(t),
+                child: Row(children: [
+                  Icon(isDone ? Icons.check : Icons.play_arrow, color: isDone ? Colors.grey : const Color(0xFF6366F1), size: 18),
+                  const SizedBox(width: 8),
+                  Expanded(child: Text(t['name'], style: TextStyle(color: isDone ? Colors.grey : Colors.black87, fontSize: 13, fontWeight: FontWeight.bold))),
+                ]),
+              ),
+            );
+          })
+        ]),
+      ),
+    );
+  }
+
+  void _openConsultations() {
+    final cons = widget.caseData['consultations'] as List? ?? [];
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+      builder: (_) => Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const Text("Uzman Hekim Konsültasyonu İste", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 12),
+          ...cons.map((c) => Card(
+                color: const Color(0xFFFFF7ED),
+                margin: const EdgeInsets.only(bottom: 8),
+                child: ListTile(
+                  leading: const Icon(Icons.support_agent_rounded, color: Color(0xFFEA580C)),
+                  title: Text(c['specialty']!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                  trailing: const Icon(Icons.phone_in_talk, color: Color(0xFFEA580C), size: 20),
+                  onTap: () {
+                    Navigator.pop(context);
+                    setState(() {
+                      logs.add({
+                        "t": "Konsültasyon Yanıtı",
+                        "tm": _formatTime(_secondsElapsed),
+                        "c": const Color(0xFFEA580C),
+                        "i": Icons.group_outlined,
+                        "m": "${c['specialty']}\n${c['response']}"
+                      });
+                    });
+                  },
+                ),
+              )),
+        ]),
+      ),
+    );
+  }
+
+  void _openMonitor() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (_) => MonitorBottomSheet(vitals: vitals),
+    );
+  }
+
+  void _finishCase() {
+    final isSuccess = stability >= 70;
+    final xpEarned = isSuccess ? (widget.caseData['xp'] as int? ?? 250) : 50;
+
+    UserProfile.addXp(widget.caseData['id'], xpEarned, isSuccess);
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+      builder: (ctx) => Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          Icon(isSuccess ? Icons.verified_rounded : Icons.warning_amber_rounded, color: isSuccess ? Colors.green : Colors.orange, size: 48),
+          const SizedBox(height: 10),
+          Text(isSuccess ? "Vaka Başarıyla Yönetildi" : "Klinik Kötüleşme / Riskli Taburculuk", style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 6),
+          Text("Kazanılan Deneyim: +$xpEarned XP", style: const TextStyle(color: Colors.orange, fontWeight: FontWeight.bold, fontSize: 14)),
+          const SizedBox(height: 12),
+          Text("Nihai Teşhis: ${widget.caseData['diag']}", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF4F46E5))),
+          const SizedBox(height: 8),
+          Text(widget.caseData['pearl'] ?? "", style: const TextStyle(fontSize: 13, color: Colors.black87, height: 1.3)),
+          const SizedBox(height: 20),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF6366F1), padding: const EdgeInsets.all(14)),
+              onPressed: () {
+                Navigator.pop(ctx);
+                Navigator.pop(context);
+              },
+              child: const Text("Vakayı Tamamla ve Menüye Dön", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            ),
+          )
+        ]),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Color ringColor = stability > 70 ? const Color(0xFF22C55E) : (stability > 40 ? Colors.orange : Colors.red);
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(icon: const Icon(Icons.chevron_left, color: Colors.black87, size: 28), onPressed: () => Navigator.pop(context)),
+        title: Row(children: [
+          Container(padding: const EdgeInsets.all(4), decoration: const BoxDecoration(color: Color(0xFFFEE2E2), shape: BoxShape.circle), child: const Icon(Icons.emergency, color: Colors.red, size: 16)),
+          const SizedBox(width: 8),
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            const Text("Müdahale Odası", style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16)),
+            Row(children: [
+              const Icon(Icons.timer_outlined, size: 12, color: Colors.grey),
+              const SizedBox(width: 4),
+              Text(_formatTime(_secondsElapsed), style: const TextStyle(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.bold)),
+            ]),
+          ]),
+        ]),
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 16),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox(width: 46, height: 46, child: CircularProgressIndicator(value: stability / 100, strokeWidth: 3, backgroundColor: Colors.grey.shade200, valueColor: AlwaysStoppedAnimation<Color>(ringColor))),
+                CircleAvatar(radius: 18, backgroundColor: ringColor.withOpacity(0.15), child: Text("$stability%", style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: ringColor))),
+              ],
+            ),
+          )
+        ],
+      ),
+      body: Column(
+        children: [
+          Container(
+            color: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Row(children: [
+              InkWell(onTap: _openTests, child: _pill("Tetkik", Icons.biotech, true)),
+              const SizedBox(width: 8),
+              InkWell(onTap: _openTreatments, child: _pill("Tedavi", Icons.medication, false)),
+              const SizedBox(width: 8),
+              InkWell(onTap: _finishCase, child: _pill("Taburcu", Icons.exit_to_app, false)),
+            ]),
+          ),
+
+          if (ongoingActionName != null)
+            Container(
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(color: const Color(0xFFEEF2FF), borderRadius: BorderRadius.circular(16), border: Border.all(color: const Color(0xFFC7D2FE))),
+              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                Row(children: [
+                  Container(padding: const EdgeInsets.all(6), decoration: BoxDecoration(color: const Color(0xFF99F6E4), borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.hourglass_top_rounded, color: Color(0xFF0D9488), size: 16)),
+                  const SizedBox(width: 8),
+                  Text(ongoingActionName!, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                ]),
+                Text("$ongoingActionSeconds sn kaldı", style: const TextStyle(color: Color(0xFF4F46E5), fontWeight: FontWeight.bold, fontSize: 12)),
+              ]),
+            ),
+
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: logs.length,
+              itemBuilder: (context, i) {
+                final log = logs[i];
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(children: [
+                      Container(width: 32, height: 32, decoration: BoxDecoration(color: (log['c'] as Color).withOpacity(0.15), shape: BoxShape.circle), child: Icon(log['i'] as IconData, size: 18, color: log['c'] as Color)),
+                      if (i != logs.length - 1) Container(width: 2, height: 65, color: Colors.grey.shade300),
+                    ]),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 16),
+                        padding: const EdgeInsets.all(14),
+                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: Colors.black.withOpacity(0.04))),
+                        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                            Text(log['t'] as String, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                            Text("⏱ ${log['tm']}", style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                          ]),
+                          const SizedBox(height: 6),
+                          Text(log['m'] as String, style: const TextStyle(color: Colors.black87, fontSize: 13, height: 1.3)),
+                        ]),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            decoration: BoxDecoration(color: Colors.white, borderRadius: const BorderRadius.vertical(top: Radius.circular(24)), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 10)]),
+            child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+              _dock("Soru", Icons.chat_bubble_outline_rounded, const Color(0xFFE0F2FE), const Color(0xFF0284C7), _openQuestions),
+              _dock("Tetkik", Icons.biotech, const Color(0xFFEDE9FE), const Color(0xFF7C3AED), _openTests),
+              _dock("Kons.", Icons.group_outlined, const Color(0xFFFFEDD5), const Color(0xFFEA580C), _openConsultations),
+              _dock("Monitör", Icons.monitor_heart_outlined, const Color(0xFFDCFCE7), const Color(0xFF16A34A), _openMonitor),
+            ]),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _pill(String t, IconData ic, bool act) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      decoration: BoxDecoration(color: act ? const Color(0xFFEDE9FE) : Colors.transparent, borderRadius: BorderRadius.circular(20)),
+      child: Row(children: [
+        Icon(ic, size: 16, color: act ? const Color(0xFF6D28D9) : Colors.grey),
+        const SizedBox(width: 6),
+        Text(t, style: TextStyle(color: act ? const Color(0xFF6D28D9) : Colors.grey, fontWeight: act ? FontWeight.bold : FontWeight.normal, fontSize: 13)),
+      ]),
+    );
+  }
+
+  Widget _dock(String t, IconData ic, Color bg, Color clr, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Container(padding: const EdgeInsets.all(12), decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(16)), child: Icon(ic, color: clr, size: 24)),
+        const SizedBox(height: 4),
+        Text(t, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black87)),
+      ]),
+    );
+  }
+}
+
+// -------------------------------------------------------------
+// 7. HASTA MONİTÖRÜ MODALI (DİNAMİK VİTALLER - EKRAN 2)
+// -------------------------------------------------------------
+class MonitorBottomSheet extends StatelessWidget {
+  final Map<String, dynamic> vitals;
+  const MonitorBottomSheet({super.key, required this.vitals});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.vertical(top: Radius.circular(28))),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(children: [
+            Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: const Color(0xFFFEF9C3), borderRadius: BorderRadius.circular(10)), child: const Icon(Icons.show_chart, color: Color(0xFFCA8A04), size: 20)),
+            const SizedBox(width: 10),
+            const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text("HASTA MONİTÖRÜ", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+              Text("6 parametre izleniyor (Canlı)", style: TextStyle(color: Colors.grey, fontSize: 12)),
+            ]),
+          ]),
+          const SizedBox(height: 20),
+          GridView.count(
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 1.5,
+            children: [
+              _tile("KALP HIZI", vitals['hr'] ?? "96", "bpm", const Color(0xFF22C55E), Icons.favorite),
+              _tile("KAN BASINCI", vitals['bp'] ?? "128/80", "mmHg", const Color(0xFFEF4444), Icons.speed),
+              _tile("OKSİJEN", vitals['spo2'] ?? "97", "%", const Color(0xFF06B6D4), Icons.air),
+              _tile("SOLUNUM", vitals['rr'] ?? "17", "/dk", const Color(0xFFEAB308), Icons.waves),
+              _tile("ATEŞ", vitals['temp'] ?? "36.9", "°C", const Color(0xFFF97316), Icons.thermostat),
+              _tile("GCS", vitals['gcs'] ?? "15/15", "", const Color(0xFFA855F7), Icons.psychology),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Center(
+            child: TextButton.icon(
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.check, color: Color(0xFF0284C7)),
+              label: const Text("Kapat", style: TextStyle(color: Color(0xFF0284C7), fontWeight: FontWeight.bold)),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _tile(String t, String v, String u, Color c, IconData ic) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(color: const Color(0xFF141926), borderRadius: BorderRadius.circular(16)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(children: [Icon(ic, color: c, size: 14), const SizedBox(width: 4), Text(t, style: TextStyle(color: c, fontSize: 10, fontWeight: FontWeight.bold))]),
+          Row(crossAxisAlignment: CrossAxisAlignment.baseline, textBaseline: TextBaseline.alphabetic, children: [
+            Text(v, style: TextStyle(color: c, fontSize: 24, fontWeight: FontWeight.bold)),
+            const SizedBox(width: 4),
+            Text(u, style: const TextStyle(color: Colors.white60, fontSize: 11)),
+          ]),
+        ],
+      ),
+    );
+  }
+}
