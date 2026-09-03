@@ -1860,7 +1860,7 @@ class _CreateCaseWizardScreenState extends State<CreateCaseWizardScreen> {
 }
 
 // -------------------------------------------------------------
-// 6. MÜDAHALE ODASI (CANLI GERÇEK SAYAC, 30 SN VE HIZLANDIRMA SEÇENEĞİ)
+// 6. MÜDAHALE ODASI (GERÇEK SAYAÇ, KESİNTİSİZ HIZLANDIRMA VE DİNAMİK VİTAL)
 // -------------------------------------------------------------
 class ProcedureRoomScreen extends StatefulWidget {
   final Map<String, dynamic> caseData;
@@ -1876,12 +1876,24 @@ class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
   final Set<String> doneTests = {};
   final Set<String> doneTrts = {};
 
+  // Canlı Kronometre
   Timer? _caseTimer;
   int _secondsElapsed = 0;
 
+  // Devam Eden İşlemler (Canlı Geri Sayım)
   String? ongoingActionName;
   int ongoingActionSeconds = 0;
   Timer? _actionCountdownTimer;
+  VoidCallback? _onActionComplete;
+
+  // Anında Tamamlama / Hızlandırma Fonksiyonu
+  void _finishOngoingActionNow() {
+    _actionCountdownTimer?.cancel();
+    if (_onActionComplete != null) {
+      _onActionComplete!();
+      _onActionComplete = null;
+    }
+  }
 
   @override
   void initState() {
@@ -1916,6 +1928,7 @@ class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
     return "$m:$s";
   }
 
+  // Tetkik Başlatma (1 ila 2 dakika arası gerçek geri sayım)
   void _startDiagnostic(Map<String, dynamic> test) {
     if (doneTests.contains(test['name'])) return;
     if (ongoingActionName != null) {
@@ -1936,29 +1949,34 @@ class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
       });
     });
 
+    _onActionComplete = () {
+      setState(() {
+        ongoingActionName = null;
+        ongoingActionSeconds = 0;
+        doneTests.add(test['name']);
+        logs.add({
+          "t": "Tetkik Tamamlandı",
+          "tm": _formatTime(_secondsElapsed),
+          "c": const Color(0xFF0D9488),
+          "i": Icons.biotech,
+          "m": "${test['name']}\nSonuç: ${test['res']}"
+        });
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("🔔 ${test['name']} sonucu çıktı!"), backgroundColor: const Color(0xFF0D9488)));
+    };
+
     _actionCountdownTimer?.cancel();
     _actionCountdownTimer = Timer.periodic(const Duration(seconds: 1), (t) {
       if (!mounted) return;
       if (ongoingActionSeconds > 1) {
         setState(() => ongoingActionSeconds--);
       } else {
-        t.cancel();
-        setState(() {
-          ongoingActionName = null;
-          doneTests.add(test['name']);
-          logs.add({
-            "t": "Tetkik Tamamlandı",
-            "tm": _formatTime(_secondsElapsed),
-            "c": const Color(0xFF0D9488),
-            "i": Icons.biotech,
-            "m": "${test['name']}\nSonuç: ${test['res']}"
-          });
-        });
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("🔔 ${test['name']} sonucu çıktı!"), backgroundColor: const Color(0xFF0D9488)));
+        _finishOngoingActionNow();
       }
     });
   }
 
+  // Tedavi Uygulama (30 saniyelik devam eden işlem barı ve dinamik vital değişimi)
   void _applyTreatment(Map<String, dynamic> trt) {
     if (doneTrts.contains(trt['name'])) return;
     if (ongoingActionName != null) {
@@ -1967,7 +1985,7 @@ class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
     }
     Navigator.pop(context);
 
-    const duration = 30;
+    const duration = 30; // 30 saniye kuralı
     setState(() {
       ongoingActionName = "Tedavi Uygulanıyor: ${trt['name']}";
       ongoingActionSeconds = duration;
@@ -1980,39 +1998,43 @@ class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
       });
     });
 
+    _onActionComplete = () {
+      setState(() {
+        ongoingActionName = null;
+        ongoingActionSeconds = 0;
+        doneTrts.add(trt['name']);
+        final bool isCorrect = trt['is_correct'] ?? true;
+        final int delta = (trt['stability_delta'] as int?) ?? 0;
+        stability = (stability + delta).clamp(5, 100);
+
+        // MONİTÖR VİTALLERİNİ GERÇEK ZAMANLI GÜNCELLEME
+        final Map<String, dynamic> updates = trt['vitals_update'] ?? {};
+        updates.forEach((k, v) => vitals[k] = v);
+
+        logs.add({
+          "t": isCorrect ? "Tedavi Etkisini Gösterdi (Stabilizasyon)" : "Kritik Klinik Kötüleşme",
+          "tm": _formatTime(_secondsElapsed),
+          "c": isCorrect ? const Color(0xFF16A34A) : Colors.red,
+          "i": isCorrect ? Icons.check_circle : Icons.warning_amber_rounded,
+          "m": "${trt['name']}\n${trt['feed']}\n🩺 Monitör Güncellendi: KAH: ${vitals['hr']} bpm, TA: ${vitals['bp']}, SpO2: %${vitals['spo2']}"
+        });
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(trt['feed']),
+          backgroundColor: (trt['is_correct'] ?? true) ? const Color(0xFF16A34A) : Colors.red.shade800,
+          duration: const Duration(seconds: 4),
+        ),
+      );
+    };
+
     _actionCountdownTimer?.cancel();
     _actionCountdownTimer = Timer.periodic(const Duration(seconds: 1), (t) {
       if (!mounted) return;
       if (ongoingActionSeconds > 1) {
         setState(() => ongoingActionSeconds--);
       } else {
-        t.cancel();
-        setState(() {
-          ongoingActionName = null;
-          doneTrts.add(trt['name']);
-          final bool isCorrect = trt['is_correct'] ?? true;
-          final int delta = (trt['stability_delta'] as int?) ?? 0;
-          stability = (stability + delta).clamp(5, 100);
-
-          // MONİTÖR VİTALLERİNİ GERÇEK ZAMANLI GÜNCELLEME
-          final Map<String, dynamic> updates = trt['vitals_update'] ?? {};
-          updates.forEach((k, v) => vitals[k] = v);
-
-          logs.add({
-            "t": isCorrect ? "Tedavi Etkisini Gösterdi (Stabilizasyon)" : "Kritik Klinik Kötüleşme",
-            "tm": _formatTime(_secondsElapsed),
-            "c": isCorrect ? const Color(0xFF16A34A) : Colors.red,
-            "i": isCorrect ? Icons.check_circle : Icons.warning_amber_rounded,
-            "m": "${trt['name']}\n${trt['feed']}\n🩺 Monitör Güncellendi: KAH: ${vitals['hr']} bpm, TA: ${vitals['bp']}, SpO2: %${vitals['spo2']}"
-          });
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(trt['feed']),
-            backgroundColor: (trt['is_correct'] ?? true) ? const Color(0xFF16A34A) : Colors.red.shade800,
-            duration: const Duration(seconds: 4),
-          ),
-        );
+        _finishOngoingActionNow();
       }
     });
   }
@@ -2101,7 +2123,7 @@ class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
       builder: (_) => Padding(
         padding: const EdgeInsets.all(20),
         child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Text("Tedavi & Girişimsel Karar Planı", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+          const Text("Tedavi & Girişimsel Karar Planı (30 sn Bekleme)", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
           ...trts.map((t) {
             final isDone = doneTrts.contains(t['name']);
@@ -2256,35 +2278,35 @@ class _ProcedureRoomScreenState extends State<ProcedureRoomScreen> {
             ]),
           ),
 
+          // DEVAM EDEN İŞLEMLER VE KESİNTİSİZ ÇALIŞAN HIZLANDIRMA BUTONU
           if (ongoingActionName != null)
             Container(
               margin: const EdgeInsets.all(16),
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(color: const Color(0xFFEEF2FF), borderRadius: BorderRadius.circular(16), border: Border.all(color: const Color(0xFFC7D2FE))),
-              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Expanded(
-                  child: Row(children: [
-                    Container(padding: const EdgeInsets.all(6), decoration: BoxDecoration(color: const Color(0xFF99F6E4), borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.hourglass_top_rounded, color: Color(0xFF0D9488), size: 16)),
-                    const SizedBox(width: 8),
-                    Expanded(child: Text(ongoingActionName!, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13))),
-                  ]),
-                ),
-                Row(children: [
+              child: Row(
+                children: [
+                  Container(padding: const EdgeInsets.all(6), decoration: BoxDecoration(color: const Color(0xFF99F6E4), borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.hourglass_top_rounded, color: Color(0xFF0D9488), size: 16)),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(ongoingActionName!, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                  ),
+                  const SizedBox(width: 8),
                   Text("$ongoingActionSeconds sn", style: const TextStyle(color: Color(0xFF4F46E5), fontWeight: FontWeight.bold, fontSize: 12)),
-                  const SizedBox(width: 6),
-                  InkWell(
-                    onTap: () {
-                      _actionCountdownTimer?.cancel();
-                      setState(() => ongoingActionSeconds = 1);
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(color: const Color(0xFF6366F1), borderRadius: BorderRadius.circular(8)),
-                      child: const Text("Hızlandır ⏩", style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+                  const SizedBox(width: 8),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF6366F1),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      minimumSize: Size.zero,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
-                  )
-                ]),
-              ]),
+                    onPressed: _finishOngoingActionNow,
+                    child: const Text("Hızlandır ⏩", style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+                  ),
+                ],
+              ),
             ),
 
           Expanded(
